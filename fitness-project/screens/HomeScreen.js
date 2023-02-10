@@ -7,7 +7,7 @@ const HomeScreen = () => {
     <ScrollView style={{marginTop:50}}>
       <View
         style={{
-          backgroundColor: "#CD853F",
+          backgroundColor: "#7a81fa" ,
           padding: 10,
           height: 200,
           width: "100%",
@@ -35,7 +35,7 @@ const HomeScreen = () => {
             >
               0
             </Text>
-            <Text style={{ color: "#D0D0D0", fontSize: 17, marginTop: 6 }}>
+            <Text style={{ color: "black", fontSize: 17, marginTop: 6 }}>
               WORKOUTS
             </Text>
           </View>
@@ -51,7 +51,7 @@ const HomeScreen = () => {
             >
               0
             </Text>
-            <Text style={{ color: "#D0D0D0", fontSize: 17, marginTop: 6 }}>
+            <Text style={{ color: "black", fontSize: 17, marginTop: 6 }}>
               Calories
             </Text>
           </View>
@@ -67,7 +67,7 @@ const HomeScreen = () => {
             >
               0
             </Text>
-            <Text style={{ color: "#D0D0D0", fontSize: 17, marginTop: 6 }}>
+            <Text style={{ color: "black", fontSize: 17, marginTop: 6 }}>
               Minutes
             </Text>
           </View>

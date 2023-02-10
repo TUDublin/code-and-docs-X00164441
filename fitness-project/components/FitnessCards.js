@@ -2,9 +2,11 @@ import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import React from "react";
 import fitness from "../data/fitness";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const FitnessCards = () => {
   const FitnessData = fitness;
+  const navigation = useNavigation();
   return (
     <View>
       {FitnessData.map((item, key) => (
