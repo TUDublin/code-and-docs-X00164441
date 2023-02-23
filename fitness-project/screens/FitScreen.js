@@ -130,6 +130,14 @@ const FitScreen = () => {
         }}
       >
         <Pressable
+         disabled={index === 0}
+         onPress={() => {
+           navigation.navigate("Rest");
+ 
+           setTimeout(() => {
+             setIndex(index - 1);
+           }, 2000);
+         }}
           style={{
             backgroundColor: "gray",
             padding: 10,
@@ -145,12 +153,12 @@ const FitScreen = () => {
           </Text>
         </Pressable>
 
-          {/* // Skip Button functionality */}
+        {/* // Skip Button functionality */}
         {index + 1 >= excersise.length ? (
           <Pressable
-          onPress={() => {
-            navigation.navigate("Home");
-          }}
+            onPress={() => {
+              navigation.navigate("Home");
+            }}
             style={{
               backgroundColor: "red",
               padding: 10,
@@ -171,12 +179,12 @@ const FitScreen = () => {
           </Pressable>
         ) : (
           <Pressable
-          onPress={() => {
-            navigation.navigate("Rest");
-            setTimeout(() => {
-              setIndex(index + 1);
-            }, 2000);
-          }}
+            onPress={() => {
+              navigation.navigate("Rest");
+              setTimeout(() => {
+                setIndex(index + 1);
+              }, 2000);
+            }}
             style={{
               backgroundColor: "blue",
               padding: 10,
@@ -196,7 +204,6 @@ const FitScreen = () => {
             </Text>
           </Pressable>
         )}
-
       </Pressable>
     </SafeAreaView>
   );
