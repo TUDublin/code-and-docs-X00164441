@@ -60,28 +60,105 @@ const FitScreen = () => {
         x{current.sets}
       </Text>
 
+        {/* If the excersise array index is larger than the length of the excersise array, navigate to the home screen */}
+        {/* Handles error once reaching last excersise in the array */}
+        {index + 1 >= excersise.length ? (
+        <Pressable
+          onPress={() => {
+            navigation.navigate("Home");
+          }}
+          style={{
+            backgroundColor: "blue",
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginTop: 30,
+            borderRadius: 20,
+            padding: 10,
+            width: 150,
+          }}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+              fontWeight: "bold",
+              fontSize: 20,
+              color: "white",
+            }}
+          >
+            DONE
+          </Text>
+        </Pressable>
+      ) : (
+        <Pressable
+          onPress={() => {
+            navigation.navigate("Rest");
+            setTimeout(() => {
+              setIndex(index + 1);
+            }, 2000);
+          }}
+          style={{
+            backgroundColor: "green",
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginTop: 30,
+            borderRadius: 20,
+            padding: 10,
+            width: 150,
+          }}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+              fontWeight: "bold",
+              fontSize: 20,
+              color: "white",
+            }}
+          >
+            DONE
+          </Text>
+        </Pressable>
+      )}
+
       <Pressable
-        onPress={() => navigation.navigate("Rest")}
         style={{
-          backgroundColor: "green",
+          flexDirection: "row",
+          alignItems: "center",
           marginLeft: "auto",
           marginRight: "auto",
           marginTop: 50,
-          borderRadius: 20,
-          padding: 10,
-          width: 150,
         }}
       >
-        <Text
+        <Pressable
           style={{
-            textAlign: "center",
-            fontWeight: "bold",
-            fontSize: 20,
-            color: "white",
+            backgroundColor: "gray",
+            padding: 10,
+            borderRadius: 20,
+            marginHorizontal: 20,
+            width: 100,
           }}
         >
-          Done
-        </Text>
+          <Text
+            style={{ color: "white", fontWeight: "bold", textAlign: "center" }}
+          >
+            PREV
+          </Text>
+        </Pressable>
+
+        <Pressable
+          style={{
+            backgroundColor: "blue",
+            padding: 10,
+            borderRadius: 20,
+            marginHorizontal: 20,
+            width: 100,
+          }}
+        >
+          <Text
+            style={{ color: "white", fontWeight: "bold", textAlign: "center" }}
+          >
+            SKIP
+          </Text>
+        </Pressable>
       </Pressable>
     </SafeAreaView>
   );
