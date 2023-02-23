@@ -60,15 +60,15 @@ const FitScreen = () => {
         x{current.sets}
       </Text>
 
-        {/* If the excersise array index is larger than the length of the excersise array, navigate to the home screen */}
-        {/* Handles error once reaching last excersise in the array */}
-        {index + 1 >= excersise.length ? (
+      {/* If the excersise array index is larger than the length of the excersise array, navigate to the home screen */}
+      {/* Handles error once reaching last excersise in the array */}
+      {index + 1 >= excersise.length ? (
         <Pressable
           onPress={() => {
             navigation.navigate("Home");
           }}
           style={{
-            backgroundColor: "blue",
+            backgroundColor: "red",
             marginLeft: "auto",
             marginRight: "auto",
             marginTop: 30,
@@ -85,7 +85,7 @@ const FitScreen = () => {
               color: "white",
             }}
           >
-            DONE
+            FINISH
           </Text>
         </Pressable>
       ) : (
@@ -119,6 +119,7 @@ const FitScreen = () => {
         </Pressable>
       )}
 
+      {/* // Previous exercise button functionality */}
       <Pressable
         style={{
           flexDirection: "row",
@@ -144,21 +145,58 @@ const FitScreen = () => {
           </Text>
         </Pressable>
 
-        <Pressable
-          style={{
-            backgroundColor: "blue",
-            padding: 10,
-            borderRadius: 20,
-            marginHorizontal: 20,
-            width: 100,
+          {/* // Skip Button functionality */}
+        {index + 1 >= excersise.length ? (
+          <Pressable
+          onPress={() => {
+            navigation.navigate("Home");
           }}
-        >
-          <Text
-            style={{ color: "white", fontWeight: "bold", textAlign: "center" }}
+            style={{
+              backgroundColor: "red",
+              padding: 10,
+              borderRadius: 20,
+              marginHorizontal: 20,
+              width: 100,
+            }}
           >
-            SKIP
-          </Text>
-        </Pressable>
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              SKIP
+            </Text>
+          </Pressable>
+        ) : (
+          <Pressable
+          onPress={() => {
+            navigation.navigate("Rest");
+            setTimeout(() => {
+              setIndex(index + 1);
+            }, 2000);
+          }}
+            style={{
+              backgroundColor: "blue",
+              padding: 10,
+              borderRadius: 20,
+              marginHorizontal: 20,
+              width: 100,
+            }}
+          >
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              SKIP
+            </Text>
+          </Pressable>
+        )}
+
       </Pressable>
     </SafeAreaView>
   );
