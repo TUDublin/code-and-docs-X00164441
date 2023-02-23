@@ -61,6 +61,7 @@ const FitScreen = () => {
       </Text>
 
       <Pressable
+        onPress={() => navigation.navigate("Rest")}
         style={{
           backgroundColor: "green",
           marginLeft: "auto",
@@ -71,7 +72,14 @@ const FitScreen = () => {
           width: 150,
         }}
       >
-        <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color:"white" }}>
+        <Text
+          style={{
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: 20,
+            color: "white",
+          }}
+        >
           Done
         </Text>
       </Pressable>
