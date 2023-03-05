@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image } from "react-native";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import FitnessCards from "../components/FitnessCards";
 import { FitnessItems } from "../Context";
 
@@ -9,6 +9,7 @@ const HomeScreen = () => {
     calories,
     workout,
   } = useContext(FitnessItems);
+
   return (
     <ScrollView style={{marginTop:50}}>
       <View

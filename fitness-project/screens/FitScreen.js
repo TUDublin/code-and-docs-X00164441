@@ -6,7 +6,7 @@ import {
   Image,
   Pressable,
 } from "react-native";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FitnessItems } from "../Context";
@@ -27,7 +27,19 @@ const FitScreen = () => {
     setWorkout,
     workout,
   } = useContext(FitnessItems);
-  console.log(completed);
+
+  const [seconds, setTimeLeft] = useState(0);
+
+  const startTime = () => {
+    setTimeout(() => {
+      setTimeLeft(seconds + 1);
+    }, 1000);
+  };
+  
+  useEffect(() => {
+    startTime();
+  });
+
   return (
     <SafeAreaView>
       <Image
@@ -104,7 +116,7 @@ const FitScreen = () => {
             navigation.navigate("Rest");
             setCompleted([...completed, current.name]);
             setWorkout(workout + 1);
-            setMinutes(minutes + 2.5);
+            setMinutes(seconds / 60);
             setCalories(calories + 3.5);
             setTimeout(() => {
               setIndex(index + 1);
