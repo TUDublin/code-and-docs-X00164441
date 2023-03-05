@@ -1,20 +1,27 @@
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image } from "react-native";
-import React, {useContext, useState} from "react";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  Image,
+} from "react-native";
+import React, { useContext, useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import FitnessCards from "../components/FitnessCards";
 import { FitnessItems } from "../Context";
 
 const HomeScreen = () => {
-  const {
-    minutes,
-    calories,
-    workout,
-  } = useContext(FitnessItems);
+  const navigation = useNavigation();
+
+  const { minutes, calories, workout } = useContext(FitnessItems);
 
   return (
-    <ScrollView style={{marginTop:50}}>
+    <ScrollView style={{ marginTop: 50 }}>
       <View
         style={{
-          backgroundColor: "#7a81fa" ,
+          backgroundColor: "#7a81fa",
           padding: 10,
           height: 200,
           width: "100%",
@@ -80,19 +87,28 @@ const HomeScreen = () => {
           </View>
         </View>
 
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Image
-            style={{
-              width: "90%",
-              height: 120,
-              marginTop: 20,
-              borderRadius: 7,
+        <View>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Profile");
             }}
-            source={{
-              uri: "https://cdn-images.cure.fit/www-curefit-com/image/upload/c_fill,w_842,ar_1.2,q_auto:eco,dpr_2,f_auto,fl_progressive/image/test/sku-card-widget/gold2.png",
-            }}
-        />
+          >
+            <Image
+              style={{
+                justifyContent: "center", 
+                alignItems: "center",
+                height: 120,
+                marginTop: 20,
+                borderRadius: 7,
+              }}
+              
+              source={{
+                uri: "https://cdn-images.cure.fit/www-curefit-com/image/upload/c_fill,w_842,ar_1.2,q_auto:eco,dpr_2,f_auto,fl_progressive/image/test/sku-card-widget/gold2.png",
+              }}
+            />
+          </Pressable>
         </View>
+        
         <FitnessCards></FitnessCards>
       </View>
     </ScrollView>
