@@ -9,15 +9,25 @@ import {
 import React, { useState, useContext } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FitnessItems } from "../Context";
 
 const FitScreen = () => {
   const route = useRoute();
-  console.log(route.params);
   const [index, setIndex] = useState(0);
   const excersise = route.params.excersises;
   const current = excersise[index];
   const navigation = useNavigation();
-  console.log(current, "first excersise");
+  const {
+    completed,
+    setCompleted,
+    minutes,
+    setMinutes,
+    calories,
+    setCalories,
+    setWorkout,
+    workout,
+  } = useContext(FitnessItems);
+  console.log(completed);
   return (
     <SafeAreaView>
       <Image
@@ -92,6 +102,10 @@ const FitScreen = () => {
         <Pressable
           onPress={() => {
             navigation.navigate("Rest");
+            setCompleted([...completed, current.name]);
+            setWorkout(workout + 1);
+            setMinutes(minutes + 2.5);
+            setCalories(calories + 3.5);
             setTimeout(() => {
               setIndex(index + 1);
             }, 2000);
@@ -130,14 +144,14 @@ const FitScreen = () => {
         }}
       >
         <Pressable
-         disabled={index === 0}
-         onPress={() => {
-           navigation.navigate("Rest");
- 
-           setTimeout(() => {
-             setIndex(index - 1);
-           }, 2000);
-         }}
+          disabled={index === 0}
+          onPress={() => {
+            navigation.navigate("Rest");
+
+            setTimeout(() => {
+              setIndex(index - 1);
+            }, 2000);
+          }}
           style={{
             backgroundColor: "gray",
             padding: 10,
@@ -157,6 +171,7 @@ const FitScreen = () => {
         {index + 1 >= excersise.length ? (
           <Pressable
             onPress={() => {
+              color = "white";
               navigation.navigate("Home");
             }}
             style={{
