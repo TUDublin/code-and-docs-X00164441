@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
 export default function UserScreen() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
-  const [birthday, setBirthday] = useState('');
+  const [age, setAge] = useState('');
   const [location, setLocation] = useState('');
   const [sex, setSex] = useState('');
 
@@ -80,7 +80,7 @@ export default function UserScreen() {
             console.log(userData);
             setFullName(userData.fullName);
             setEmail(userData.email);
-            setBirthday(userData.birthday);
+            setAge(userData.age);
             setLocation(userData.location);
             setSex(userData.sex);
           });
@@ -103,19 +103,33 @@ export default function UserScreen() {
         .collection('users')
         .where('id', '==', user.uid)
         .limit(1);
-
+  
+      // Validate sex field
+      if (sex !== 'Male' && sex !== 'Female') {
+        alert("Please enter 'Male' or 'Female' for sex field.");
+        console.log('Invalid sex input:', sex);
+        return;
+      }
+  
+      // Validate birthday field
+      if (age < 1 || age > 120) {
+        alert("Please enter a valid age between 0 and 120.");
+        console.log('Invalid birthday input:', age);
+        return;
+      }
+  
       userRef.get().then((querySnapshot) => {
         if (querySnapshot.empty) {
           console.log('No user document found for UID:', user.uid);
           return;
         }
-
+  
         querySnapshot.forEach((doc) => {
           const userData = doc.data();
           doc.ref.update({
             fullName: fullName || userData.fullName,
             email: email || userData.email,
-            birthday: birthday || userData.birthday,
+            age: age || userData.age,
             location: location || userData.location,
             sex: sex || userData.sex,
           }).then(() => {
@@ -144,11 +158,11 @@ export default function UserScreen() {
         value={email}
         onChangeText={setEmail}
       />
-      <Text style={styles.field}>Birthday:</Text>
+      <Text style={styles.field}>Age:</Text>
       <TextInput
         style={styles.input}
-        value={birthday}
-        onChangeText={setBirthday}
+        value={age}
+        onChangeText={setAge}
       />
       <Text style={styles.field}>Location:</Text>
       <TextInput
