@@ -9,6 +9,9 @@ export default function RegistrationScreen({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [birthday, setBirthday] = useState('')
+    const [location, setLocation] = useState('')
+    const [sex, setSex] = useState('')
 
     const onFooterLinkPress = () => {
         navigation.navigate('Login')
@@ -28,6 +31,9 @@ export default function RegistrationScreen({navigation}) {
                     id: uid,
                     email,
                     fullName,
+                    birthday,
+                    location,
+                    sex,
                 };
                 const usersRef = firebase.firestore().collection('users')
                 usersRef
@@ -85,6 +91,33 @@ export default function RegistrationScreen({navigation}) {
                     placeholder='Confirm Password'
                     onChangeText={(text) => setConfirmPassword(text)}
                     value={confirmPassword}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Birthday (Age)'
+                    placeholderTextColor="#aaaaaa"
+                    onChangeText={(text) => setBirthday(text)}
+                    value={birthday}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Location (Home Address)'
+                    placeholderTextColor="#aaaaaa"
+                    onChangeText={(text) => setLocation(text)}
+                    value={location}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Sex (Male or Female)'
+                    placeholderTextColor="#aaaaaa"
+                    onChangeText={(text) => setSex(text)}
+                    value={sex}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
