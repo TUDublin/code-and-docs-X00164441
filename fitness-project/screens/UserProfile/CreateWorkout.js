@@ -34,8 +34,15 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 5,
   },
+  createWorkoutButton: {
+    backgroundColor: "#46C263",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10,
+  },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "#5897EE",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -156,7 +163,7 @@ const CreateWorkout = () => {
           </View>
         ))}
       </ScrollView>
-      <TouchableOpacity style={styles.button} onPress={createWorkout}>
+      <TouchableOpacity style={styles.createWorkoutButton} onPress={createWorkout}>
         <Text style={styles.buttonText}>Create Workout</Text>
       </TouchableOpacity>
 

@@ -34,8 +34,22 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 5,
   },
+  updateWorkoutButton: {
+    backgroundColor: "#46C263",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  deleteWorkoutButton: {
+    backgroundColor: "#FC3D39",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10,
+  },
   button: {
-    backgroundColor: "blue",
+    backgroundColor: "#5897EE",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -173,10 +187,10 @@ const EditWorkout = ({ route, navigation }) => {
           </View>
         ))}
       </ScrollView>
-      <TouchableOpacity style={styles.button} onPress={updateWorkout}>
+      <TouchableOpacity style={styles.updateWorkoutButton} onPress={updateWorkout}>
         <Text style={styles.buttonText}>Update Workout</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={deleteWorkout}>
+      <TouchableOpacity style={styles.deleteWorkoutButton} onPress={deleteWorkout}>
         <Text style={styles.buttonText}>Delete Workout</Text>
       </TouchableOpacity>
     </SafeAreaView>

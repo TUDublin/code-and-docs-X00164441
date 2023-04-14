@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   Image,
   Pressable,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
@@ -16,6 +16,7 @@ import { firebase } from "../../firebase/config";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 150,
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
@@ -40,20 +41,37 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 5,
   },
-  button: {
-    backgroundColor: "blue",
-    paddingVertical: 10,
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "99%",
+  },
+  saveChangesButton: {
+    backgroundColor: "#46C263",
+    paddingVertical: 5,
     paddingHorizontal: 20,
     borderRadius: 5,
-    marginTop: 10,
+    width: "30%",
+    marginTop: 20,
+    marginBottom: 150
+  },
+  button: {
+    backgroundColor: "#5897EE",
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 30,
+    width: "30%",
   },
   buttonText: {
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
+    textAlign: "center",
   },
   editContainer: {
     flexDirection: "row",
+    backgroundColor: "grey",
     alignItems: "center",
     justifyContent: "space-between",
     marginTop: 20,
@@ -144,48 +162,64 @@ export default function UserScreen() {
         return;
       }
 
-      userRef.get().then((querySnapshot) => {
-        if (querySnapshot.empty) {
-          console.log('No user document found for UID:', user.uid);
-          return;
-        }
-  
-        querySnapshot.forEach((doc) => {
-          const userData = doc.data();
-          const updatedFields = [];
-          
-          if (fullName !== userData.fullName) {
-            updatedFields.push(`Changed full name from ${userData.fullName} to ${fullName}`);
+      userRef
+        .get()
+        .then((querySnapshot) => {
+          if (querySnapshot.empty) {
+            console.log("No user document found for UID:", user.uid);
+            return;
           }
-          if (email !== userData.email) {
-            updatedFields.push(`Changed email from ${userData.email} to ${email}`);
-          }
-          if (age !== userData.age) {
-            updatedFields.push(`Changed age from ${userData.age} to ${age}`);
-          }
-          if (location !== userData.location) {
-            updatedFields.push(`Changed location from ${userData.location} to ${location}`);
-          }
-          if (sex !== userData.sex) {
-            updatedFields.push(`Changed sex from ${userData.sex} to ${sex}`);
-          }
-          
-          doc.ref.update({
-            fullName: fullName || userData.fullName,
-            email: email || userData.email,
-            age: age || userData.age,
-            location: location || userData.location,
-            sex: sex || userData.sex,
-          }).then(() => {
-            console.log('User data updated successfully!');
-            alert(`Your user details have updated successfully!\n${updatedFields.join(', ')}.`);
-          }).catch((error) => {
-            console.log('Error updating user data:', error);
+
+          querySnapshot.forEach((doc) => {
+            const userData = doc.data();
+            const updatedFields = [];
+
+            if (fullName !== userData.fullName) {
+              updatedFields.push(
+                `Changed full name from ${userData.fullName} to ${fullName}`
+              );
+            }
+            if (email !== userData.email) {
+              updatedFields.push(
+                `Changed email from ${userData.email} to ${email}`
+              );
+            }
+            if (age !== userData.age) {
+              updatedFields.push(`Changed age from ${userData.age} to ${age}`);
+            }
+            if (location !== userData.location) {
+              updatedFields.push(
+                `Changed location from ${userData.location} to ${location}`
+              );
+            }
+            if (sex !== userData.sex) {
+              updatedFields.push(`Changed sex from ${userData.sex} to ${sex}`);
+            }
+
+            doc.ref
+              .update({
+                fullName: fullName || userData.fullName,
+                email: email || userData.email,
+                age: age || userData.age,
+                location: location || userData.location,
+                sex: sex || userData.sex,
+              })
+              .then(() => {
+                console.log("User data updated successfully!");
+                alert(
+                  `Your user details have updated successfully!\n${updatedFields.join(
+                    ", "
+                  )}.`
+                );
+              })
+              .catch((error) => {
+                console.log("Error updating user data:", error);
+              });
           });
+        })
+        .catch((error) => {
+          console.log("Error getting user document:", error);
         });
-      }).catch((error) => {
-        console.log('Error getting user document:', error);
-      });
     }
   };
 
@@ -211,22 +245,24 @@ export default function UserScreen() {
       <Text style={styles.field}>Sex:</Text>
       <TextInput style={styles.input} value={sex} onChangeText={setSex} />
 
-      <TouchableOpacity style={styles.button} onPress={saveChanges}>
+      <TouchableOpacity style={styles.saveChangesButton} onPress={saveChanges}>
         <Text style={styles.buttonText}>Save Changes</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={navigateToHome}>
-        <Text style={styles.buttonText}>Go to Home</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
 
-      <TouchableOpacity style={styles.button} onPress={navigateToExercises}>
-        <Text style={styles.buttonText}>Add Exercises</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={navigateToHome}>
+          <Text style={styles.buttonText}>Go to Home</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={navigateToWorkoutList}>
-  <Text style={styles.buttonText}>Edit Workouts</Text>
-</TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={navigateToExercises}>
+          <Text style={styles.buttonText}>Add Exercises</Text>
+        </TouchableOpacity>
 
+        <TouchableOpacity style={styles.button} onPress={navigateToWorkoutList}>
+          <Text style={styles.buttonText}>Edit Workouts</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }

@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   workoutItem: {
-    backgroundColor: "lightgray",
+    backgroundColor: "#e6e6e6",
     borderRadius: 5,
     padding: 10,
     marginTop: 10,

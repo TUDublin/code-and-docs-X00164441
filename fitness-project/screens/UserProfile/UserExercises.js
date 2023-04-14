@@ -31,8 +31,15 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 5,
   },
+  addExercisesButton: {
+    backgroundColor: "#46C263",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10,
+  },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: "#5897EE",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -119,7 +126,7 @@ export default function UserWorkouts() {
         value={imageUrl}
         onChangeText={setImageUrl}
       />
-      <TouchableOpacity style={styles.button} onPress={addExercise}>
+      <TouchableOpacity style={styles.addExercisesButton} onPress={addExercise}>
         <Text style={styles.buttonText}>Add Exercise</Text>
       </TouchableOpacity>
 
