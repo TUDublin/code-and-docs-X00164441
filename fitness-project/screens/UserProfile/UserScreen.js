@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Image,
   Pressable,
+  ScrollView
 } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
@@ -84,6 +85,14 @@ export default function UserScreen() {
 
   const navigateToHome = () => {
     navigation.navigate("Home");
+  };
+
+  const navigateToExercises = () => {
+    navigation.navigate("Exercises");
+  };
+
+  const navigateToWorkoutList = () => {
+    navigation.navigate("WorkoutList");
   };
 
   useEffect(() => {
@@ -227,8 +236,17 @@ export default function UserScreen() {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button} onPress={navigateToHome}>
-        <Text style={styles.buttonText}>Go to Home Screen</Text>
+        <Text style={styles.buttonText}>Go to Home</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={navigateToExercises}>
+        <Text style={styles.buttonText}>Add Exercises</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={navigateToWorkoutList}>
+  <Text style={styles.buttonText}>Edit Workouts</Text>
+</TouchableOpacity>
+
     </SafeAreaView>
   );
 }

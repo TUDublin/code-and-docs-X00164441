@@ -8,6 +8,10 @@ import WorkoutScreen from './screens/WorkoutScreen'
 import FitScreen from './screens/FitScreen'
 import RestScreen from './screens/RestScreen'
 import UserScreen from './screens/UserProfile/UserScreen'
+import UserExercises from './screens/UserProfile/UserExercises'
+import CreateWorkout from './screens/UserProfile/CreateWorkout'
+import EditWorkout from './screens/UserProfile/EditWorkout'
+import WorkoutList from "./screens/UserProfile/WorkoutList";
 
 const StackNavigator = () => {
     const Stack = createNativeStackNavigator();
@@ -24,6 +28,10 @@ const StackNavigator = () => {
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Profile" component={UserScreen} options={{headerShown:false}} />
+            <Stack.Screen name="Exercises" component={UserExercises} />
+            <Stack.Screen name="CreateWorkout" component={CreateWorkout} />
+            <Stack.Screen name="EditWorkout" component={EditWorkout} />
+            <Stack.Screen name="WorkoutList" component={WorkoutList} />
             <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}} />
             <Stack.Screen name="Workout" component={WorkoutScreen} options={{headerShown:false}} />
             <Stack.Screen name="Fit" component={FitScreen} options={{headerShown:false}} />
