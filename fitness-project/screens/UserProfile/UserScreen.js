@@ -52,20 +52,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  signOutButton: {
-    position: "absolute",
-    top: 100,
-    left: 20,
-    backgroundColor: "red",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 5,
-  },
-  signOutText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
   editContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -206,12 +192,6 @@ export default function UserScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Hello, {fullName}</Text>
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={styles.signOutButton}
-      >
-        <Text style={styles.signOutText}>Sign Out</Text>
-      </TouchableOpacity>
       <Text style={styles.field}>Full Name:</Text>
       <TextInput
         style={styles.input}

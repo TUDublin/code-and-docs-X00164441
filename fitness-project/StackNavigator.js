@@ -19,19 +19,29 @@ const StackNavigator = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#ececec',
+        },
+        headerTintColor: 'black',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}>
       { user ? (
           <Stack.Screen name="Home">
             {props => <HomeScreen {...props} extraData={user} />}
           </Stack.Screen>
         ) : (
           <>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Profile" component={UserScreen} options={{headerShown:false}} />
-            <Stack.Screen name="Exercises" component={UserExercises} />
-            <Stack.Screen name="CreateWorkout" component={CreateWorkout} />
-            <Stack.Screen name="EditWorkout" component={EditWorkout} />
-            <Stack.Screen name="WorkoutList" component={WorkoutList} />
+          
+            <Stack.Screen name="Login" component={LoginScreen} options={{ title: "Sign-In"}}/>
+            <Stack.Screen name="Profile" component={UserScreen} options={{ title: "Profile Page"}} />
+            <Stack.Screen name="Exercises" component={UserExercises} options={{ title: "Exercises"}} />
+            <Stack.Screen name="CreateWorkout" component={CreateWorkout} options={{ title: "Create Workout" }} />
+            <Stack.Screen name="EditWorkout" component={EditWorkout} options={{ title: "Edit Workout" }} />
+            <Stack.Screen name="WorkoutList" component={WorkoutList} options={{ title: "Workout List" }} />
             <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}} />
             <Stack.Screen name="Workout" component={WorkoutScreen} options={{headerShown:false}} />
             <Stack.Screen name="Fit" component={FitScreen} options={{headerShown:false}} />
