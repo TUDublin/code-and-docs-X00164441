@@ -9,115 +9,146 @@ import {
   Pressable,
 } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
+import { useRoute, useNavigation } from "@react-navigation/native";
 import { firebase } from "../../firebase/config";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginTop: 20,
+    marginBottom: 10,
   },
   field: {
     marginVertical: 10,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   inputField: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     padding: 10,
     marginVertical: 5,
-    width: '100%',
-    borderRadius: 5
+    width: "100%",
+    borderRadius: 5,
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: "blue",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
-    marginTop: 10
+    marginTop: 10,
   },
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: "bold",
+  },
+  signOutButton: {
+    position: "absolute",
+    top: 100,
+    left: 20,
+    backgroundColor: "red",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
+  },
+  signOutText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   editContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginTop: 20,
-    width: '100%'
-  }
+    width: "100%",
+  },
 });
 
 export default function UserScreen() {
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [age, setAge] = useState('');
-  const [location, setLocation] = useState('');
-  const [sex, setSex] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [age, setAge] = useState("");
+  const [location, setLocation] = useState("");
+  const [sex, setSex] = useState("");
+  const navigation = useNavigation();
+
+  const navigateToHome = () => {
+    navigation.navigate("Home");
+  };
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // User is signed in
         const uid = user.uid;
-        const userRef = firebase.firestore()
-          .collection('users')
-          .where('id', '==', uid);
-  
-        userRef.get().then((querySnapshot) => {
-          if (querySnapshot.empty) {
-            console.log('No user document found for UID:', uid);
-            return;
-          }
-  
-          querySnapshot.forEach((doc) => {
-            const userData = doc.data();
-            console.log(userData);
-            setFullName(userData.fullName);
-            setEmail(userData.email);
-            setAge(userData.age);
-            setLocation(userData.location);
-            setSex(userData.sex);
+        const userRef = firebase
+          .firestore()
+          .collection("users")
+          .where("id", "==", uid);
+
+        userRef
+          .get()
+          .then((querySnapshot) => {
+            if (querySnapshot.empty) {
+              console.log("No user document found for UID:", uid);
+              return;
+            }
+
+            querySnapshot.forEach((doc) => {
+              const userData = doc.data();
+              console.log(userData);
+              setFullName(userData.fullName);
+              setEmail(userData.email);
+              setAge(userData.age);
+              setLocation(userData.location);
+              setSex(userData.sex);
+            });
+          })
+          .catch((error) => {
+            console.log("Error getting user document:", error);
           });
-        }).catch((error) => {
-          console.log('Error getting user document:', error);
-        });
       } else {
         // User is not signed in
         // Redirect to login page or display an error message
       }
     });
-  
+
     return unsubscribe;
   }, []);
 
   const saveChanges = () => {
     const user = firebase.auth().currentUser;
     if (user) {
-      const userRef = firebase.firestore()
-        .collection('users')
-        .where('id', '==', user.uid)
+      const userRef = firebase
+        .firestore()
+        .collection("users")
+        .where("id", "==", user.uid)
         .limit(1);
-  
+
       // Validate sex field
-      if (sex !== 'Male' && sex !== 'Female') {
+      if (sex !== "Male" && sex !== "Female") {
         alert("Please enter 'Male' or 'Female' for sex field.");
-        console.log('Invalid sex input:', sex);
+        console.log("Invalid sex input:", sex);
         return;
       }
-  
+
       // Validate birthday field
       if (age < 1 || age > 120) {
         alert("Please enter a valid age between 0 and 120.");
-        console.log('Invalid birthday input:', age);
+        console.log("Invalid birthday input:", age);
         return;
       }
-  
+
       userRef.get().then((querySnapshot) => {
         if (querySnapshot.empty) {
           console.log('No user document found for UID:', user.uid);
@@ -126,6 +157,24 @@ export default function UserScreen() {
   
         querySnapshot.forEach((doc) => {
           const userData = doc.data();
+          const updatedFields = [];
+          
+          if (fullName !== userData.fullName) {
+            updatedFields.push(`Changed full name from ${userData.fullName} to ${fullName}`);
+          }
+          if (email !== userData.email) {
+            updatedFields.push(`Changed email from ${userData.email} to ${email}`);
+          }
+          if (age !== userData.age) {
+            updatedFields.push(`Changed age from ${userData.age} to ${age}`);
+          }
+          if (location !== userData.location) {
+            updatedFields.push(`Changed location from ${userData.location} to ${location}`);
+          }
+          if (sex !== userData.sex) {
+            updatedFields.push(`Changed sex from ${userData.sex} to ${sex}`);
+          }
+          
           doc.ref.update({
             fullName: fullName || userData.fullName,
             email: email || userData.email,
@@ -134,6 +183,7 @@ export default function UserScreen() {
             sex: sex || userData.sex,
           }).then(() => {
             console.log('User data updated successfully!');
+            alert(`Your user details have updated successfully!\n${updatedFields.join(', ')}.`);
           }).catch((error) => {
             console.log('Error updating user data:', error);
           });
@@ -146,6 +196,13 @@ export default function UserScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Hello, {fullName}</Text>
+      <TouchableOpacity
+        onPress={() => navigation.goBack()}
+        style={styles.signOutButton}
+      >
+        <Text style={styles.signOutText}>Sign Out</Text>
+      </TouchableOpacity>
       <Text style={styles.field}>Full Name:</Text>
       <TextInput
         style={styles.input}
@@ -153,17 +210,9 @@ export default function UserScreen() {
         onChangeText={setFullName}
       />
       <Text style={styles.field}>Email:</Text>
-      <TextInput
-        style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-      />
+      <TextInput style={styles.input} value={email} onChangeText={setEmail} />
       <Text style={styles.field}>Age:</Text>
-      <TextInput
-        style={styles.input}
-        value={age}
-        onChangeText={setAge}
-      />
+      <TextInput style={styles.input} value={age} onChangeText={setAge} />
       <Text style={styles.field}>Location:</Text>
       <TextInput
         style={styles.input}
@@ -171,14 +220,15 @@ export default function UserScreen() {
         onChangeText={setLocation}
       />
       <Text style={styles.field}>Sex:</Text>
-      <TextInput
-        style={styles.input}
-        value={sex}
-        onChangeText={setSex}
-      />
+      <TextInput style={styles.input} value={sex} onChangeText={setSex} />
+
       <TouchableOpacity style={styles.button} onPress={saveChanges}>
         <Text style={styles.buttonText}>Save Changes</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={navigateToHome}>
+        <Text style={styles.buttonText}>Go to Home Screen</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
-};
+}

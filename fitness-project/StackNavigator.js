@@ -23,8 +23,8 @@ const StackNavigator = () => {
         ) : (
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}} />
             <Stack.Screen name="Profile" component={UserScreen} options={{headerShown:false}} />
+            <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}} />
             <Stack.Screen name="Workout" component={WorkoutScreen} options={{headerShown:false}} />
             <Stack.Screen name="Fit" component={FitScreen} options={{headerShown:false}} />
             <Stack.Screen name="Rest" component={RestScreen} options={{headerShown:false}} />
