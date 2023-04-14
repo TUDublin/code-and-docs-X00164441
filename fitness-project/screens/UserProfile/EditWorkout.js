@@ -8,6 +8,8 @@ import {
   SafeAreaView,
   FlatList,
   ScrollView,
+  Alert,
+  Button,
 } from "react-native";
 import { firebase } from "../../firebase/config";
 import { useRoute, useNavigation } from "@react-navigation/native";
@@ -151,16 +153,36 @@ const EditWorkout = ({ route, navigation }) => {
         .collection("Workouts")
         .doc(workoutId)
         .update(workoutData);
-      console.log("Workout updated successfully");
-      navigation.goBack();
+      alert("Workout updated successfully!");
     } catch (error) {
       console.log("Error updating workout:", error);
     }
   };
+
+  const confirmDeleteWorkout = () => {
+    Alert.alert(
+      "Delete Workout",
+      `Are you sure you want to delete this workout "${workoutName}"?`,
+      [
+        {
+          text: "Yes",
+          onPress: deleteWorkout,
+        },
+        {
+          text: "No",
+          onPress: () => {
+            alert(`Workout "${workoutName}" was not deleted`);
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   const deleteWorkout = async () => {
     try {
       await firebase.firestore().collection("Workouts").doc(workoutId).delete();
-      console.log("Workout deleted successfully");
+      alert(`Workout "${workoutName}" was deleted successfully!`);
       navigation.goBack();
     } catch (error) {
       console.log("Error deleting workout:", error);
@@ -187,12 +209,19 @@ const EditWorkout = ({ route, navigation }) => {
           </View>
         ))}
       </ScrollView>
-      <TouchableOpacity style={styles.updateWorkoutButton} onPress={updateWorkout}>
+      <TouchableOpacity
+        style={styles.updateWorkoutButton}
+        onPress={updateWorkout}
+      >
         <Text style={styles.buttonText}>Update Workout</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.deleteWorkoutButton} onPress={deleteWorkout}>
-        <Text style={styles.buttonText}>Delete Workout</Text>
-      </TouchableOpacity>
+      <View style={styles.deleteWorkoutButton}>
+        <Button
+          title="Delete Workout"
+          color="white"
+          onPress={confirmDeleteWorkout}
+        />
+      </View>
     </SafeAreaView>
   );
 };
