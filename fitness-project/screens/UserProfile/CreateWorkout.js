@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,69 +6,76 @@ import {
   TouchableOpacity,
   View,
   SafeAreaView,
-  FlatList,
   ScrollView,
 } from "react-native";
 import { firebase } from "../../firebase/config";
-import { useRoute, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { Switch } from "react-native";
+import { DarkModeContext } from "../../DarkModeContext";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-  },
-  field: {
-    marginVertical: 10,
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  inputField: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    padding: 10,
-    marginVertical: 5,
-    width: "100%",
-    borderRadius: 5,
-  },
-  createWorkoutButton: {
-    backgroundColor: "#46C263",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  button: {
-    backgroundColor: "#5897EE",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  exerciseItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
-  },
-  exerciseName: {
-    fontSize: 16,
-    marginRight: 10,
-  },
-});
+const styles = (isDarkMode) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      padding: 20,
+      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+    },
+    field: {
+      marginVertical: 10,
+      fontSize: 16,
+      fontWeight: "bold",
+      color: isDarkMode ? "white" : "black",
+    },
+    inputField: {
+      height: 40,
+      borderColor: "gray",
+      borderWidth: 1,
+      padding: 10,
+      marginVertical: 5,
+      width: "100%",
+      borderRadius: 5,
+      backgroundColor: isDarkMode ? "#3b3b3b" : "white",
+      color: isDarkMode ? "white" : "black",
+    },
+    createWorkoutButton: {
+      backgroundColor: isDarkMode ? "#003d99" : "#46C263",
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 5,
+      marginTop: 10,
+    },
+    button: {
+      backgroundColor: isDarkMode ? "#525252" : "#5897EE",
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 5,
+      marginTop: 10,
+    },
+    buttonText: {
+      color: "white",
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    exerciseItem: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 10,
+    },
+    exerciseName: {
+      fontSize: 16,
+      marginRight: 10,
+      color: isDarkMode ? "white" : "black",
+    },
+  });
 
 const CreateWorkout = () => {
   const [workoutName, setWorkoutName] = useState("");
   const [exercises, setExercises] = useState([]);
   const [selectedExercises, setSelectedExercises] = useState({});
   const navigation = useNavigation();
+  const { isDarkMode } = useContext(DarkModeContext);
 
   const navigateToWorkoutList = () => {
     navigation.navigate("WorkoutList");
@@ -103,21 +110,21 @@ const CreateWorkout = () => {
       alert("Please enter a workout name");
       return;
     }
-  
+
     const selectedExerciseIds = Object.keys(selectedExercises).filter(
       (id) => selectedExercises[id]
     );
-  
+
     if (selectedExerciseIds.length === 0) {
       alert("Please select at least one exercise");
       return;
     }
-  
+
     const workoutData = {
       name: workoutName,
       exercises: selectedExerciseIds,
     };
-  
+
     try {
       const docRef = await firebase
         .firestore()
@@ -128,7 +135,9 @@ const CreateWorkout = () => {
         .then((doc) => {
           if (doc.exists) {
             console.log("Workout created successfully!");
-            alert(`Workout created successfully!\nWorkout Name: ${workoutName}`);
+            alert(
+              `Workout created successfully!\nWorkout Name: ${workoutName}`
+            );
           } else {
             console.log("No such document!");
           }
@@ -144,31 +153,37 @@ const CreateWorkout = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.field}>Workout Name:</Text>
+    <SafeAreaView style={styles(isDarkMode).container}>
+      <Text style={styles(isDarkMode).field}>Workout Name:</Text>
       <TextInput
-        style={styles.inputField}
+        style={styles(isDarkMode).inputField}
         value={workoutName}
         onChangeText={setWorkoutName}
       />
-      <Text style={styles.field}>Exercises:</Text>
+      <Text style={styles(isDarkMode).field}>Exercises:</Text>
       <ScrollView>
         {exercises.map((exercise) => (
-          <View key={exercise.id} style={styles.exerciseItem}>
+          <View key={exercise.id} style={styles(isDarkMode).exerciseItem}>
             <Switch
               value={selectedExercises[exercise.id] || false}
               onValueChange={() => toggleExerciseSelection(exercise.id)}
             />
-            <Text style={styles.exerciseName}>{exercise.name}</Text>
+            <Text style={styles(isDarkMode).exerciseName}>{exercise.name}</Text>
           </View>
         ))}
       </ScrollView>
-      <TouchableOpacity style={styles.createWorkoutButton} onPress={createWorkout}>
-        <Text style={styles.buttonText}>Create Workout</Text>
+      <TouchableOpacity
+        style={styles(isDarkMode).createWorkoutButton}
+        onPress={createWorkout}
+      >
+        <Text style={styles(isDarkMode).buttonText}>Create Workout</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={navigateToWorkoutList}>
-        <Text style={styles.buttonText}>Edit Workouts</Text>
+      <TouchableOpacity
+        style={styles(isDarkMode).button}
+        onPress={navigateToWorkoutList}
+      >
+        <Text style={styles(isDarkMode).buttonText}>Edit Workouts</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

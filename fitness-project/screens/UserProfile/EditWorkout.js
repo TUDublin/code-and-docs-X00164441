@@ -6,13 +6,11 @@ import {
   TouchableOpacity,
   View,
   SafeAreaView,
-  FlatList,
   ScrollView,
   Alert,
   Button,
 } from "react-native";
 import { firebase } from "../../firebase/config";
-import { useRoute, useNavigation } from "@react-navigation/native";
 import { Switch } from "react-native";
 import { DarkModeContext } from "../../DarkModeContext";
 
