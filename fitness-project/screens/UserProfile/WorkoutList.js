@@ -6,6 +6,7 @@ import {
   View,
   SafeAreaView,
   ScrollView,
+  Alert,
 } from "react-native";
 import { firebase } from "../../firebase/config";
 import { useNavigation } from "@react-navigation/native";
@@ -51,8 +52,24 @@ const WorkoutList = () => {
     return () => unsubscribe();
   }, []);
 
-  const navigateToEditWorkout = (workoutId) => {
-    navigation.navigate("EditWorkout", { workoutId: workoutId });
+  const handleWorkoutPress = (workoutId) => {
+    Alert.alert("Options", "View or Edit Workout", [
+      {
+        text: "View",
+        onPress: () =>
+          navigation.navigate("ViewWorkout", { workoutId: workoutId }),
+      },
+      {
+        text: "Edit",
+        onPress: () =>
+          navigation.navigate("EditWorkout", { workoutId: workoutId }),
+      },
+      {
+        text: "Cancel",
+        onPress: () => {},
+        style: "cancel",
+      },
+    ]);
   };
 
   return (
@@ -62,7 +79,7 @@ const WorkoutList = () => {
           <TouchableOpacity
             key={workout.id}
             style={styles.workoutItem}
-            onPress={() => navigateToEditWorkout(workout.id)}
+            onPress={() => handleWorkoutPress(workout.id)}
           >
             <Text style={styles.workoutName}>{workout.name}</Text>
           </TouchableOpacity>

@@ -260,7 +260,7 @@ export default function UserScreen() {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button} onPress={navigateToWorkoutList}>
-          <Text style={styles.buttonText}>Edit Workouts</Text>
+          <Text style={styles.buttonText}>Edit/View Workouts</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

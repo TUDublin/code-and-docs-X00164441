@@ -50,6 +50,24 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  filterButton: {
+    backgroundColor: "#46C263",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  exerciseItem: {
+    backgroundColor: "#e6e6e6",
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10,
+    width: "100%",
+  },
+  exerciseName: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 });
 
 export default function UserWorkouts() {
@@ -58,6 +76,8 @@ export default function UserWorkouts() {
   const [imageUrl, setImageUrl] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
   const navigation = useNavigation();
+  const [allExercises, setAllExercises] = useState([]);
+  const [filteredExercises, setFilteredExercises] = useState([]);
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
@@ -70,6 +90,7 @@ export default function UserWorkouts() {
       unsubscribe();
     };
   }, []);
+  
 
   const navigateToWorkouts = () => {
     navigation.navigate("CreateWorkout");
