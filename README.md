@@ -2,74 +2,44 @@
 
 Section 1: Detailed Discussion
 
-I have decided in doing a General Health & Fitness Tracker mobile app for my project. 
-As a general overview, I aim to create an app that has incorporated features like that 
-of many popular health & wellness apps such as MyFitnessPal, Calm, Headspace, 
-Zero, Happy Scale etc. with aspects of many popular fitness and workout apps such 
-as Strong, Strava, Runkeeper etc.
+My objective for this project is to develop a Workout & Fitness Tracker mobile application. I aim to create an app that incorporates features similar to those found in popular fitness apps, such as Strong, Fitnotes, and JeFit. Considering the scope of a fourth-year project, I will focus on a select few key features to ensure the app is both realistic and achievable.
 
-The app will serve as an amalgamation of most of the apps mentioned above and will 
-be used to do a myriad of things such as calorie tracking: tracking the caloric amount 
-of the foods you’ve eaten across a day, tracking your water intake, meal and snack 
-planning, measuring your different body measurements: such as your waist 
-circumference, hip circumference etc. and comparing it to prior measurements. 
-Tracking your weight: a dedicated weight logbook that calculates your moving 
-average, your weekly rate, and a graph supporting your weight loss or gain trend. 
-There will also be a daily meal diary to track more specifically what you’ve eaten. A 
-structure for your different workouts and a way to choose from more established 
-workout plans. I would also strive to add barcode scanning for different food items to 
-help with calorie tracking and tracking what you’ve eaten in your daily meal diary
-and finally, if possible, customized meal and workout plans based on user input and 
-info.
+My proposed application will serve as an amalgamation of the aforementioned apps and will provide a variety of features. These include allowing users to add custom exercises, which will be stored in their account using the Firestore database. Users will then be able to create workouts based on the exercises they have added, which will also be stored in their account using Firestore. My app will provide functionality to edit a workout by selecting or deselecting exercises or changing the workout name. Additionally, users will be able to delete a workout, which will remove the data from their account.
 
-If possible and time permits, I will also add abilities to track your fasting hours if you 
-practice different fasting methods such as intermittent fasting. There will be 
-capabilities to allow you to meditate and relax with guided breathing exercises. 
-Hopefully, a dedicated running segment that allows you to track your runs over a 
-long period of time and compare different major and minor statistics such as your 
-increase or decrease in overall pace, comparing your fast mile to your slowest mile 
-for example and insights to see whether you are progressing.
-This mobile app would be suitable for the average person looking to improve their 
-physical or mental health or their diet and negative lifestyle habits to the more 
-devout health enthusiast looking for more general data over a wider avenue and to 
-have everything in the one app.
+Users will also have the ability to update their account details, such as their full name, email, age, etc., which will be reflected within Firestore. My app will notify users of any changes they have made. Users will be able to view all the exercises they have added and filter them by body part. For example, if a user creates an exercise called "Bicep Curl" with the body part "Bicep," they will be able to filter by "Bicep," displaying only the Bicep Curl exercise. Users will also have the option to filter by "All" exercises they have created. Moreover, they will be able to delete any exercises they have created, with these changes being reflected within Firestore. Users will also be able to view the workouts they have created, presented with a screen that lists all their current workouts.
+
+Furthermore, the app will provide users with the option to delete their account, ensuring a comprehensive removal of their personal data. Upon choosing to delete their account, all exercises and workouts associated with the user will be deleted from both the app and Firestore. This feature prioritizes user privacy and control over their own data, allowing them to remove any trace of their activities within the app when desired. By incorporating this functionality, my app demonstrates a commitment to respecting user preferences and maintaining a high standard of data protection.
+
+If time permits, my app will also include simple dark mode functionality, allowing users to choose between light mode and dark mode for the entire app. There will also be a default homepage with example workouts that users can follow, featuring tracking for minutes, calories, and workouts, along with a rest screen functionality and start/skip exercise functionality. These default homepage example workouts and exercises will be stored within the app on context and component JavaScript files, not stored within Firebase, for ease of implementation and testing and since it is static data, not dynamic.
+
+Lastly, if feasible, the app will include functionality that allows users to perform their custom workouts with a rest timer feature and the ability to add sets and reps to an exercise (e.g., three sets of eight reps of Bicep Curls with 30 seconds of rest). Users would have the option to stop their workout prematurely or finish it early.
+
+This mobile app would be suitable for the average person seeking simple workout and exercise tracking and storage, as well as providing some straightforward example workouts to help them better structure their own workouts.
 
 Section 2: Existing Applications in this domain
 ![image](https://user-images.githubusercontent.com/55252035/200334291-59842ca6-4891-4871-84e9-01bfdab771c3.png)
 
-Section 3: Platform, Technologies and Libraries
+Section 3: Platform, Technologies, and Libraries
 
-I plan to build out my project for mobile devices using React Native. I plan to use
-Firebase Auth for user management and other backend databases, different React 
-Native packages such as react-native-chart-kit for charts & graphs. I will grab my 
-application data from different sources such as Irish Government Data, FoodData 
-Central, Muscle and Strength, Openfoodfacts etc.
+To develop my mobile application, I have chosen React Native as the primary platform due to its robust capabilities, cross-platform compatibility, and extensive support for third-party libraries. React Native facilitates seamless development for both Android and iOS devices, which will ensure the app's accessibility to a broader audience.
 
-Section 4: The risks
+For the backend, I will utilize Firebase Auth for user management and data storage. Firebase Auth offers a secure and scalable solution for handling user authentication and data persistence, which is essential for an application that requires storage of custom exercises and workouts. Additionally, Firestore, a real-time NoSQL database provided by Firebase, will be employed for storing user-specific data, such as exercises and workouts, as well as managing account details.
 
-I believe the main risk of this project would be trying to implement too much 
-functionality. I believe this could result in rushed code which would lead to a poor 
-quality of code and a ton of bugs, logical errors etc. Expanding on from that, I feel 
-there could very well be an issue of scope creep, allowing the project to morph into 
-something completely different than what I initially expected it to be. With that 
-being said, I feel it’s very important to separate my project out into manageable 
-segments and iterations and to frequently review my scope and implement one
-piece of functionality and one feature at a time whilst also frequently testing them.
-With how much functionality I’d like to add, there is also the risk of the project 
-turning into a too complex multi-part project and the implementation of project 
-functionality and features being more difficult to implement than expected. One 
-technique I aim to take conscious note of to prevent these aforementioned risks is 
-setting SMART goals: Specific, Measurable, Attainable, Realistic and Timely.
-I also take note in understanding that it won’t be possible to completely avoid certain 
-risks and the risks mentioned above, sometimes it is only possible to mitigate them 
-and their effects, so it’s equally important to have good risk management by 
-identifying potential risks, calculating the likelihood of each risk, having risk 
-mitigation plans and carefully monitoring risks as I moved forward with my project.
-There is also a risk of inadequate project management and just how it’s important to 
-practice good risk management, it’s equally important to practice good project 
-management. I aim to do so by utilizing different project management software,
-developing clear-cut project plans, liaising with my project supervisor frequently with 
-clear communication and having an elaborate documentation process.
+In the context of my Workout & Fitness Tracker app, the primary data for this application will be user-generated, focusing on custom exercises, workouts, and account information. These data will be securely stored within Firebase, with no need for external data sources to be integrated. By centering on user-generated content and data, my app will provide a personalized experience tailored to individual user preferences and goals.
+
+Section 4: Risks
+
+The development of my Workout & Fitness Tracker mobile app presents a variety of risks that must be acknowledged and addressed. A primary concern is the potential for the project's scope to become overly ambitious, leading to difficulties in implementing the desired features within the timeframe of a fourth-year project. To mitigate this risk, I have carefully scoped the project to focus on a realistic set of features that can be successfully developed within the allotted time.
+
+Another risk involves the complexity of integrating various technologies, such as React Native and Firebase, which may result in unforeseen challenges or issues. To address this, my project will rely on thorough research, testing, and consultation with expert sources to ensure the proper implementation of these technologies.
+
+Ensuring my app provides an exceptional user experience is crucial; thus, the risk of inadequate user interface (UI) and user experience (UX) design must be considered. To mitigate this risk, my design process will incorporate best practices in UI and UX design, and user feedback will be sought to refine the app's interface and functionality.
+
+Data security and user privacy are also of paramount importance in a fitness tracker application. The risk of a data breach or unauthorized access to user information is a significant concern. By utilizing Firebase Auth for user management and data storage, my app will leverage a secure and reliable solution to safeguard user data.
+
+Lastly, the risk of encountering time management challenges during the project's development should be acknowledged. To mitigate this risk, careful planning, setting realistic milestones, and monitoring progress regularly will be essential. Additionally, I plan to maintain open communication with my project supervisor to help ensure timely identification and resolution of any issues that may arise.
+
+By addressing these risks and adhering to a realistic project scope, I aim for my Workout & Fitness Tracker app to be successfully developed within the constraints of a fourth-year project, while still providing a valuable tool for users to track and manage their fitness goals.
 
 ![image](https://user-images.githubusercontent.com/55252035/200334447-2bb512b1-1cc6-4541-adca-522627764f92.png)
 
