@@ -38,14 +38,14 @@ const styles = (isDarkMode) =>
       color: isDarkMode ? "white" : "black",
     },
     addExercisesButton: {
-      backgroundColor: "#46C263",
+      backgroundColor: isDarkMode ? "#003d99" : "#46C263",
       paddingVertical: 10,
       paddingHorizontal: 20,
       borderRadius: 5,
       marginTop: 10,
     },
     button: {
-      backgroundColor: "#5897EE",
+      backgroundColor: isDarkMode? "#525252" :"#5897EE",
       paddingVertical: 10,
       paddingHorizontal: 20,
       borderRadius: 5,

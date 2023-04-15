@@ -56,7 +56,7 @@ const styles = (isDarkMode) =>
       marginBottom: 20,
     },
     saveChangesButton: {
-      backgroundColor: "#46C263",
+      backgroundColor: isDarkMode ? "#003d99" : "#46C263",
       paddingVertical: 5,
       paddingHorizontal: 20,
       borderRadius: 5,
@@ -65,7 +65,7 @@ const styles = (isDarkMode) =>
       marginBottom: 10,
     },
     button: {
-      backgroundColor: "#5897EE",
+      backgroundColor: isDarkMode? "#525252" :"#5897EE",
       paddingVertical: 5,
       paddingHorizontal: 20,
       borderRadius: 5,

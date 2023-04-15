@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,70 +14,78 @@ import {
 import { firebase } from "../../firebase/config";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { Switch } from "react-native";
+import { DarkModeContext } from "../../DarkModeContext";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-  },
-  field: {
-    marginVertical: 10,
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  inputField: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    padding: 10,
-    marginVertical: 5,
-    width: "100%",
-    borderRadius: 5,
-  },
-  updateWorkoutButton: {
-    backgroundColor: "#46C263",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  deleteWorkoutButton: {
-    backgroundColor: "#FC3D39",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  button: {
-    backgroundColor: "#5897EE",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  exerciseItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
-  },
-  exerciseName: {
-    fontSize: 16,
-    marginRight: 10,
-  },
-});
+const styles = (isDarkMode) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      padding: 20,
+      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+    },
+    field: {
+      marginVertical: 10,
+      fontSize: 16,
+      fontWeight: "bold",
+      color: isDarkMode ? "white" : "black",
+    },
+    inputField: {
+      height: 40,
+      borderColor: "gray",
+      borderWidth: 1,
+      padding: 10,
+      marginVertical: 5,
+      width: "100%",
+      borderRadius: 5,
+      backgroundColor: isDarkMode ? "#3b3b3b" : "white",
+      color: isDarkMode ? "white" : "black",
+    },
+    updateWorkoutButton: {
+      backgroundColor: isDarkMode ? "#003d99" : "#46C263",
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 5,
+      marginTop: 10,
+    },
+    deleteWorkoutButton: {
+      backgroundColor: isDarkMode ? "#FC3D39" : "#FC3D39",
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 5,
+      marginTop: 10,
+    },
+    button: {
+      backgroundColor: isDarkMode ? "#525252" : "#5897EE",
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 5,
+      marginTop: 10,
+    },
+    buttonText: {
+      color: "white",
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    exerciseItem: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 10,
+    },
+    exerciseName: {
+      fontSize: 16,
+      marginRight: 10,
+      color: isDarkMode ? "white" : "black",
+    },
+  });
 
 const EditWorkout = ({ route, navigation }) => {
   const { workoutId } = route.params;
   const [workoutName, setWorkoutName] = useState("");
   const [exercises, setExercises] = useState([]);
   const [selectedExercises, setSelectedExercises] = useState({});
+  const { isDarkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     const fetchWorkout = async () => {
@@ -190,32 +198,32 @@ const EditWorkout = ({ route, navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.field}>Workout Name:</Text>
+    <SafeAreaView style={styles(isDarkMode).container}>
+      <Text style={styles(isDarkMode).field}>Workout Name:</Text>
       <TextInput
-        style={styles.inputField}
+        style={styles(isDarkMode).inputField}
         value={workoutName}
         onChangeText={setWorkoutName}
       />
-      <Text style={styles.field}>Exercises:</Text>
+      <Text style={styles(isDarkMode).field}>Exercises:</Text>
       <ScrollView>
         {exercises.map((exercise) => (
-          <View key={exercise.id} style={styles.exerciseItem}>
+          <View key={exercise.id} style={styles(isDarkMode).exerciseItem}>
             <Switch
               value={selectedExercises[exercise.id] || false}
               onValueChange={() => toggleExerciseSelection(exercise.id)}
             />
-            <Text style={styles.exerciseName}>{exercise.name}</Text>
+            <Text style={styles(isDarkMode).exerciseName}>{exercise.name}</Text>
           </View>
         ))}
       </ScrollView>
       <TouchableOpacity
-        style={styles.updateWorkoutButton}
+        style={styles(isDarkMode).updateWorkoutButton}
         onPress={updateWorkout}
       >
-        <Text style={styles.buttonText}>Update Workout</Text>
+        <Text style={styles(isDarkMode).buttonText}>Update Workout</Text>
       </TouchableOpacity>
-      <View style={styles.deleteWorkoutButton}>
+      <View style={styles(isDarkMode).deleteWorkoutButton}>
         <Button
           title="Delete Workout"
           color="white"
