@@ -42,29 +42,33 @@ const ViewWorkout = () => {
 
   useEffect(() => {
     const getExercisesData = async () => {
-      const workoutDoc = await firebase
-        .firestore()
-        .collection("Workouts")
-        .doc(workoutId)
-        .get();
-
-      const fetchedWorkoutData = workoutDoc.data();
-      setWorkoutData(fetchedWorkoutData);
-
-      const exercisesData = [];
-      const exercisePromises = fetchedWorkoutData.exercises.map(async (exerciseId) => {
-        const exerciseDoc = await firebase
+        const workoutDoc = await firebase
           .firestore()
-          .collection("Exercises")
-          .doc(exerciseId)
+          .collection("Workouts")
+          .doc(workoutId)
           .get();
-        exercisesData.push(exerciseDoc.data());
-      });
-
-      await Promise.all(exercisePromises);
-      setExercises(exercisesData);
-    };
-
+      
+        const fetchedWorkoutData = workoutDoc.data();
+        setWorkoutData(fetchedWorkoutData);
+      
+        const exercisePromises = fetchedWorkoutData.exercises.map(async (exerciseId) => {
+          const exerciseDoc = await firebase
+            .firestore()
+            .collection("Exercises")
+            .doc(exerciseId)
+            .get();
+      
+          if (exerciseDoc.exists) {
+            const exerciseData = exerciseDoc.data();
+            exerciseData.id = exerciseDoc.id;
+            return exerciseData;
+          }
+          return null;
+        });
+      
+        const exercisesData = (await Promise.all(exercisePromises)).filter((exercise) => exercise !== null);
+        setExercises(exercisesData);
+      };
     getExercisesData();
   }, [workoutId]);
 
@@ -72,11 +76,11 @@ const ViewWorkout = () => {
     <SafeAreaView style={styles.container}>
       <Text style={styles.workoutName}>{workoutData.name}</Text>
       <ScrollView>
-        {exercises.map((exercise, index) => (
-          <View key={index} style={styles.exerciseItem}>
-            <Text style={styles.exerciseName}>{exercise.name}</Text>
-          </View>
-        ))}
+      {exercises.map((exercise) => (
+  <View key={exercise.id} style={styles.exerciseItem}>
+    <Text style={styles.exerciseName}>{exercise.name}</Text>
+  </View>
+))}
       </ScrollView>
     </SafeAreaView>
   );

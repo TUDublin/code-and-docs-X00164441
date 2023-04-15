@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   ScrollView,
   Alert,
+  Modal,
 } from "react-native";
 import { firebase } from "../../firebase/config";
 import { useNavigation } from "@react-navigation/native";
@@ -29,10 +30,25 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "#ffffff",
+    borderRadius: 10,
+    padding: 20,
+    width: "90%",
+  },
 });
 
 const WorkoutList = () => {
   const [workouts, setWorkouts] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedWorkout, setSelectedWorkout] = useState(null);
+  const [exerciseNames, setExerciseNames] = useState([]);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -52,17 +68,35 @@ const WorkoutList = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleWorkoutPress = (workoutId) => {
+  const showWorkoutInfo = async (workout) => {
+    setSelectedWorkout(workout);
+  
+    const fetchedExerciseNames = await Promise.all(
+      workout.exercises.map(async (exerciseId) => {
+        const exerciseDoc = await firebase
+          .firestore()
+          .collection("Exercises")
+          .doc(exerciseId)
+          .get();
+        const exerciseData = exerciseDoc.data();
+        return exerciseData ? exerciseData.name : `Missing exercise (${exerciseId})`;
+      })
+    );
+  
+    setExerciseNames(fetchedExerciseNames);
+    setModalVisible(true);
+  };
+
+  const handleWorkoutPress = (workout) => {
     Alert.alert("Options", "View or Edit Workout", [
       {
         text: "View",
-        onPress: () =>
-          navigation.navigate("ViewWorkout", { workoutId: workoutId }),
+        onPress: () => showWorkoutInfo(workout),
       },
       {
         text: "Edit",
         onPress: () =>
-          navigation.navigate("EditWorkout", { workoutId: workoutId }),
+          navigation.navigate("EditWorkout", { workoutId: workout.id }),
       },
       {
         text: "Cancel",
@@ -79,12 +113,36 @@ const WorkoutList = () => {
           <TouchableOpacity
             key={workout.id}
             style={styles.workoutItem}
-            onPress={() => handleWorkoutPress(workout.id)}
+            onPress={() => handleWorkoutPress(workout)}
           >
             <Text style={styles.workoutName}>{workout.name}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
+
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            {selectedWorkout && (
+              <>
+                <Text style={styles.workoutName}>
+                  Workout: {selectedWorkout.name}
+                </Text>
+                <Text>Exercises:</Text>
+                {exerciseNames.map((exerciseName, index) => (
+                  <Text key={index}>- {exerciseName}</Text>
+                ))}
+                <TouchableOpacity
+                  style={{ marginTop: 20 }}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <Text>Close</Text>
+                </TouchableOpacity>
+              </>
+            )}
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };

@@ -43,8 +43,10 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "space-between",
-    width: "99%",
+    width: "100%",
+    marginBottom: 20,
   },
   saveChangesButton: {
     backgroundColor: "#46C263",
@@ -53,14 +55,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: "30%",
     marginTop: 20,
-    marginBottom: 150
+    marginBottom: 10,
   },
   button: {
     backgroundColor: "#5897EE",
     paddingVertical: 5,
     paddingHorizontal: 20,
     borderRadius: 5,
-    marginTop: 30,
+    marginTop: 10,
     width: "30%",
   },
   buttonText: {
@@ -93,6 +95,14 @@ export default function UserScreen() {
 
   const navigateToExercises = () => {
     navigation.navigate("Exercises");
+  };
+
+  const navigateToViewExercises = () => {
+    navigation.navigate("ViewExercises");
+  };
+
+  const navigateToCreateWorkout = () => {
+    navigation.navigate("CreateWorkout");
   };
 
   const navigateToWorkoutList = () => {
@@ -259,9 +269,18 @@ export default function UserScreen() {
           <Text style={styles.buttonText}>Add Exercises</Text>
         </TouchableOpacity>
 
+        <TouchableOpacity style={styles.button} onPress={navigateToViewExercises}>
+          <Text style={styles.buttonText}>View Exercises</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={navigateToCreateWorkout}>
+          <Text style={styles.buttonText}>Create Workout</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity style={styles.button} onPress={navigateToWorkoutList}>
           <Text style={styles.buttonText}>Edit/View Workouts</Text>
         </TouchableOpacity>
+
       </View>
     </SafeAreaView>
   );
