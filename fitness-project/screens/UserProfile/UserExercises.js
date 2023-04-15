@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,66 +9,73 @@ import {
 } from 'react-native';
 import { firebase } from '../../firebase/config';
 import { useRoute, useNavigation } from "@react-navigation/native";
+import { DarkModeContext } from "../../DarkModeContext";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  field: {
-    marginVertical: 10,
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  inputField: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    padding: 10,
-    marginVertical: 5,
-    width: '100%',
-    borderRadius: 5,
-  },
-  addExercisesButton: {
-    backgroundColor: "#46C263",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  button: {
-    backgroundColor: "#5897EE",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  filterButton: {
-    backgroundColor: "#46C263",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  exerciseItem: {
-    backgroundColor: "#e6e6e6",
-    borderRadius: 5,
-    padding: 10,
-    marginTop: 10,
-    width: "100%",
-  },
-  exerciseName: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-});
+const styles = (isDarkMode) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      padding: 20,
+      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+    },
+    field: {
+      marginVertical: 10,
+      fontSize: 16,
+      fontWeight: "bold",
+      color: isDarkMode ? "white" : "black",
+    },
+    inputField: {
+      height: 40,
+      borderColor: "gray",
+      borderWidth: 1,
+      padding: 10,
+      marginVertical: 5,
+      width: "100%",
+      borderRadius: 5,
+      backgroundColor: isDarkMode ? "#3b3b3b" : "white",
+      color: isDarkMode ? "white" : "black",
+    },
+    addExercisesButton: {
+      backgroundColor: "#46C263",
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 5,
+      marginTop: 10,
+    },
+    button: {
+      backgroundColor: "#5897EE",
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 5,
+      marginTop: 10,
+    },
+    buttonText: {
+      color: "white",
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    filterButton: {
+      backgroundColor: "#46C263",
+      paddingVertical: 10,
+      paddingHorizontal: 20,
+      borderRadius: 5,
+      marginTop: 10,
+    },
+    exerciseItem: {
+      backgroundColor: isDarkMode ? "#3b3b3b" : "#e6e6e6",
+      borderRadius: 5,
+      padding: 10,
+      marginTop: 10,
+      width: "100%",
+    },
+    exerciseName: {
+      fontSize: 16,
+      fontWeight: "bold",
+      color: isDarkMode ? "white" : "black",
+    },
+  });
 
 export default function UserWorkouts() {
   const [name, setName] = useState('');
@@ -76,8 +83,7 @@ export default function UserWorkouts() {
   const [imageUrl, setImageUrl] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
   const navigation = useNavigation();
-  const [allExercises, setAllExercises] = useState([]);
-  const [filteredExercises, setFilteredExercises] = useState([]);
+  const { isDarkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
@@ -127,32 +133,33 @@ export default function UserWorkouts() {
       });
   };
   
+ 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.field}>Exercise Name:</Text>
+    <SafeAreaView style={styles(isDarkMode).container}>
+      <Text style={styles(isDarkMode).field}>Exercise Name:</Text>
       <TextInput
-        style={styles.inputField}
+        style={styles(isDarkMode).inputField}
         value={name}
         onChangeText={setName}
       />
-      <Text style={styles.field}>Body Part:</Text>
+      <Text style={styles(isDarkMode).field}>Body Part:</Text>
       <TextInput
-        style={styles.inputField}
+        style={styles(isDarkMode).inputField}
         value={bodyPart}
         onChangeText={setBodyPart}
       />
-      <Text style={styles.field}>Image URL:</Text>
+      <Text style={styles(isDarkMode).field}>Image URL:</Text>
       <TextInput
-        style={styles.inputField}
+        style={styles(isDarkMode).inputField}
         value={imageUrl}
         onChangeText={setImageUrl}
       />
-      <TouchableOpacity style={styles.addExercisesButton} onPress={addExercise}>
-        <Text style={styles.buttonText}>Add Exercise</Text>
+      <TouchableOpacity style={styles(isDarkMode).addExercisesButton} onPress={addExercise}>
+        <Text style={styles(isDarkMode).buttonText}>Add Exercise</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={navigateToWorkouts}>
-        <Text style={styles.buttonText}>Create Workout</Text>
+      <TouchableOpacity style={styles(isDarkMode).button} onPress={navigateToWorkouts}>
+        <Text style={styles(isDarkMode).buttonText}>Create Workout</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
