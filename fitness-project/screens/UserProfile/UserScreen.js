@@ -12,74 +12,74 @@ import {
 import React, { useState, useContext, useEffect } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { firebase } from "../../firebase/config";
+import { DarkModeContext } from "../../DarkModeContext";
+import { MaterialIcons } from "@expo/vector-icons";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 150,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  field: {
-    marginVertical: 10,
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  inputField: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    padding: 10,
-    marginVertical: 5,
-    width: "100%",
-    borderRadius: 5,
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    width: "100%",
-    marginBottom: 20,
-  },
-  saveChangesButton: {
-    backgroundColor: "#46C263",
-    paddingVertical: 5,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    width: "30%",
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  button: {
-    backgroundColor: "#5897EE",
-    paddingVertical: 5,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10,
-    width: "30%",
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  editContainer: {
-    flexDirection: "row",
-    backgroundColor: "grey",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginTop: 20,
-    width: "100%",
-  },
-});
+const styles = (isDarkMode) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      padding: 20,
+      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+    },
+    title: {
+      fontSize: 24,
+      fontWeight: "bold",
+      marginTop: 20,
+      marginBottom: 10,
+      color: isDarkMode ? "white" : "black",
+    },
+    field: {
+      marginVertical: 10,
+      fontSize: 16,
+      fontWeight: "bold",
+      color: isDarkMode ? "white" : "black",
+    },
+    input: {
+      height: 40,
+      borderColor: "gray",
+      borderWidth: 1,
+      padding: 10,
+      marginVertical: 5,
+      width: "100%",
+      borderRadius: 5,
+      backgroundColor: isDarkMode ? "#3b3b3b" : "white",
+      color: isDarkMode ? "white" : "black",
+    },
+    buttonContainer: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      justifyContent: "space-between",
+      width: "100%",
+      marginBottom: 20,
+    },
+    saveChangesButton: {
+      backgroundColor: "#46C263",
+      paddingVertical: 5,
+      paddingHorizontal: 20,
+      borderRadius: 5,
+      width: "30%",
+      marginTop: 20,
+      marginBottom: 10,
+    },
+    button: {
+      backgroundColor: "#5897EE",
+      paddingVertical: 5,
+      paddingHorizontal: 20,
+      borderRadius: 5,
+      marginTop: 10,
+      width: "30%",
+    },
+    buttonText: {
+      color: "white",
+      fontSize: 18,
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+ 
+  });
 
 export default function UserScreen() {
   const [fullName, setFullName] = useState("");
@@ -88,6 +88,24 @@ export default function UserScreen() {
   const [location, setLocation] = useState("");
   const [sex, setSex] = useState("");
   const navigation = useNavigation();
+
+  const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  const darkModeButton = (
+    <TouchableOpacity
+      onPress={toggleDarkMode}
+      style={{ position: "absolute", top: 40, right: 20 }}
+    >
+      <MaterialIcons
+        name={isDarkMode ? "lightbulb-outline" : "lightbulb"}
+        size={24}
+        color={isDarkMode ? "white" : "black"}
+      />
+    </TouchableOpacity>
+  );
 
   const navigateToHome = () => {
     navigation.navigate("Home");
@@ -234,53 +252,82 @@ export default function UserScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Hello, {fullName}</Text>
-      <Text style={styles.field}>Full Name:</Text>
+    <SafeAreaView style={styles(isDarkMode).container}>
+      {darkModeButton}
+      <Text style={styles(isDarkMode).title}>Hello, {fullName}</Text>
+      <Text style={styles(isDarkMode).field}>Full Name:</Text>
       <TextInput
-        style={styles.input}
+        style={styles(isDarkMode).input}
         value={fullName}
         onChangeText={setFullName}
       />
-      <Text style={styles.field}>Email:</Text>
-      <TextInput style={styles.input} value={email} onChangeText={setEmail} />
-      <Text style={styles.field}>Age:</Text>
-      <TextInput style={styles.input} value={age} onChangeText={setAge} />
-      <Text style={styles.field}>Location:</Text>
+      <Text style={styles(isDarkMode).field}>Email:</Text>
       <TextInput
-        style={styles.input}
+        style={styles(isDarkMode).input}
+        value={email}
+        onChangeText={setEmail}
+      />
+      <Text style={styles(isDarkMode).field}>Age:</Text>
+      <TextInput
+        style={styles(isDarkMode).input}
+        value={age}
+        onChangeText={setAge}
+      />
+      <Text style={styles(isDarkMode).field}>Location:</Text>
+      <TextInput
+        style={styles(isDarkMode).input}
         value={location}
         onChangeText={setLocation}
       />
-      <Text style={styles.field}>Sex:</Text>
-      <TextInput style={styles.input} value={sex} onChangeText={setSex} />
+      <Text style={styles(isDarkMode).field}>Sex:</Text>
+      <TextInput
+        style={styles(isDarkMode).input}
+        value={sex}
+        onChangeText={setSex}
+      />
 
-      <TouchableOpacity style={styles.saveChangesButton} onPress={saveChanges}>
-        <Text style={styles.buttonText}>Save Changes</Text>
+      <TouchableOpacity
+        style={styles(isDarkMode).saveChangesButton}
+        onPress={saveChanges}
+      >
+        <Text style={styles(isDarkMode).buttonText}>Save Changes</Text>
       </TouchableOpacity>
 
-      <View style={styles.buttonContainer}>
-
-        <TouchableOpacity style={styles.button} onPress={navigateToHome}>
-          <Text style={styles.buttonText}>Go to Home</Text>
+      <View style={styles(isDarkMode).buttonContainer}>
+        <TouchableOpacity
+          style={styles(isDarkMode).button}
+          onPress={navigateToHome}
+        >
+          <Text style={styles(isDarkMode).buttonText}>Go to Home</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={navigateToExercises}>
-          <Text style={styles.buttonText}>Add Exercises</Text>
+        <TouchableOpacity
+          style={styles(isDarkMode).button}
+          onPress={navigateToExercises}
+        >
+          <Text style={styles(isDarkMode).buttonText}>Add Exercises</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={navigateToViewExercises}>
-          <Text style={styles.buttonText}>View Exercises</Text>
+        <TouchableOpacity
+          style={styles(isDarkMode).button}
+          onPress={navigateToViewExercises}
+        >
+          <Text style={styles(isDarkMode).buttonText}>View Exercises</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={navigateToCreateWorkout}>
-          <Text style={styles.buttonText}>Create Workout</Text>
+        <TouchableOpacity
+          style={styles(isDarkMode).button}
+          onPress={navigateToCreateWorkout}
+        >
+          <Text style={styles(isDarkMode).buttonText}>Create Workout</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={navigateToWorkoutList}>
-          <Text style={styles.buttonText}>Edit/View Workouts</Text>
+        <TouchableOpacity
+          style={styles(isDarkMode).button}
+          onPress={navigateToWorkoutList}
+        >
+          <Text style={styles(isDarkMode).buttonText}>Edit/View Workouts</Text>
         </TouchableOpacity>
-
       </View>
     </SafeAreaView>
   );

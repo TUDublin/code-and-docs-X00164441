@@ -12,7 +12,6 @@ import UserExercises from './screens/UserProfile/UserExercises'
 import CreateWorkout from './screens/UserProfile/CreateWorkout'
 import EditWorkout from './screens/UserProfile/EditWorkout'
 import WorkoutList from "./screens/UserProfile/WorkoutList";
-import ViewWorkout from './screens/UserProfile/ViewWorkout'
 import ViewExercises from './screens/UserProfile/ViewExercises'
 
 const StackNavigator = () => {
@@ -44,7 +43,6 @@ const StackNavigator = () => {
             <Stack.Screen name="ViewExercises" component={ViewExercises} options={{ title: "View Exercises"}} />
             <Stack.Screen name="CreateWorkout" component={CreateWorkout} options={{ title: "Create Workout" }} />
             <Stack.Screen name="EditWorkout" component={EditWorkout} options={{ title: "Edit Workout" }} />
-            <Stack.Screen name="ViewWorkout" component={ViewWorkout} options={{ title: "View Workout" }} />
             <Stack.Screen name="WorkoutList" component={WorkoutList} options={{ title: "Workout List" }} />
             <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}} />
             <Stack.Screen name="Workout" component={WorkoutScreen} options={{headerShown:false}} />
