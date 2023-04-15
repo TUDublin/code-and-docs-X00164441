@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   SafeAreaView,
+  Alert,
   Image,
   Pressable,
   ScrollView,
@@ -65,7 +66,7 @@ const styles = (isDarkMode) =>
       marginBottom: 10,
     },
     button: {
-      backgroundColor: isDarkMode? "#525252" :"#5897EE",
+      backgroundColor: isDarkMode ? "#525252" : "#5897EE",
       paddingVertical: 5,
       paddingHorizontal: 20,
       borderRadius: 5,
@@ -78,7 +79,6 @@ const styles = (isDarkMode) =>
       fontWeight: "bold",
       textAlign: "center",
     },
- 
   });
 
 export default function UserScreen() {
@@ -125,6 +125,69 @@ export default function UserScreen() {
 
   const navigateToWorkoutList = () => {
     navigation.navigate("WorkoutList");
+  };
+
+  const deleteAccount = async (currentUser) => {
+    if (!currentUser) return;
+
+    const uid = currentUser.uid;
+    const usersRef = firebase.firestore().collection("users");
+    const workoutsRef = firebase.firestore().collection("Workouts");
+    const exercisesRef = firebase.firestore().collection("Exercises");
+
+    // Delete exercises created by the user
+    try {
+      const exercisesSnapshot = await exercisesRef
+        .where("userId", "==", uid)
+        .get();
+
+      const batch = firebase.firestore().batch();
+
+      exercisesSnapshot.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+
+      await batch.commit();
+    } catch (error) {
+      console.log("Error deleting user's exercises:", error);
+    }
+
+    // Delete workouts created by the user
+    try {
+      const workoutsSnapshot = await workoutsRef
+        .where("userId", "==", uid)
+        .get();
+
+      const batch = firebase.firestore().batch();
+
+      workoutsSnapshot.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+
+      await batch.commit();
+    } catch (error) {
+      console.log("Error deleting user's workouts:", error);
+    }
+
+    // Delete user document from the users collection
+    try {
+      const userSnapshot = await usersRef.where("id", "==", uid).limit(1).get();
+
+      userSnapshot.forEach((doc) => {
+        doc.ref.delete();
+      });
+    } catch (error) {
+      console.log("Error deleting user document:", error);
+    }
+
+    // Delete user from authentication
+    try {
+      await currentUser.delete();
+    } catch (error) {
+      console.log("Error deleting user from authentication:", error);
+    }
+
+    navigation.navigate("Login");
   };
 
   useEffect(() => {
@@ -327,6 +390,51 @@ export default function UserScreen() {
           onPress={navigateToWorkoutList}
         >
           <Text style={styles(isDarkMode).buttonText}>Edit/View Workouts</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles(isDarkMode).button,
+            { backgroundColor: "red", marginTop: 20 },
+          ]}
+          onPress={() => {
+            Alert.alert(
+              "Are you sure you want to delete your account?",
+              "All data will be deleted",
+              [
+                {
+                  text: "Cancel",
+                  style: "cancel",
+                },
+                {
+                  text: "I'm sure",
+                  onPress: () =>
+                    Alert.alert(
+                      "This action is not reversible",
+                      "Do you wish to continue?",
+                      [
+                        {
+                          text: "Cancel",
+                          style: "cancel",
+                        },
+                        {
+                          text: "Continue",
+                          onPress: async () => {
+                            await deleteAccount(firebase.auth().currentUser);
+                            Alert.alert(
+                              "Account deletion successful",
+                              `Account (${email}) has been successfully deleted.`
+                            );
+                          },
+                        },
+                      ]
+                    ),
+                },
+              ]
+            );
+          }}
+        >
+          <Text style={styles(isDarkMode).buttonText}>Delete Account</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

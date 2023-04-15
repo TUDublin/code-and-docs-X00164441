@@ -73,10 +73,12 @@ const ViewExercises = () => {
   const [selectedExercise, setSelectedExercise] = useState(null);
 
   useEffect(() => {
+    const userId = firebase.auth().currentUser.uid;
+  
     const unsubscribe = firebase
       .firestore()
       .collection("Exercises")
-      .where("userId", "==", userId)
+      .where("userId", "==", userId) // Filter exercises by the current user's UID
       .onSnapshot((querySnapshot) => {
         const exercisesData = [];
         const bodyPartsData = [];
@@ -92,7 +94,7 @@ const ViewExercises = () => {
         setFilteredExercises(exercisesData);
         setBodyParts(["All", ...bodyPartsData]);
       });
-
+  
     return () => unsubscribe();
   }, []);
 

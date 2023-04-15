@@ -76,15 +76,19 @@ const CreateWorkout = () => {
   const [selectedExercises, setSelectedExercises] = useState({});
   const navigation = useNavigation();
   const { isDarkMode } = useContext(DarkModeContext);
+  const currentUser = firebase.auth().currentUser;
 
   const navigateToWorkoutList = () => {
     navigation.navigate("WorkoutList");
   };
 
   useEffect(() => {
+    if (!currentUser) return;
+
     const unsubscribe = firebase
       .firestore()
       .collection("Exercises")
+      .where("userId", "==", currentUser.uid)
       .onSnapshot((querySnapshot) => {
         const exercisesData = [];
         querySnapshot.forEach((doc) => {
@@ -96,7 +100,7 @@ const CreateWorkout = () => {
       });
 
     return () => unsubscribe();
-  }, []);
+  }, [currentUser]);
 
   const toggleExerciseSelection = (exerciseId) => {
     setSelectedExercises((prevState) => ({
@@ -123,6 +127,7 @@ const CreateWorkout = () => {
     const workoutData = {
       name: workoutName,
       exercises: selectedExerciseIds,
+      userId: firebase.auth().currentUser.uid,
     };
 
     try {

@@ -57,9 +57,14 @@ const WorkoutList = () => {
   const { isDarkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
-    const unsubscribe = firebase
-      .firestore()
-      .collection("Workouts")
+    const currentUser = firebase.auth().currentUser;
+    if (!currentUser) return;
+  
+    const uid = currentUser.uid;
+    const workoutsRef = firebase.firestore().collection("Workouts");
+  
+    const unsubscribe = workoutsRef
+      .where("userId", "==", uid) // Filter workouts by current user's UID
       .onSnapshot((querySnapshot) => {
         const workoutsData = [];
         querySnapshot.forEach((doc) => {
@@ -69,7 +74,7 @@ const WorkoutList = () => {
         });
         setWorkouts(workoutsData);
       });
-
+  
     return () => unsubscribe();
   }, []);
 
