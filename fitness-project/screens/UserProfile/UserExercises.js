@@ -4,11 +4,10 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View,
   SafeAreaView,
 } from 'react-native';
 import { firebase } from '../../firebase/config';
-import { useRoute, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { DarkModeContext } from "../../DarkModeContext";
 
 const styles = (isDarkMode) =>

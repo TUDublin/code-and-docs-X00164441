@@ -6,12 +6,9 @@ import {
   View,
   SafeAreaView,
   Alert,
-  Image,
-  Pressable,
-  ScrollView,
 } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
-import { useRoute, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../../firebase/config";
 import { DarkModeContext } from "../../DarkModeContext";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -109,6 +106,10 @@ export default function UserScreen() {
 
   const navigateToHome = () => {
     navigation.navigate("Home");
+  };
+
+  const navigateToCalorieTracker = () => {
+    navigation.navigate("CalorieTracker");
   };
 
   const navigateToExercises = () => {
@@ -230,7 +231,19 @@ export default function UserScreen() {
     return unsubscribe;
   }, []);
 
-  const saveChanges = () => {
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
+        }
+      }
+    })();
+  }, []);
+
+  const saveChanges = async () => {
     const user = firebase.auth().currentUser;
     if (user) {
       const userRef = firebase
@@ -359,7 +372,7 @@ export default function UserScreen() {
       <View style={styles(isDarkMode).buttonContainer}>
         <TouchableOpacity
           style={styles(isDarkMode).button}
-          onPress={navigateToHome}
+          onPress={navigateToCalorieTracker}
         >
           <Text style={styles(isDarkMode).buttonText}>Go to Home</Text>
         </TouchableOpacity>

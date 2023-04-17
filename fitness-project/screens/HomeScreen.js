@@ -3,12 +3,11 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
   ScrollView,
   Image,
 } from "react-native";
-import React, { useContext, useState } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import React, { useContext, } from "react";
+import { useNavigation } from "@react-navigation/native";
 import FitnessCards from "../components/FitnessCards";
 import { FitnessItems } from "../Context";
 
