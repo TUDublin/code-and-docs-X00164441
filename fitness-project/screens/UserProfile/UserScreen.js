@@ -108,6 +108,10 @@ export default function UserScreen() {
     navigation.navigate("Home");
   };
 
+  const navigateToWeightTracker = () => {
+    navigation.navigate("WeightTracker");
+  };
+
   const navigateToCalorieTracker = () => {
     navigation.navigate("CalorieTracker");
   };
@@ -372,7 +376,7 @@ export default function UserScreen() {
       <View style={styles(isDarkMode).buttonContainer}>
         <TouchableOpacity
           style={styles(isDarkMode).button}
-          onPress={navigateToCalorieTracker}
+          onPress={navigateToWeightTracker}
         >
           <Text style={styles(isDarkMode).buttonText}>Go to Home</Text>
         </TouchableOpacity>
