@@ -68,7 +68,7 @@ const styles = (isDarkMode) =>
       paddingHorizontal: 20,
       borderRadius: 5,
       marginTop: 10,
-      width: "30%",
+      width: "32%",
     },
     buttonText: {
       color: "white",
@@ -110,6 +110,10 @@ export default function UserScreen() {
 
   const navigateToWeightTracker = () => {
     navigation.navigate("WeightTracker");
+  };
+
+  const navigateToDashboard = () => {
+    navigation.navigate("Dashboard");
   };
 
   const navigateToCalorieTracker = () => {
@@ -376,9 +380,9 @@ export default function UserScreen() {
       <View style={styles(isDarkMode).buttonContainer}>
         <TouchableOpacity
           style={styles(isDarkMode).button}
-          onPress={navigateToWeightTracker}
+          onPress={navigateToDashboard}
         >
-          <Text style={styles(isDarkMode).buttonText}>Go to Home</Text>
+          <Text style={styles(isDarkMode).buttonText}>Dashboard</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
