@@ -26,10 +26,11 @@ const StackNavigator = () => {
       <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#ececec',
+          backgroundColor: 'white',
         },
-        headerTintColor: 'black',
+        headerTintColor: '#1463F3',
         headerTitleStyle: {
+          color: 'black',
           fontWeight: 'bold',
         },
       }}>

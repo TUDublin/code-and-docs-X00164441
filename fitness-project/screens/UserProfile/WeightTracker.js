@@ -78,7 +78,6 @@ const styles = (isDarkMode) =>
       color: isDarkMode ? "white" : "black",
     },
     modalButtons: {
-      flexDirection: "row",
       marginTop: 20,
       justifyContent: "space-between",
       width: "100%",
@@ -86,8 +85,10 @@ const styles = (isDarkMode) =>
     cancelButton: {
       backgroundColor: "red",
       padding: 10,
+      marginTop: 20,
+      marginBottom: 20,
       borderRadius: 5,
-      width: "40%",
+      width: "100%",
     },
   });
 
@@ -300,7 +301,7 @@ const WeightTracker = () => {
       <TouchableOpacity onPress={addWeightMeasurement} style={styles().button}>
         <Text style={styles().buttonText}>Add Weight</Text>
       </TouchableOpacity>
-      <View style={{ flex: 1, width: "100%" }}>
+      <View style={{ flex: 1, width: "90%" }}>
         <View style={{ flexDirection: "row", flex: 1 }}>
           <YAxis
             data={graphData}

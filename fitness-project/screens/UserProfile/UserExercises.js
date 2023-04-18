@@ -31,7 +31,7 @@ const styles = (isDarkMode) =>
       borderWidth: 1,
       padding: 10,
       marginVertical: 5,
-      width: "100%",
+      width: "72%",
       borderRadius: 5,
       backgroundColor: isDarkMode ? "#3b3b3b" : "white",
       color: isDarkMode ? "white" : "black",

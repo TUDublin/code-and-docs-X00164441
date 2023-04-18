@@ -6,6 +6,7 @@ import {
   View,
   SafeAreaView,
   Alert,
+  Modal,
 } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -41,40 +42,60 @@ const styles = (isDarkMode) =>
       borderWidth: 1,
       padding: 10,
       marginVertical: 5,
-      width: "100%",
+      width: "72%",
       borderRadius: 5,
       backgroundColor: isDarkMode ? "#3b3b3b" : "white",
       color: isDarkMode ? "white" : "black",
     },
-    buttonContainer: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-      justifyContent: "space-between",
-      width: "100%",
-      marginBottom: 20,
-    },
     saveChangesButton: {
-      backgroundColor: isDarkMode ? "#003d99" : "#46C263",
-      paddingVertical: 5,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      height: 40,
       paddingHorizontal: 20,
-      borderRadius: 5,
-      width: "30%",
+      alignSelf: "center",
       marginTop: 20,
+      marginLeft: 20,
       marginBottom: 10,
     },
-    button: {
-      backgroundColor: isDarkMode ? "#525252" : "#5897EE",
-      paddingVertical: 5,
-      paddingHorizontal: 20,
-      borderRadius: 5,
-      marginTop: 10,
-      width: "32%",
-    },
-    buttonText: {
-      color: "white",
-      fontSize: 18,
+    saveChangesText: {
+      color: isDarkMode ? "white" : "#1463F3",
+      fontSize: 14,
       fontWeight: "bold",
       textAlign: "center",
+    },
+    button: {
+      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+      paddingVertical: 5,
+      width: "100%",
+      borderBottomWidth: 1,
+      borderBottomColor: isDarkMode ? "white" : "black",
+    },
+    buttonText: { 
+      color: isDarkMode ? "white" : "black",
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    modalOverlay: {
+      flex: 1,
+      justifyContent: "flex-start",
+      alignItems: "flex-end",
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+    modalView: {
+      marginTop: 60,
+      marginRight: 20,
+      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+      borderRadius: 10,
+      padding: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
     },
   });
 
@@ -85,6 +106,110 @@ export default function UserScreen() {
   const [location, setLocation] = useState("");
   const [sex, setSex] = useState("");
   const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const ModalMenu = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <TouchableOpacity
+          style={styles(isDarkMode).modalOverlay}
+          onPress={() => setModalVisible(!modalVisible)}
+        >
+          <View style={styles(isDarkMode).modalView}>
+            <TouchableOpacity
+              style={styles(isDarkMode).button}
+              onPress={navigateToDashboard}
+            >
+              <Text style={styles(isDarkMode).buttonText}>Dashboard</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).button}
+              onPress={navigateToViewExercises}
+            >
+              <Text style={styles(isDarkMode).buttonText}>View Exercises</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).button}
+              onPress={navigateToWorkoutList}
+            >
+              <Text style={styles(isDarkMode).buttonText}>
+                Edit/View Workouts
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).button}
+              onPress={navigateToExercises}
+            >
+              <Text style={styles(isDarkMode).buttonText}>Add Exercises</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).button}
+              onPress={navigateToCreateWorkout}
+            >
+              <Text style={styles(isDarkMode).buttonText}>Create Workout</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{
+                left: 140,
+              }}
+              onPress={() => {
+                Alert.alert(
+                  "Are you sure you want to delete your account?",
+                  "All data will be deleted",
+                  [
+                    {
+                      text: "Cancel",
+                      style: "cancel",
+                    },
+                    {
+                      text: "I'm sure",
+                      onPress: () =>
+                        Alert.alert(
+                          "This action is not reversible",
+                          "Do you wish to continue?",
+                          [
+                            {
+                              text: "Cancel",
+                              style: "cancel",
+                            },
+                            {
+                              text: "Continue",
+                              onPress: async () => {
+                                await deleteAccount(
+                                  firebase.auth().currentUser
+                                );
+                                Alert.alert(
+                                  "Account deletion successful",
+                                  `Account (${email}) has been successfully deleted.`
+                                );
+                              },
+                            },
+                          ]
+                        ),
+                    },
+                  ]
+                );
+              }}
+            >
+              <MaterialIcons
+                name="delete"
+                size={32}
+                color={isDarkMode ? "#a90505" : "#a90505"}
+              />
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      </Modal>
+    );
+  };
 
   const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
   const toggleDarkMode = () => {
@@ -99,40 +224,33 @@ export default function UserScreen() {
       <MaterialIcons
         name={isDarkMode ? "lightbulb-outline" : "lightbulb"}
         size={24}
-        color={isDarkMode ? "white" : "black"}
+        color={isDarkMode ? "white" : "#1463F3"}
       />
     </TouchableOpacity>
   );
 
-  const navigateToHome = () => {
-    navigation.navigate("Home");
-  };
-
-  const navigateToWeightTracker = () => {
-    navigation.navigate("WeightTracker");
-  };
-
   const navigateToDashboard = () => {
+    setModalVisible(!modalVisible);
     navigation.navigate("Dashboard");
   };
 
-  const navigateToCalorieTracker = () => {
-    navigation.navigate("CalorieTracker");
-  };
-
   const navigateToExercises = () => {
+    setModalVisible(!modalVisible);
     navigation.navigate("Exercises");
   };
 
   const navigateToViewExercises = () => {
+    setModalVisible(!modalVisible);
     navigation.navigate("ViewExercises");
   };
 
   const navigateToCreateWorkout = () => {
+    setModalVisible(!modalVisible);
     navigation.navigate("CreateWorkout");
   };
 
   const navigateToWorkoutList = () => {
+    setModalVisible(!modalVisible);
     navigation.navigate("WorkoutList");
   };
 
@@ -251,6 +369,20 @@ export default function UserScreen() {
     })();
   }, []);
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => setModalVisible(true)} style={{}}>
+          <MaterialIcons
+            name="more-vert"
+            size={32}
+            color={isDarkMode ? "white" : "#1463F3"}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, isDarkMode, setModalVisible]);
+
   const saveChanges = async () => {
     const user = firebase.auth().currentUser;
     if (user) {
@@ -337,6 +469,7 @@ export default function UserScreen() {
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
+      <ModalMenu />
       {darkModeButton}
       <Text style={styles(isDarkMode).title}>Hello, {fullName}</Text>
       <Text style={styles(isDarkMode).field}>Full Name:</Text>
@@ -374,90 +507,9 @@ export default function UserScreen() {
         style={styles(isDarkMode).saveChangesButton}
         onPress={saveChanges}
       >
-        <Text style={styles(isDarkMode).buttonText}>Save Changes</Text>
+        <Text style={styles(isDarkMode).saveChangesText}>Save</Text>
+        <MaterialIcons name="check" size={16} color="#1463F3" />
       </TouchableOpacity>
-
-      <View style={styles(isDarkMode).buttonContainer}>
-        <TouchableOpacity
-          style={styles(isDarkMode).button}
-          onPress={navigateToDashboard}
-        >
-          <Text style={styles(isDarkMode).buttonText}>Dashboard</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles(isDarkMode).button}
-          onPress={navigateToExercises}
-        >
-          <Text style={styles(isDarkMode).buttonText}>Add Exercises</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles(isDarkMode).button}
-          onPress={navigateToViewExercises}
-        >
-          <Text style={styles(isDarkMode).buttonText}>View Exercises</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles(isDarkMode).button}
-          onPress={navigateToCreateWorkout}
-        >
-          <Text style={styles(isDarkMode).buttonText}>Create Workout</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles(isDarkMode).button}
-          onPress={navigateToWorkoutList}
-        >
-          <Text style={styles(isDarkMode).buttonText}>Edit/View Workouts</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={[
-            styles(isDarkMode).button,
-            { backgroundColor: "red", marginTop: 20 },
-          ]}
-          onPress={() => {
-            Alert.alert(
-              "Are you sure you want to delete your account?",
-              "All data will be deleted",
-              [
-                {
-                  text: "Cancel",
-                  style: "cancel",
-                },
-                {
-                  text: "I'm sure",
-                  onPress: () =>
-                    Alert.alert(
-                      "This action is not reversible",
-                      "Do you wish to continue?",
-                      [
-                        {
-                          text: "Cancel",
-                          style: "cancel",
-                        },
-                        {
-                          text: "Continue",
-                          onPress: async () => {
-                            await deleteAccount(firebase.auth().currentUser);
-                            Alert.alert(
-                              "Account deletion successful",
-                              `Account (${email}) has been successfully deleted.`
-                            );
-                          },
-                        },
-                      ]
-                    ),
-                },
-              ]
-            );
-          }}
-        >
-          <Text style={styles(isDarkMode).buttonText}>Delete Account</Text>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 }
