@@ -108,6 +108,31 @@ export default function UserScreen() {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
 
+  const navigateToDashboard = () => {
+    setModalVisible(!modalVisible);
+    navigation.navigate("Dashboard");
+  };
+
+  const navigateToExercises = () => {
+    setModalVisible(!modalVisible);
+    navigation.navigate("Exercises");
+  };
+
+  const navigateToViewExercises = () => {
+    setModalVisible(!modalVisible);
+    navigation.navigate("ViewExercises");
+  };
+
+  const navigateToCreateWorkout = () => {
+    setModalVisible(!modalVisible);
+    navigation.navigate("CreateWorkout");
+  };
+
+  const navigateToWorkoutList = () => {
+    setModalVisible(!modalVisible);
+    navigation.navigate("WorkoutList");
+  };
+
   const ModalMenu = () => {
     return (
       <Modal
@@ -228,31 +253,6 @@ export default function UserScreen() {
       />
     </TouchableOpacity>
   );
-
-  const navigateToDashboard = () => {
-    setModalVisible(!modalVisible);
-    navigation.navigate("Dashboard");
-  };
-
-  const navigateToExercises = () => {
-    setModalVisible(!modalVisible);
-    navigation.navigate("Exercises");
-  };
-
-  const navigateToViewExercises = () => {
-    setModalVisible(!modalVisible);
-    navigation.navigate("ViewExercises");
-  };
-
-  const navigateToCreateWorkout = () => {
-    setModalVisible(!modalVisible);
-    navigation.navigate("CreateWorkout");
-  };
-
-  const navigateToWorkoutList = () => {
-    setModalVisible(!modalVisible);
-    navigation.navigate("WorkoutList");
-  };
 
   const deleteAccount = async (currentUser) => {
     if (!currentUser) return;

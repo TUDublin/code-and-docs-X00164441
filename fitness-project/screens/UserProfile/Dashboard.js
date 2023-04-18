@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Modal, SafeAreaView } from "react-native";
 import { DarkModeContext } from "../../DarkModeContext";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const styles = (isDarkMode) =>
   StyleSheet.create({
@@ -26,71 +27,132 @@ const styles = (isDarkMode) =>
       marginBottom: 20,
     },
     button: {
-      backgroundColor: isDarkMode ? "#525252" : "#5897EE",
+      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
       paddingVertical: 5,
-      paddingHorizontal: 20,
-      borderRadius: 5,
-      marginTop: 10,
-      width: "32%",
+      width: "100%",
+      borderBottomWidth: 1,
+      borderBottomColor: isDarkMode ? "white" : "black",
     },
-    buttonText: {
-      color: "white",
+    buttonText: { 
+      color: isDarkMode ? "white" : "black",
       fontSize: 18,
       fontWeight: "bold",
-      textAlign: "center",
+    },
+    modalOverlay: {
+      flex: 1,
+      justifyContent: "flex-start",
+      alignItems: "flex-end",
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+    modalView: {
+      marginTop: 60,
+      marginRight: 20,
+      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+      borderRadius: 10,
+      padding: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
     },
   });
 
 export default function Dashboard() {
+  const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
 
   const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
 
-  const navigateToWeightTracker = () => {
-    navigation.navigate("WeightTracker");
-  };
-
-  const navigateToCalorieTracker = () => {
-    navigation.navigate("CalorieTracker");
+  const navigateToExercises = () => {
+    setModalVisible(!modalVisible);
+    navigation.navigate("Exercises");
   };
 
   const navigateToViewExercises = () => {
+    setModalVisible(!modalVisible);
     navigation.navigate("ViewExercises");
   };
 
+  const navigateToCreateWorkout = () => {
+    setModalVisible(!modalVisible);
+    navigation.navigate("CreateWorkout");
+  };
+
   const navigateToWorkoutList = () => {
+    setModalVisible(!modalVisible);
     navigation.navigate("WorkoutList");
   };
 
+  const ModalMenu = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <TouchableOpacity
+          style={styles(isDarkMode).modalOverlay}
+          onPress={() => setModalVisible(!modalVisible)}
+        >
+          <View style={styles(isDarkMode).modalView}>
+            <TouchableOpacity
+              style={styles(isDarkMode).button}
+              onPress={navigateToViewExercises}
+            >
+              <Text style={styles(isDarkMode).buttonText}>View Exercises</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).button}
+              onPress={navigateToWorkoutList}
+            >
+              <Text style={styles(isDarkMode).buttonText}>
+                Edit/View Workouts
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).button}
+              onPress={navigateToExercises}
+            >
+              <Text style={styles(isDarkMode).buttonText}>Add Exercises</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).button}
+              onPress={navigateToCreateWorkout}
+            >
+              <Text style={styles(isDarkMode).buttonText}>Create Workout</Text>
+            </TouchableOpacity>
+
+    
+          </View>
+        </TouchableOpacity>
+      </Modal>
+    );
+  };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => setModalVisible(true)} style={{}}>
+          <MaterialIcons
+            name="more-vert"
+            size={32}
+            color={isDarkMode ? "white" : "#1463F3"}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, isDarkMode, setModalVisible]);
+
   return (
-    <View style={styles(isDarkMode).container}>
-      <Text style={styles(isDarkMode).title}>Dashboard</Text>
-      <TouchableOpacity
-        style={styles(isDarkMode).button}
-        onPress={navigateToViewExercises}
-      >
-        <Text style={styles(isDarkMode).buttonText}>View Exercises</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles(isDarkMode).button}
-        onPress={navigateToWorkoutList}
-      >
-        <Text style={styles(isDarkMode).buttonText}>Edit/View Workouts</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles(isDarkMode).button}
-        onPress={navigateToWeightTracker}
-      >
-        <Text style={styles(isDarkMode).buttonText}>Weight Tracker</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles(isDarkMode).button}
-        onPress={navigateToCalorieTracker}
-      >
-        <Text style={styles(isDarkMode).buttonText}>Calorie Tracker</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView style={styles(isDarkMode).container}>
+      <ModalMenu />
+    </SafeAreaView>
   );
 }
