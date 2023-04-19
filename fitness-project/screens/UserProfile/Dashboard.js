@@ -1,5 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Modal, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Modal,
+  SafeAreaView,
+} from "react-native";
 import { DarkModeContext } from "../../DarkModeContext";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -14,37 +21,30 @@ const styles = (isDarkMode) =>
       backgroundColor: isDarkMode ? "#1c1c1c" : "white",
     },
     title: {
-        fontSize: 24,
-        fontWeight: "bold",
-        marginBottom: 20,
-        color: isDarkMode ? "white" : "black",
-      },
-    buttonContainer: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-      justifyContent: "space-between",
-      width: "100%",
+      fontSize: 24,
+      fontWeight: "bold",
       marginBottom: 20,
+      color: isDarkMode ? "white" : "black",
     },
-    button: {
+    navmodalbutton: {
       backgroundColor: isDarkMode ? "#1c1c1c" : "white",
       paddingVertical: 5,
       width: "100%",
       borderBottomWidth: 1,
       borderBottomColor: isDarkMode ? "white" : "black",
     },
-    buttonText: { 
+    navmodalbuttonText: {
       color: isDarkMode ? "white" : "black",
       fontSize: 18,
       fontWeight: "bold",
     },
-    modalOverlay: {
+    navmodalOverlay: {
       flex: 1,
       justifyContent: "flex-start",
       alignItems: "flex-end",
       backgroundColor: "rgba(0, 0, 0, 0.5)",
     },
-    modalView: {
+    navmodalView: {
       marginTop: 60,
       marginRight: 20,
       backgroundColor: isDarkMode ? "#1c1c1c" : "white",
@@ -62,29 +62,34 @@ const styles = (isDarkMode) =>
   });
 
 export default function Dashboard() {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [navmodalVisible, setnavModalVisible] = useState(false);
   const navigation = useNavigation();
 
   const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
 
   const navigateToExercises = () => {
-    setModalVisible(!modalVisible);
+    setnavModalVisible(!navmodalVisible);
     navigation.navigate("Exercises");
   };
 
   const navigateToViewExercises = () => {
-    setModalVisible(!modalVisible);
+    setnavModalVisible(!navmodalVisible);
     navigation.navigate("ViewExercises");
   };
 
   const navigateToCreateWorkout = () => {
-    setModalVisible(!modalVisible);
+    setnavModalVisible(!navmodalVisible);
     navigation.navigate("CreateWorkout");
   };
 
   const navigateToWorkoutList = () => {
-    setModalVisible(!modalVisible);
+    setnavModalVisible(!navmodalVisible);
     navigation.navigate("WorkoutList");
+  };
+
+  const navigateToProfilePage = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("Profile");
   };
 
   const ModalMenu = () => {
@@ -92,44 +97,56 @@ export default function Dashboard() {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={navmodalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setnavModalVisible(!navmodalVisible);
         }}
       >
         <TouchableOpacity
-          style={styles(isDarkMode).modalOverlay}
-          onPress={() => setModalVisible(!modalVisible)}
+          style={styles(isDarkMode).navmodalOverlay}
+          onPress={() => setnavModalVisible(!navmodalVisible)}
         >
-          <View style={styles(isDarkMode).modalView}>
+          <View style={styles(isDarkMode).navmodalView}>
             <TouchableOpacity
-              style={styles(isDarkMode).button}
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToViewExercises}
             >
-              <Text style={styles(isDarkMode).buttonText}>View Exercises</Text>
+              <Text style={styles(isDarkMode).navmodalbuttonText}>
+                View Exercises
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles(isDarkMode).button}
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToWorkoutList}
             >
-              <Text style={styles(isDarkMode).buttonText}>
+              <Text style={styles(isDarkMode).navmodalbuttonText}>
                 Edit/View Workouts
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles(isDarkMode).button}
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToExercises}
             >
-              <Text style={styles(isDarkMode).buttonText}>Add Exercises</Text>
+              <Text style={styles(isDarkMode).navmodalbuttonText}>
+                Add Exercises
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles(isDarkMode).button}
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToCreateWorkout}
             >
-              <Text style={styles(isDarkMode).buttonText}>Create Workout</Text>
+              <Text style={styles(isDarkMode).navmodalbuttonText}>
+                Create Workout
+              </Text>
             </TouchableOpacity>
-
-    
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToProfilePage}
+            >
+              <Text style={styles(isDarkMode).navmodalbuttonText}>
+                Profile Page
+              </Text>
+            </TouchableOpacity>
           </View>
         </TouchableOpacity>
       </Modal>
@@ -139,16 +156,16 @@ export default function Dashboard() {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity onPress={() => setModalVisible(true)} style={{}}>
+        <TouchableOpacity onPress={() => setnavModalVisible(true)} style={{}}>
           <MaterialIcons
             name="more-vert"
             size={32}
-            color={isDarkMode ? "white" : "#1463F3"}
+            color={isDarkMode ? "#1463F3" : "#1463F3"}
           />
         </TouchableOpacity>
       ),
     });
-  }, [navigation, isDarkMode, setModalVisible]);
+  }, [navigation, isDarkMode, setnavModalVisible]);
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>

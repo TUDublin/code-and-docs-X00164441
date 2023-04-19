@@ -13,6 +13,7 @@ import { firebase } from "../../firebase/config";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 import { DarkModeContext } from "../../DarkModeContext";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const styles = (isDarkMode) =>
   StyleSheet.create({
@@ -59,6 +60,39 @@ const styles = (isDarkMode) =>
       padding: 20,
       width: "90%",
     },
+    navmodalbutton: {
+      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+      paddingVertical: 5,
+      width: "100%",
+      borderBottomWidth: 1,
+      borderBottomColor: isDarkMode ? "white" : "black",
+    },
+    navmodalbuttonText: {
+      color: isDarkMode ? "white" : "black",
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    navmodalOverlay: {
+      flex: 1,
+      justifyContent: "flex-start",
+      alignItems: "flex-end",
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+    navmodalView: {
+      marginTop: 60,
+      marginRight: 20,
+      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+      borderRadius: 10,
+      padding: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+    },
   });
 
 const ViewExercises = () => {
@@ -71,6 +105,106 @@ const ViewExercises = () => {
   const { isDarkMode } = useContext(DarkModeContext);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState(null);
+  const [navmodalVisible, setnavModalVisible] = useState(false);
+
+  const navigateToDashboard = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("Dashboard");
+  };
+
+  const navigateToExercises = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("Exercises");
+  };
+
+  const navigateToCreateWorkout = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("CreateWorkout");
+  };
+
+  const navigateToWorkoutList = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("WorkoutList");
+  };
+
+  const navigateToProfilePage = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("Profile");
+  };
+
+  const ModalMenu = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={navmodalVisible}
+        onRequestClose={() => {
+          setnavModalVisible(!navmodalVisible);
+        }}
+      >
+        <TouchableOpacity
+          style={styles(isDarkMode).navmodalOverlay}
+          onPress={() => setnavModalVisible(!navmodalVisible)}
+        >
+          <View style={styles(isDarkMode).navmodalView}>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToDashboard}
+            >
+              <Text style={styles(isDarkMode).navmodalbuttonText}>Dashboard</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToExercises}
+            >
+              <Text style={styles(isDarkMode).navmodalbuttonText}>
+                Add Exercises
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToWorkoutList}
+            >
+              <Text style={styles(isDarkMode).navmodalbuttonText}>
+                Edit/View Workouts
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToCreateWorkout}
+            >
+              <Text style={styles(isDarkMode).navmodalbuttonText}>
+                Create Workout
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToProfilePage}
+            >
+              <Text style={styles(isDarkMode).navmodalbuttonText}>
+                Profile Page
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      </Modal>
+    );
+  };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => setnavModalVisible(true)} style={{}}>
+          <MaterialIcons
+            name="more-vert"
+            size={32}
+            color={isDarkMode ? "#1463F3" : "#1463F3"}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, isDarkMode, setnavModalVisible]);
+
 
   useEffect(() => {
     const userId = firebase.auth().currentUser.uid;
@@ -157,6 +291,7 @@ const ViewExercises = () => {
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
+      <ModalMenu />
       <Text style={styles(isDarkMode).filterTitle}>Filter by body part</Text>
       <Picker
         selectedValue={selectedBodyPart}

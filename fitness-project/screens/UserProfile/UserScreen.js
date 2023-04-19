@@ -14,7 +14,7 @@ import { firebase } from "../../firebase/config";
 import { DarkModeContext } from "../../DarkModeContext";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const styles = (isDarkMode) =>
+const styles = (isDarkMode, activeInput) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -38,7 +38,7 @@ const styles = (isDarkMode) =>
     },
     input: {
       height: 40,
-      borderColor: "gray",
+      borderColor: activeInput === "fullName" ? "#1463F3" : "gray",
       borderWidth: 1,
       padding: 10,
       marginVertical: 5,
@@ -59,7 +59,7 @@ const styles = (isDarkMode) =>
       marginBottom: 10,
     },
     saveChangesText: {
-      color: isDarkMode ? "white" : "#1463F3",
+      color: isDarkMode ? "#1463F3" : "#1463F3",
       fontSize: 14,
       fontWeight: "bold",
       textAlign: "center",
@@ -71,7 +71,7 @@ const styles = (isDarkMode) =>
       borderBottomWidth: 1,
       borderBottomColor: isDarkMode ? "white" : "black",
     },
-    buttonText: { 
+    buttonText: {
       color: isDarkMode ? "white" : "black",
       fontSize: 18,
       fontWeight: "bold",
@@ -107,6 +107,7 @@ export default function UserScreen() {
   const [sex, setSex] = useState("");
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const [activeInput, setActiveInput] = useState(null);
 
   const navigateToDashboard = () => {
     setModalVisible(!modalVisible);
@@ -357,7 +358,6 @@ export default function UserScreen() {
     return unsubscribe;
   }, []);
 
-
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -365,7 +365,7 @@ export default function UserScreen() {
           <MaterialIcons
             name="more-vert"
             size={32}
-            color={isDarkMode ? "white" : "#1463F3"}
+            color={isDarkMode ? "#1463F3" : "#1463F3"}
           />
         </TouchableOpacity>
       ),
@@ -463,9 +463,11 @@ export default function UserScreen() {
       <Text style={styles(isDarkMode).title}>Hello, {fullName}</Text>
       <Text style={styles(isDarkMode).field}>Full Name:</Text>
       <TextInput
-        style={styles(isDarkMode).input}
+        style={styles(isDarkMode, activeInput).input}
         value={fullName}
         onChangeText={setFullName}
+        onFocus={() => setActiveInput("fullName")}
+        onBlur={() => setActiveInput(null)}
       />
       <Text style={styles(isDarkMode).field}>Email:</Text>
       <TextInput
@@ -497,7 +499,11 @@ export default function UserScreen() {
         onPress={saveChanges}
       >
         <Text style={styles(isDarkMode).saveChangesText}>Save</Text>
-        <MaterialIcons name="check" size={16} color="#1463F3" />
+        <MaterialIcons
+          name="check"
+          size={16}
+          color={isDarkMode ? "#1463F3" : "#1463F3"}
+        />
       </TouchableOpacity>
     </SafeAreaView>
   );

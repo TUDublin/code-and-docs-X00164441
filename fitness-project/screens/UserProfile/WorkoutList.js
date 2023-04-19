@@ -54,7 +54,7 @@ const styles = (isDarkMode) =>
       borderBottomWidth: 1,
       borderBottomColor: isDarkMode ? "white" : "black",
     },
-    modalbuttonText: { 
+    modalbuttonText: {
       color: isDarkMode ? "white" : "black",
       fontSize: 18,
       fontWeight: "bold",
@@ -97,7 +97,7 @@ const WorkoutList = () => {
   };
 
   const navigateToExercises = () => {
-    setbavModalVisible(!navmodalVisible);
+    setnavModalVisible(!navmodalVisible);
     navigation.navigate("Exercises");
   };
 
@@ -111,10 +111,10 @@ const WorkoutList = () => {
     navigation.navigate("CreateWorkout");
   };
 
-  const navigateToWorkoutList = () => {
+  const navigateToProfilePage = () => {
     setnavModalVisible(!navmodalVisible);
-    navigation.navigate("WorkoutList");
-  }; 
+    navigation.navigate("Profile");
+  };
 
   const ModalMenu = () => {
     return (
@@ -124,7 +124,6 @@ const WorkoutList = () => {
         visible={navmodalVisible}
         onRequestClose={() => {
           setnavModalVisible(!navmodalVisible);
-          this.setState({ modalVisible: true });
         }}
       >
         <TouchableOpacity
@@ -148,14 +147,6 @@ const WorkoutList = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).modalbutton}
-              onPress={navigateToWorkoutList}
-            >
-              <Text style={styles(isDarkMode).modalbuttonText}>
-                Edit/View Workouts
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles(isDarkMode).modalbutton}
               onPress={navigateToExercises}
             >
               <Text style={styles(isDarkMode).modalbuttonText}>
@@ -168,6 +159,14 @@ const WorkoutList = () => {
             >
               <Text style={styles(isDarkMode).modalbuttonText}>
                 Create Workout
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).modalbutton}
+              onPress={navigateToProfilePage}
+            >
+              <Text style={styles(isDarkMode).modalbuttonText}>
+                Profile Page
               </Text>
             </TouchableOpacity>
           </View>
@@ -183,7 +182,7 @@ const WorkoutList = () => {
           <MaterialIcons
             name="more-vert"
             size={32}
-            color={isDarkMode ? "white" : "#1463F3"}
+            color={isDarkMode ? "#1463F3" : "#1463F3"}
           />
         </TouchableOpacity>
       ),
@@ -193,10 +192,10 @@ const WorkoutList = () => {
   useEffect(() => {
     const currentUser = firebase.auth().currentUser;
     if (!currentUser) return;
-  
+
     const uid = currentUser.uid;
     const workoutsRef = firebase.firestore().collection("Workouts");
-  
+
     const unsubscribe = workoutsRef
       .where("userId", "==", uid) // Filter workouts by current user's UID
       .onSnapshot((querySnapshot) => {
@@ -208,13 +207,13 @@ const WorkoutList = () => {
         });
         setWorkouts(workoutsData);
       });
-  
+
     return () => unsubscribe();
   }, []);
 
   const showWorkoutInfo = async (workout) => {
     setSelectedWorkout(workout);
-  
+
     const fetchedExerciseNames = await Promise.all(
       workout.exercises.map(async (exerciseId) => {
         const exerciseDoc = await firebase
@@ -223,10 +222,12 @@ const WorkoutList = () => {
           .doc(exerciseId)
           .get();
         const exerciseData = exerciseDoc.data();
-        return exerciseData ? exerciseData.name : `Missing exercise (${exerciseId})`;
+        return exerciseData
+          ? exerciseData.name
+          : `Missing exercise (${exerciseId})`;
       })
     );
-  
+
     setExerciseNames(fetchedExerciseNames);
     setModalVisible(true);
   };
@@ -270,18 +271,32 @@ const WorkoutList = () => {
           <View style={styles(isDarkMode).modalContent}>
             {selectedWorkout && (
               <>
-                <Text style={styles(isDarkMode).workoutName}>
+                <Text
+                  style={{
+                    ...styles(isDarkMode).workoutName,
+                    color: isDarkMode ? "white" : "black",
+                  }}
+                >
                   Workout: {selectedWorkout.name}
                 </Text>
-                <Text>Exercises:</Text>
+                <Text style={{ color: isDarkMode ? "white" : "black" }}>
+                  Exercises:
+                </Text>
                 {exerciseNames.map((exerciseName, index) => (
-                  <Text key={index}>- {exerciseName}</Text>
+                  <Text
+                    key={index}
+                    style={{ color: isDarkMode ? "white" : "black" }}
+                  >
+                    - {exerciseName}
+                  </Text>
                 ))}
                 <TouchableOpacity
                   style={{ marginTop: 20 }}
                   onPress={() => setModalVisible(false)}
                 >
-                  <Text>Close</Text>
+                  <Text style={{ color: isDarkMode ? "white" : "black" }}>
+                    Close
+                  </Text>
                 </TouchableOpacity>
               </>
             )}

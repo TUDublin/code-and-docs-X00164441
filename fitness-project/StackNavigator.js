@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { LoginScreen, RegistrationScreen } from './screens'
@@ -16,21 +16,23 @@ import ViewExercises from './screens/UserProfile/ViewExercises'
 import CalorieTrackerScreen from './screens/UserProfile/CalorieTrackerScreen'
 import WeightTracker from './screens/UserProfile/WeightTracker'
 import Dashboard from './screens/UserProfile/Dashboard'
+import { DarkModeContext } from './DarkModeContext';
 
 const StackNavigator = () => {
     const Stack = createNativeStackNavigator();
     const [user, setUser] = useState(null)
+    const { isDarkMode } = useContext(DarkModeContext);
 
   return (
     <NavigationContainer>
       <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: 'white',
+          backgroundColor: isDarkMode ? 'black' : 'white',
         },
-        headerTintColor: '#1463F3',
+        headerTintColor: isDarkMode ? '#1463F3' : '#1463F3',
         headerTitleStyle: {
-          color: 'black',
+          color: isDarkMode ? 'white' : 'black',
           fontWeight: 'bold',
         },
       }}>
