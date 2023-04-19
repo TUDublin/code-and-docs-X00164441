@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { DarkModeContext } from "../../DarkModeContext";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const styles = (isDarkMode) =>
+const styles = (isDarkMode, activeInput) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -28,9 +28,9 @@ const styles = (isDarkMode) =>
       fontWeight: "bold",
       color: isDarkMode ? "white" : "black",
     },
-    inputField: {
+    inputField: (inputName) => ({
       height: 40,
-      borderColor: "gray",
+      borderColor: activeInput === inputName ? "#1463F3" : "gray",
       borderWidth: 1,
       padding: 10,
       marginVertical: 5,
@@ -38,7 +38,7 @@ const styles = (isDarkMode) =>
       borderRadius: 5,
       backgroundColor: isDarkMode ? "#3b3b3b" : "white",
       color: isDarkMode ? "white" : "black",
-    },
+    }),
     addExercisesButton: {
       backgroundColor: isDarkMode ? "#003d99" : "#46C263",
       paddingVertical: 10,
@@ -120,6 +120,7 @@ export default function UserWorkouts() {
   const navigation = useNavigation();
   const { isDarkMode } = useContext(DarkModeContext);
   const [navmodalVisible, setnavModalVisible] = useState(false);
+  const [activeInput, setActiveInput] = useState(null);
 
   const navigateToDashboard = () => {
     setnavModalVisible(!navmodalVisible);
@@ -266,21 +267,27 @@ export default function UserWorkouts() {
       <ModalMenu />
       <Text style={styles(isDarkMode).field}>Exercise Name:</Text>
       <TextInput
-        style={styles(isDarkMode).inputField}
+        style={styles(isDarkMode, activeInput).inputField("exerciseName")}
         value={name}
         onChangeText={setName}
+        onFocus={() => setActiveInput("exerciseName")}
+        onBlur={() => setActiveInput(null)}
       />
       <Text style={styles(isDarkMode).field}>Body Part:</Text>
       <TextInput
-        style={styles(isDarkMode).inputField}
+        style={styles(isDarkMode, activeInput).inputField("bodyPart")}
         value={bodyPart}
         onChangeText={setBodyPart}
+        onFocus={() => setActiveInput("bodyPart")}
+        onBlur={() => setActiveInput(null)}
       />
       <Text style={styles(isDarkMode).field}>Image URL:</Text>
       <TextInput
-        style={styles(isDarkMode).inputField}
+        style={styles(isDarkMode, activeInput).inputField("imageURL")}
         value={imageUrl}
         onChangeText={setImageUrl}
+        onFocus={() => setActiveInput("imageURL")}
+        onBlur={() => setActiveInput(null)}
       />
       <TouchableOpacity style={styles(isDarkMode).addExercisesButton} onPress={addExercise}>
         <Text style={styles(isDarkMode).buttonText}>Add Exercise</Text>

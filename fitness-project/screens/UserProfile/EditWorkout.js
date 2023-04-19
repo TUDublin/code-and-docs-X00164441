@@ -16,7 +16,7 @@ import { Switch } from "react-native";
 import { DarkModeContext } from "../../DarkModeContext";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const styles = (isDarkMode) =>
+const styles = (isDarkMode, activeInput) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -31,9 +31,9 @@ const styles = (isDarkMode) =>
       fontWeight: "bold",
       color: isDarkMode ? "white" : "black",
     },
-    inputField: {
+    inputField: (inputName) => ({
       height: 40,
-      borderColor: "gray",
+      borderColor: activeInput === inputName ? "#1463F3" : "gray",
       borderWidth: 1,
       padding: 10,
       marginVertical: 5,
@@ -41,7 +41,7 @@ const styles = (isDarkMode) =>
       borderRadius: 5,
       backgroundColor: isDarkMode ? "#3b3b3b" : "white",
       color: isDarkMode ? "white" : "black",
-    },
+    }),
     updateWorkoutButton: {
       backgroundColor: isDarkMode ? "#003d99" : "#46C263",
       paddingVertical: 10,
@@ -114,6 +114,7 @@ const EditWorkout = ({ route, navigation }) => {
   const [selectedExercises, setSelectedExercises] = useState({});
   const { isDarkMode } = useContext(DarkModeContext);
   const [navmodalVisible, setnavModalVisible] = useState(false);
+  const [activeInput, setActiveInput] = useState(null);
 
   const navigateToDashboard = () => {
     setnavModalVisible(!navmodalVisible);
@@ -359,9 +360,11 @@ const EditWorkout = ({ route, navigation }) => {
       <ModalMenu />
       <Text style={styles(isDarkMode).field}>Workout Name:</Text>
       <TextInput
-        style={styles(isDarkMode).inputField}
+        style={styles(isDarkMode, activeInput).inputField("workoutName")}
         value={workoutName}
         onChangeText={setWorkoutName}
+        onFocus={() => setActiveInput("workoutName")}
+        onBlur={() => setActiveInput(null)}
       />
       <Text style={styles(isDarkMode).field}>Exercises:</Text>
       <ScrollView>

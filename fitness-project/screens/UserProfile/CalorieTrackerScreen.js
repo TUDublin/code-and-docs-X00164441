@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { DarkModeContext } from "../../DarkModeContext";
 
-const styles = (isDarkMode) =>
+const styles = (isDarkMode, activeInput) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -23,9 +23,9 @@ const styles = (isDarkMode) =>
       marginBottom: 20,
       color: isDarkMode ? "white" : "black",
     },
-    input: {
+    inputField: (inputName) => ({
       height: 40,
-      borderColor: "gray",
+      borderColor: activeInput === inputName ? "#1463F3" : "gray",
       borderWidth: 1,
       padding: 10,
       marginVertical: 5,
@@ -33,7 +33,7 @@ const styles = (isDarkMode) =>
       borderRadius: 5,
       backgroundColor: isDarkMode ? "#3b3b3b" : "white",
       color: isDarkMode ? "white" : "black",
-    },
+    }),
     foodItem: {
       borderWidth: 1,
       borderColor: "gray",
@@ -125,11 +125,13 @@ const CalorieTrackerScreen = () => {
     <View style={styles(isDarkMode).container}>
       <Text style={styles(isDarkMode).title}>Nutritional Data</Text>
       <TextInput
-        style={styles(isDarkMode).input}
+        style={styles(isDarkMode, activeInput).inputField("foodInput")}
         onChangeText={setQuery}
         value={query}
         placeholder="Enter food query"
         placeholderTextColor={isDarkMode ? "white" : "black"}
+        onFocus={() => setActiveInput("foodInput")}
+        onBlur={() => setActiveInput(null)}
       />
       <Button title="Search" onPress={fetchNutritionData} />
       <FlatList

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   SafeAreaView,
+  ScrollView,
   Alert,
   Modal,
 } from "react-native";
@@ -16,6 +17,10 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 const styles = (isDarkMode, activeInput) =>
   StyleSheet.create({
+    scrollcontainer: { 
+      paddingTop: 50,
+      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+    },
     container: {
       flex: 1,
       alignItems: "center",
@@ -457,62 +462,64 @@ export default function UserScreen() {
   };
 
   return (
+  <ScrollView style={styles(isDarkMode).scrollcontainer}>
     <SafeAreaView style={styles(isDarkMode).container}>
-      <ModalMenu />
-      {darkModeButton}
-      <Text style={styles(isDarkMode).title}>Hello, {fullName}</Text>
-      <Text style={styles(isDarkMode).field}>Full Name:</Text>
-      <TextInput
-        style={styles(isDarkMode, activeInput).input("fullName")}
-        value={fullName}
-        onChangeText={setFullName}
-        onFocus={() => setActiveInput("fullName")}
-        onBlur={() => setActiveInput(null)}
-      />
-      <Text style={styles(isDarkMode).field}>Email:</Text>
-      <TextInput
-         style={styles(isDarkMode, activeInput).input("Email")}
-        value={email}
-        onChangeText={setEmail}
-        onFocus={() => setActiveInput("Email")}
-        onBlur={() => setActiveInput(null)}
-      />
-      <Text style={styles(isDarkMode).field}>Age:</Text>
-      <TextInput
-        style={styles(isDarkMode, activeInput).input("Age")}
-        value={age}
-        onChangeText={setAge}
-        onFocus={() => setActiveInput("Age")}
-        onBlur={() => setActiveInput(null)}
-      />
-      <Text style={styles(isDarkMode).field}>Location:</Text>
-      <TextInput
-       style={styles(isDarkMode, activeInput).input("Location")}
-        value={location}
-        onChangeText={setLocation}
-        onFocus={() => setActiveInput("Location")}
-        onBlur={() => setActiveInput(null)}
-      />
-      <Text style={styles(isDarkMode).field}>Sex:</Text>
-      <TextInput
-       style={styles(isDarkMode, activeInput).input("Sex")}
-        value={sex}
-        onChangeText={setSex}
-        onFocus={() => setActiveInput("Sex")}
-        onBlur={() => setActiveInput(null)}
-      />
-
-      <TouchableOpacity
-        style={styles(isDarkMode).saveChangesButton}
-        onPress={saveChanges}
-      >
-        <Text style={styles(isDarkMode).saveChangesText}>Save</Text>
-        <MaterialIcons
-          name="check"
-          size={16}
-          color={isDarkMode ? "#1463F3" : "#1463F3"}
+        <ModalMenu />
+        {darkModeButton}
+        <Text style={styles(isDarkMode).title}>Hello, {fullName}</Text>
+        <Text style={styles(isDarkMode).field}>Full Name:</Text>
+        <TextInput
+          style={styles(isDarkMode, activeInput).input("fullName")}
+          value={fullName}
+          onChangeText={setFullName}
+          onFocus={() => setActiveInput("fullName")}
+          onBlur={() => setActiveInput(null)}
         />
-      </TouchableOpacity>
+        <Text style={styles(isDarkMode).field}>Email:</Text>
+        <TextInput
+          style={styles(isDarkMode, activeInput).input("Email")}
+          value={email}
+          onChangeText={setEmail}
+          onFocus={() => setActiveInput("Email")}
+          onBlur={() => setActiveInput(null)}
+        />
+        <Text style={styles(isDarkMode).field}>Age:</Text>
+        <TextInput
+          style={styles(isDarkMode, activeInput).input("Age")}
+          value={age}
+          onChangeText={setAge}
+          onFocus={() => setActiveInput("Age")}
+          onBlur={() => setActiveInput(null)}
+        />
+        <Text style={styles(isDarkMode).field}>Location:</Text>
+        <TextInput
+          style={styles(isDarkMode, activeInput).input("Location")}
+          value={location}
+          onChangeText={setLocation}
+          onFocus={() => setActiveInput("Location")}
+          onBlur={() => setActiveInput(null)}
+        />
+        <Text style={styles(isDarkMode).field}>Sex:</Text>
+        <TextInput
+          style={styles(isDarkMode, activeInput).input("Sex")}
+          value={sex}
+          onChangeText={setSex}
+          onFocus={() => setActiveInput("Sex")}
+          onBlur={() => setActiveInput(null)}
+        />
+
+        <TouchableOpacity
+          style={styles(isDarkMode).saveChangesButton}
+          onPress={saveChanges}
+        >
+          <Text style={styles(isDarkMode).saveChangesText}>Save</Text>
+          <MaterialIcons
+            name="check"
+            size={16}
+            color={isDarkMode ? "#1463F3" : "#1463F3"}
+          />
+        </TouchableOpacity>
     </SafeAreaView>
+  </ScrollView>
   );
 }
