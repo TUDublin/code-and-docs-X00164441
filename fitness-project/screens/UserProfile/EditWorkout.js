@@ -43,15 +43,6 @@ const styles = (isDarkMode, activeInput) =>
       color: isDarkMode ? "white" : "black",
     }),
     updateWorkoutButton: {
-      backgroundColor: isDarkMode ? "#003d99" : "#46C263",
-      paddingVertical: 10,
-      paddingHorizontal: 20,
-      borderRadius: 5,
-      marginTop: 10,
-    },
-    button: {
-      backgroundColor: isDarkMode ? "#525252" : "#5897EE",
-      left: 140,
       paddingVertical: 10,
       paddingHorizontal: 20,
       borderRadius: 5,
@@ -382,7 +373,22 @@ const EditWorkout = ({ route, navigation }) => {
         style={styles(isDarkMode).updateWorkoutButton}
         onPress={updateWorkout}
       >
-        <Text style={styles(isDarkMode).buttonText}>Update Workout</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ ...styles(isDarkMode).buttonText, color: "#1463F3" }}>
+            Update Workout
+          </Text>
+          <MaterialIcons
+            name="check"
+            size={24}
+            color="#1463F3"
+            style={{ marginLeft: 5 }}
+          />
+        </View>
       </TouchableOpacity>
     </SafeAreaView>
   );
