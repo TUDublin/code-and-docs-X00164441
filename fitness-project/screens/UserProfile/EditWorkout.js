@@ -58,12 +58,12 @@ const styles = (isDarkMode, activeInput) =>
       flexDirection: "row",
       alignItems: "center",
       marginBottom: 15,
-      paddingLeft: 5,
     },
     exerciseName: {
       fontSize: 16,
       marginRight: 10,
       color: isDarkMode ? "white" : "black",
+      paddingLeft: 5,
     },
     navmodalbutton: {
       backgroundColor: isDarkMode ? "#1c1c1c" : "white",

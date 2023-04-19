@@ -13,11 +13,11 @@ import React, { useState, useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../../firebase/config";
 import { DarkModeContext } from "../../DarkModeContext";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome5, AntDesign } from "@expo/vector-icons";
 
 const styles = (isDarkMode, activeInput) =>
   StyleSheet.create({
-    scrollcontainer: { 
+    scrollcontainer: {
       paddingTop: 50,
       backgroundColor: isDarkMode ? "#1c1c1c" : "white",
     },
@@ -191,44 +191,7 @@ export default function UserScreen() {
               style={{
                 left: 140,
               }}
-              onPress={() => {
-                Alert.alert(
-                  "Are you sure you want to delete your account?",
-                  "All data will be deleted",
-                  [
-                    {
-                      text: "Cancel",
-                      style: "cancel",
-                    },
-                    {
-                      text: "I'm sure",
-                      onPress: () =>
-                        Alert.alert(
-                          "This action is not reversible",
-                          "Do you wish to continue?",
-                          [
-                            {
-                              text: "Cancel",
-                              style: "cancel",
-                            },
-                            {
-                              text: "Continue",
-                              onPress: async () => {
-                                await deleteAccount(
-                                  firebase.auth().currentUser
-                                );
-                                Alert.alert(
-                                  "Account deletion successful",
-                                  `Account (${email}) has been successfully deleted.`
-                                );
-                              },
-                            },
-                          ]
-                        ),
-                    },
-                  ]
-                );
-              }}
+              onPress={confirmDeleteAccount}
             >
               <MaterialIcons
                 name="delete"
@@ -259,6 +222,43 @@ export default function UserScreen() {
       />
     </TouchableOpacity>
   );
+
+  const confirmDeleteAccount = () => {
+    Alert.alert(
+      "Are you sure you want to delete your account?",
+      "All data will be deleted",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "I'm sure",
+          onPress: () =>
+            Alert.alert(
+              "This action is not reversible",
+              "Do you wish to continue?",
+              [
+                {
+                  text: "Cancel",
+                  style: "cancel",
+                },
+                {
+                  text: "Continue",
+                  onPress: async () => {
+                    await deleteAccount(firebase.auth().currentUser);
+                    Alert.alert(
+                      "Account deletion successful",
+                      `Account (${email}) has been successfully deleted.`
+                    );
+                  },
+                },
+              ]
+            ),
+        },
+      ]
+    );
+  };
 
   const deleteAccount = async (currentUser) => {
     if (!currentUser) return;
@@ -462,11 +462,11 @@ export default function UserScreen() {
   };
 
   return (
-  <ScrollView style={styles(isDarkMode).scrollcontainer}>
-    <SafeAreaView style={styles(isDarkMode).container}>
+    <ScrollView style={styles(isDarkMode).scrollcontainer}>
+      <SafeAreaView style={styles(isDarkMode).container}>
         <ModalMenu />
         {darkModeButton}
-        <Text style={styles(isDarkMode).title}>Hello, {fullName}</Text>
+        <Text style={styles(isDarkMode).title}>Hello, {fullName}!</Text>
         <Text style={styles(isDarkMode).field}>Full Name:</Text>
         <TextInput
           style={styles(isDarkMode, activeInput).input("fullName")}
@@ -519,7 +519,7 @@ export default function UserScreen() {
             color={isDarkMode ? "#1463F3" : "#1463F3"}
           />
         </TouchableOpacity>
-    </SafeAreaView>
-  </ScrollView>
+      </SafeAreaView>
+    </ScrollView>
   );
 }

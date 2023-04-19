@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,8 +7,8 @@ import {
   SafeAreaView,
   Modal,
   View,
-} from 'react-native';
-import { firebase } from '../../firebase/config';
+} from "react-native";
+import { firebase } from "../../firebase/config";
 import { useNavigation } from "@react-navigation/native";
 import { DarkModeContext } from "../../DarkModeContext";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -40,30 +40,17 @@ const styles = (isDarkMode, activeInput) =>
       color: isDarkMode ? "white" : "black",
     }),
     addExercisesButton: {
-      backgroundColor: isDarkMode ? "#003d99" : "#46C263",
-      paddingVertical: 10,
-      paddingHorizontal: 20,
-      borderRadius: 5,
-      marginTop: 10,
-    },
-    button: {
-      backgroundColor: isDarkMode? "#525252" :"#5897EE",
+      flexDirection: "row",
+      alignItems: "center",
       paddingVertical: 10,
       paddingHorizontal: 20,
       borderRadius: 5,
       marginTop: 10,
     },
     buttonText: {
-      color: "white",
+      color: "#1463F3",
       fontSize: 18,
       fontWeight: "bold",
-    },
-    filterButton: {
-      backgroundColor: "#46C263",
-      paddingVertical: 10,
-      paddingHorizontal: 20,
-      borderRadius: 5,
-      marginTop: 10,
     },
     exerciseItem: {
       backgroundColor: isDarkMode ? "#3b3b3b" : "#e6e6e6",
@@ -113,9 +100,9 @@ const styles = (isDarkMode, activeInput) =>
   });
 
 export default function UserWorkouts() {
-  const [name, setName] = useState('');
-  const [bodyPart, setBodyPart] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [name, setName] = useState("");
+  const [bodyPart, setBodyPart] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
   const navigation = useNavigation();
   const { isDarkMode } = useContext(DarkModeContext);
@@ -166,13 +153,17 @@ export default function UserWorkouts() {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToDashboard}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>Dashboard</Text>
+              <Text style={styles(isDarkMode).navmodalbuttonText}>
+                Dashboard
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToViewExercises}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>View Exercises</Text>
+              <Text style={styles(isDarkMode).navmodalbuttonText}>
+                View Exercises
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).navmodalbutton}
@@ -229,20 +220,21 @@ export default function UserWorkouts() {
       unsubscribe();
     };
   }, []);
-  
+
   const addExercise = () => {
     // Add this validation for Exercise Name and Body Part
     if (!name.trim() || !bodyPart.trim()) {
       alert("Please enter both Exercise Name and Body Part.");
       return;
     }
-  
+
     const exerciseData = {
       name: name.trim(),
       bodyPart: bodyPart.trim(),
+      imageUrl: imageUrl.trim(), // Add imageUrl to the exercise data
       userId: currentUser.uid,
     };
-  
+
     firebase
       .firestore()
       .collection("Exercises")
@@ -255,13 +247,13 @@ export default function UserWorkouts() {
         );
         setName("");
         setBodyPart("");
+        setImageUrl(""); // Clear the imageUrl input after adding an exercise
       })
       .catch((error) => {
         console.log("Error adding exercise:", error);
       });
   };
-  
- 
+
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
       <ModalMenu />
@@ -289,10 +281,18 @@ export default function UserWorkouts() {
         onFocus={() => setActiveInput("imageURL")}
         onBlur={() => setActiveInput(null)}
       />
-      <TouchableOpacity style={styles(isDarkMode).addExercisesButton} onPress={addExercise}>
+      <TouchableOpacity
+        style={styles(isDarkMode).addExercisesButton}
+        onPress={addExercise}
+      >
         <Text style={styles(isDarkMode).buttonText}>Add Exercise</Text>
+        <MaterialIcons
+          name="check"
+          size={24}
+          color="#1463F3"
+          style={{ marginLeft: 5 }}
+        />
       </TouchableOpacity>
-
     </SafeAreaView>
   );
 }
