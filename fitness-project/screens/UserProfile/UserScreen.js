@@ -36,9 +36,9 @@ const styles = (isDarkMode, activeInput) =>
       fontWeight: "bold",
       color: isDarkMode ? "white" : "black",
     },
-    input: {
+    input: (inputName) => ({
       height: 40,
-      borderColor: activeInput === "fullName" ? "#1463F3" : "gray",
+      borderColor: activeInput === inputName ? "#1463F3" : "gray",
       borderWidth: 1,
       padding: 10,
       marginVertical: 5,
@@ -46,7 +46,7 @@ const styles = (isDarkMode, activeInput) =>
       borderRadius: 5,
       backgroundColor: isDarkMode ? "#3b3b3b" : "white",
       color: isDarkMode ? "white" : "black",
-    },
+    }),
     saveChangesButton: {
       flexDirection: "row",
       alignItems: "center",
@@ -463,7 +463,7 @@ export default function UserScreen() {
       <Text style={styles(isDarkMode).title}>Hello, {fullName}</Text>
       <Text style={styles(isDarkMode).field}>Full Name:</Text>
       <TextInput
-        style={styles(isDarkMode, activeInput).input}
+        style={styles(isDarkMode, activeInput).input("fullName")}
         value={fullName}
         onChangeText={setFullName}
         onFocus={() => setActiveInput("fullName")}
@@ -471,27 +471,35 @@ export default function UserScreen() {
       />
       <Text style={styles(isDarkMode).field}>Email:</Text>
       <TextInput
-        style={styles(isDarkMode).input}
+         style={styles(isDarkMode, activeInput).input("Email")}
         value={email}
         onChangeText={setEmail}
+        onFocus={() => setActiveInput("Email")}
+        onBlur={() => setActiveInput(null)}
       />
       <Text style={styles(isDarkMode).field}>Age:</Text>
       <TextInput
-        style={styles(isDarkMode).input}
+        style={styles(isDarkMode, activeInput).input("Age")}
         value={age}
         onChangeText={setAge}
+        onFocus={() => setActiveInput("Age")}
+        onBlur={() => setActiveInput(null)}
       />
       <Text style={styles(isDarkMode).field}>Location:</Text>
       <TextInput
-        style={styles(isDarkMode).input}
+       style={styles(isDarkMode, activeInput).input("Location")}
         value={location}
         onChangeText={setLocation}
+        onFocus={() => setActiveInput("Location")}
+        onBlur={() => setActiveInput(null)}
       />
       <Text style={styles(isDarkMode).field}>Sex:</Text>
       <TextInput
-        style={styles(isDarkMode).input}
+       style={styles(isDarkMode, activeInput).input("Sex")}
         value={sex}
         onChangeText={setSex}
+        onFocus={() => setActiveInput("Sex")}
+        onBlur={() => setActiveInput(null)}
       />
 
       <TouchableOpacity
