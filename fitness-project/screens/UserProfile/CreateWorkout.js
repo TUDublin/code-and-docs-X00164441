@@ -25,6 +25,7 @@ const styles = (isDarkMode, activeInput) =>
       backgroundColor: isDarkMode ? "#1c1c1c" : "white",
     },
     field: {
+      paddingTop: 30,
       marginVertical: 10,
       fontSize: 16,
       fontWeight: "bold",
@@ -55,11 +56,12 @@ const styles = (isDarkMode, activeInput) =>
     exerciseItem: {
       flexDirection: "row",
       alignItems: "center",
-      marginBottom: 10,
+      marginBottom: 15,
     },
     exerciseName: {
       fontSize: 16,
       marginRight: 10,
+      paddingLeft: 5,
       color: isDarkMode ? "white" : "black",
     },
     navmodalbutton: {
@@ -300,6 +302,7 @@ const CreateWorkout = () => {
             <Switch
               value={selectedExercises[exercise.id] || false}
               onValueChange={() => toggleExerciseSelection(exercise.id)}
+              trackColor={{ false: 'gray', true: '#1463F3' }}
             />
             <Text style={styles(isDarkMode).exerciseName}>{exercise.name}</Text>
           </View>

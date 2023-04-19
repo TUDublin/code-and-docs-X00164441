@@ -57,6 +57,7 @@ const CalorieTrackerScreen = () => {
   const [query, setQuery] = useState("");
   const [foodData, setFoodData] = useState([]);
   const { isDarkMode } = useContext(DarkModeContext);
+  const [activeInput, setActiveInput] = useState(null);
 
   const fetchNutritionData = async () => {
     setFoodData([]);
@@ -129,7 +130,7 @@ const CalorieTrackerScreen = () => {
         onChangeText={setQuery}
         value={query}
         placeholder="Enter food query"
-        placeholderTextColor={isDarkMode ? "white" : "black"}
+        placeholderTextColor={isDarkMode ? "grey" : "grey"}
         onFocus={() => setActiveInput("foodInput")}
         onBlur={() => setActiveInput(null)}
       />

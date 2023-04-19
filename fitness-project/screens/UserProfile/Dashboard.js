@@ -92,6 +92,16 @@ export default function Dashboard() {
     navigation.navigate("Profile");
   };
 
+  const navigateToCalorieTracker = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("CalorieTracker");
+  };
+
+  const navigateToWeightTracker = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("WeightTracker");
+  };
+
   const ModalMenu = () => {
     return (
       <Modal
@@ -137,6 +147,22 @@ export default function Dashboard() {
             >
               <Text style={styles(isDarkMode).navmodalbuttonText}>
                 Create Workout
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToCalorieTracker}
+            >
+              <Text style={styles(isDarkMode).navmodalbuttonText}>
+                Calorie Tracker
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToWeightTracker}
+            >
+              <Text style={styles(isDarkMode).navmodalbuttonText}>
+                Weight Tracker
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
