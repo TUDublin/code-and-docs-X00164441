@@ -264,6 +264,7 @@ export default function UserWorkouts() {
         onChangeText={setName}
         onFocus={() => setActiveInput("exerciseName")}
         onBlur={() => setActiveInput(null)}
+        clearButtonMode="always" 
       />
       <Text style={styles(isDarkMode).field}>Body Part:</Text>
       <TextInput
@@ -272,6 +273,7 @@ export default function UserWorkouts() {
         onChangeText={setBodyPart}
         onFocus={() => setActiveInput("bodyPart")}
         onBlur={() => setActiveInput(null)}
+        clearButtonMode="always" 
       />
       <Text style={styles(isDarkMode).field}>Image URL:</Text>
       <TextInput
@@ -280,6 +282,7 @@ export default function UserWorkouts() {
         onChangeText={setImageUrl}
         onFocus={() => setActiveInput("imageURL")}
         onBlur={() => setActiveInput(null)}
+        clearButtonMode="always" 
       />
       <TouchableOpacity
         style={styles(isDarkMode).addExercisesButton}

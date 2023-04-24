@@ -1,0 +1,63 @@
+Date : 2023-04-19 23:27:20
+Directory : c:\Users\jibby\build\fitness-project
+Total : 29 files,  24362 codes, 30 comments, 274 blanks, all 24666 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          3 |     20,358 |         16 |          2 |     20,376 |
+| JavaScript |         26 |      4,004 |         14 |        272 |      4,290 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                  | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                     |         29 |     24,362 |         30 |        274 |     24,666 |
+| . (Files)                                                                             |          8 |     20,488 |         16 |         20 |     20,524 |
+| components                                                                            |          1 |         56 |          0 |          4 |         60 |
+| data                                                                                  |          1 |        183 |          0 |          1 |        184 |
+| firebase                                                                              |          1 |         18 |          0 |          4 |         22 |
+| screens                                                                               |         18 |      3,617 |         14 |        245 |      3,876 |
+| screens (Files)                                                                       |          5 |        483 |          3 |         41 |        527 |
+| screens\LoginScreen                                                                   |          2 |        129 |          0 |          6 |        135 |
+| screens\RegistrationScreen                                                            |          2 |        208 |          0 |          9 |        217 |
+| screens\UserProfile                                                                   |          9 |      2,797 |         11 |        189 |      2,997 |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                              | language   | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\jibby\build\fitness-project\App.js                                           | JavaScript |         23 |          0 |          4 |         27 |
+| c:\Users\jibby\build\fitness-project\Context.js                                       | JavaScript |         25 |          0 |          3 |         28 |
+| c:\Users\jibby\build\fitness-project\DarkModeContext.js                               | JavaScript |         11 |          0 |          4 |         15 |
+| c:\Users\jibby\build\fitness-project\StackNavigator.js                                | JavaScript |         65 |          0 |          6 |         71 |
+| c:\Users\jibby\build\fitness-project\app.json                                         | JSON       |         18 |         16 |          0 |         34 |
+| c:\Users\jibby\build\fitness-project\babel.config.js                                  | JavaScript |          6 |          0 |          1 |          7 |
+| c:\Users\jibby\build\fitness-project\components\FitnessCards.js                       | JavaScript |         56 |          0 |          4 |         60 |
+| c:\Users\jibby\build\fitness-project\data\fitness.js                                  | JavaScript |        183 |          0 |          1 |        184 |
+| c:\Users\jibby\build\fitness-project\firebase\config.js                               | JavaScript |         18 |          0 |          4 |         22 |
+| c:\Users\jibby\build\fitness-project\package-lock.json                                | JSON       |     20,301 |          0 |          1 |     20,302 |
+| c:\Users\jibby\build\fitness-project\package.json                                     | JSON       |         39 |          0 |          1 |         40 |
+| c:\Users\jibby\build\fitness-project\screens\FitScreen.js                             | JavaScript |        228 |          0 |         14 |        242 |
+| c:\Users\jibby\build\fitness-project\screens\HomeScreen.js                            | JavaScript |        109 |          0 |         11 |        120 |
+| c:\Users\jibby\build\fitness-project\screens\LoginScreen\LoginScreen.js               | JavaScript |         73 |          0 |          4 |         77 |
+| c:\Users\jibby\build\fitness-project\screens\LoginScreen\styles.js                    | JavaScript |         56 |          0 |          2 |         58 |
+| c:\Users\jibby\build\fitness-project\screens\RegistrationScreen\RegistrationScreen.js | JavaScript |        152 |          0 |          7 |        159 |
+| c:\Users\jibby\build\fitness-project\screens\RegistrationScreen\styles.js             | JavaScript |         56 |          0 |          2 |         58 |
+| c:\Users\jibby\build\fitness-project\screens\RestScreen.js                            | JavaScript |         53 |          2 |          6 |         61 |
+| c:\Users\jibby\build\fitness-project\screens\UserProfile\CalorieTrackerScreen.js      | JavaScript |        139 |          0 |          9 |        148 |
+| c:\Users\jibby\build\fitness-project\screens\UserProfile\CreateWorkout.js             | JavaScript |        316 |          0 |         21 |        337 |
+| c:\Users\jibby\build\fitness-project\screens\UserProfile\Dashboard.js                 | JavaScript |        237 |          0 |         15 |        252 |
+| c:\Users\jibby\build\fitness-project\screens\UserProfile\EditWorkout.js               | JavaScript |        375 |          0 |         26 |        401 |
+| c:\Users\jibby\build\fitness-project\screens\UserProfile\UserExercises.js             | JavaScript |        281 |          2 |         16 |        299 |
+| c:\Users\jibby\build\fitness-project\screens\UserProfile\UserScreen.js                | JavaScript |        494 |          9 |         41 |        544 |
+| c:\Users\jibby\build\fitness-project\screens\UserProfile\ViewExercises.js             | JavaScript |        329 |          0 |         20 |        349 |
+| c:\Users\jibby\build\fitness-project\screens\UserProfile\WeightTracker.js             | JavaScript |        336 |          0 |         20 |        356 |
+| c:\Users\jibby\build\fitness-project\screens\UserProfile\WorkoutList.js               | JavaScript |        290 |          0 |         21 |        311 |
+| c:\Users\jibby\build\fitness-project\screens\WorkoutScreen.js                         | JavaScript |         91 |          1 |         10 |        102 |
+| c:\Users\jibby\build\fitness-project\screens\index.js                                 | JavaScript |          2 |          0 |          0 |          2 |
+| Total                                                                                 |            |     24,362 |         30 |        274 |     24,666 |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

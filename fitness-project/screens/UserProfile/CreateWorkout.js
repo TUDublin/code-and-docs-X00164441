@@ -294,6 +294,7 @@ const CreateWorkout = () => {
         onChangeText={setWorkoutName}
         onFocus={() => setActiveInput("workoutName")}
         onBlur={() => setActiveInput(null)}
+        clearButtonMode="always" 
       />
       <Text style={styles(isDarkMode).field}>Exercises:</Text>
       <ScrollView>

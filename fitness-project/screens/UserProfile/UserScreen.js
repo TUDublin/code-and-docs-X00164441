@@ -69,6 +69,12 @@ const styles = (isDarkMode, activeInput) =>
       fontWeight: "bold",
       textAlign: "center",
     },
+    confirmdeleteAccountText: {
+      color: isDarkMode ? "#a90505" : "#a90505",
+      fontSize: 18,
+      fontWeight: "bold",
+      textAlign: "center",
+    },
     button: {
       backgroundColor: isDarkMode ? "#1c1c1c" : "white",
       paddingVertical: 5,
@@ -164,7 +170,16 @@ export default function UserScreen() {
               style={styles(isDarkMode).button}
               onPress={navigateToViewExercises}
             >
-              <Text style={styles(isDarkMode).buttonText}>View Exercises</Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="view-agenda"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).buttonText}>
+                  View Exercises
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).button}
@@ -188,16 +203,19 @@ export default function UserScreen() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={{
-                left: 140,
-              }}
+              style={styles(isDarkMode).button}
               onPress={confirmDeleteAccount}
             >
-              <MaterialIcons
-                name="delete"
-                size={32}
-                color={isDarkMode ? "#a90505" : "#a90505"}
-              />
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <AntDesign
+                  name="delete"
+                  size={18}
+                  color={isDarkMode ? "#a90505" : "#a90505"}
+                />
+                <Text style={styles(isDarkMode).confirmdeleteAccountText}>
+                  Delete Account
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
@@ -474,6 +492,7 @@ export default function UserScreen() {
           onChangeText={setFullName}
           onFocus={() => setActiveInput("fullName")}
           onBlur={() => setActiveInput(null)}
+          clearButtonMode="always" 
         />
         <Text style={styles(isDarkMode).field}>Email:</Text>
         <TextInput
@@ -482,6 +501,7 @@ export default function UserScreen() {
           onChangeText={setEmail}
           onFocus={() => setActiveInput("Email")}
           onBlur={() => setActiveInput(null)}
+          clearButtonMode="always" 
         />
         <Text style={styles(isDarkMode).field}>Age:</Text>
         <TextInput
@@ -490,6 +510,7 @@ export default function UserScreen() {
           onChangeText={setAge}
           onFocus={() => setActiveInput("Age")}
           onBlur={() => setActiveInput(null)}
+          clearButtonMode="always" 
         />
         <Text style={styles(isDarkMode).field}>Location:</Text>
         <TextInput
@@ -498,6 +519,7 @@ export default function UserScreen() {
           onChangeText={setLocation}
           onFocus={() => setActiveInput("Location")}
           onBlur={() => setActiveInput(null)}
+          clearButtonMode="always" 
         />
         <Text style={styles(isDarkMode).field}>Sex:</Text>
         <TextInput
@@ -506,6 +528,7 @@ export default function UserScreen() {
           onChangeText={setSex}
           onFocus={() => setActiveInput("Sex")}
           onBlur={() => setActiveInput(null)}
+          clearButtonMode="always" 
         />
 
         <TouchableOpacity

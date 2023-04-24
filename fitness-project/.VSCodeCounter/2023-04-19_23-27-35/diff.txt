@@ -1,0 +1,41 @@
+Date : 2023-04-19 23:27:35
+Directory : c:\Users\jibby\build\fitness-project\screens
+Total : 11 files,  -20745 codes, -16 comments, -29 blanks, all -20790 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |          8 |       -387 |          0 |        -27 |       -414 |
+| JSON       |          3 |    -20,358 |        -16 |         -2 |    -20,376 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                            | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                               |         11 |    -20,745 |        -16 |        -29 |    -20,790 |
+| ..                                                              |         11 |    -20,745 |        -16 |        -29 |    -20,790 |
+| .. (Files)                                                      |          8 |    -20,488 |        -16 |        -20 |    -20,524 |
+| ..\components                                                   |          1 |        -56 |          0 |         -4 |        -60 |
+| ..\data                                                         |          1 |       -183 |          0 |         -1 |       -184 |
+| ..\firebase                                                     |          1 |        -18 |          0 |         -4 |        -22 |
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                        | language   | code       | comment    | blank      | total      |
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\jibby\build\fitness-project\App.js                     | JavaScript |        -23 |          0 |         -4 |        -27 |
+| c:\Users\jibby\build\fitness-project\Context.js                 | JavaScript |        -25 |          0 |         -3 |        -28 |
+| c:\Users\jibby\build\fitness-project\DarkModeContext.js         | JavaScript |        -11 |          0 |         -4 |        -15 |
+| c:\Users\jibby\build\fitness-project\StackNavigator.js          | JavaScript |        -65 |          0 |         -6 |        -71 |
+| c:\Users\jibby\build\fitness-project\app.json                   | JSON       |        -18 |        -16 |          0 |        -34 |
+| c:\Users\jibby\build\fitness-project\babel.config.js            | JavaScript |         -6 |          0 |         -1 |         -7 |
+| c:\Users\jibby\build\fitness-project\components\FitnessCards.js | JavaScript |        -56 |          0 |         -4 |        -60 |
+| c:\Users\jibby\build\fitness-project\data\fitness.js            | JavaScript |       -183 |          0 |         -1 |       -184 |
+| c:\Users\jibby\build\fitness-project\firebase\config.js         | JavaScript |        -18 |          0 |         -4 |        -22 |
+| c:\Users\jibby\build\fitness-project\package-lock.json          | JSON       |    -20,301 |          0 |         -1 |    -20,302 |
+| c:\Users\jibby\build\fitness-project\package.json               | JSON       |        -39 |          0 |         -1 |        -40 |
+| Total                                                           |            |    -20,745 |        -16 |        -29 |    -20,790 |
++-----------------------------------------------------------------+------------+------------+------------+------------+------------+
