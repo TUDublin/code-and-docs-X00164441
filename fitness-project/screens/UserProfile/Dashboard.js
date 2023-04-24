@@ -10,6 +10,9 @@ import {
 import { DarkModeContext } from "../../DarkModeContext";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons, FontAwesome5, AntDesign } from "@expo/vector-icons";
+import CaloriesBox from "../../components/CaloriesBox";
+import ExerciseBox from "../../components/UserExercisesBox";
+import { getExercises } from "./exerciseUtils";
 
 const styles = (isDarkMode) =>
   StyleSheet.create({
@@ -64,6 +67,7 @@ const styles = (isDarkMode) =>
 export default function Dashboard() {
   const [navmodalVisible, setnavModalVisible] = useState(false);
   const navigation = useNavigation();
+  const [exercises, setExercises] = useState([]);
 
   const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
 
@@ -243,9 +247,28 @@ export default function Dashboard() {
     });
   }, [navigation, isDarkMode, setnavModalVisible]);
 
+  useEffect(() => {
+    const fetchExercises = async () => {
+      const fetchedExercises = await getExercises(10);
+      setExercises(fetchedExercises);
+    };
+
+    fetchExercises();
+  }, []);
+
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
       <ModalMenu />
+      <CaloriesBox />
+      <Text style={styles(isDarkMode).title}>Your Exercises</Text>
+
+      {exercises.map((exercise) => (
+          <ExerciseBox
+            key={exercise.id}
+            exercise={exercise}
+            isDarkMode={isDarkMode}
+          />
+      ))}
     </SafeAreaView>
   );
 }

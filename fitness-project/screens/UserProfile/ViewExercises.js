@@ -366,6 +366,27 @@ const ViewExercises = () => {
     setModalVisible(false);
   };
 
+  const getExercises = async (limit) => {
+    const userId = firebase.auth().currentUser.uid;
+    const exercisesData = [];
+
+    await firebase
+      .firestore()
+      .collection("Exercises")
+      .where("userId", "==", userId)
+      .limit(limit)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const exercise = doc.data();
+          exercise.id = doc.id;
+          exercisesData.push(exercise);
+        });
+      });
+
+    return exercisesData;
+  };
+
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
       <ModalMenu />

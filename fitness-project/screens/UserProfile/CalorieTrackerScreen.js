@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import CalorieContext from "../../CalorieContext";
 import {
   View,
   Text,
@@ -127,6 +128,7 @@ const styles = (isDarkMode, activeInput) =>
     },
   });
 const CalorieTrackerScreen = () => {
+  const { calories, setCalories } = useContext(CalorieContext);
   const [query, setQuery] = useState("");
   const [foodData, setFoodData] = useState([]);
   const { isDarkMode } = useContext(DarkModeContext);
@@ -313,6 +315,15 @@ const CalorieTrackerScreen = () => {
     });
   }, [navigation, isDarkMode, setnavModalVisible]);
 
+  // Update context file
+  useEffect(() => {
+    const totalCalories = calorieData.reduce(
+      (total, item) => total + item.calories,
+      0
+    );
+    setCalories(totalCalories);
+  }, [calorieData, setCalories]);
+
   const renderCalorieItem = ({ item }) => (
     <View style={styles(isDarkMode).foodItem}>
       <TouchableOpacity
@@ -332,7 +343,11 @@ const CalorieTrackerScreen = () => {
   );
 
   useEffect(() => {
-    if (!uid) return;
+    if (!uid) {
+      // Clear calorie data if no user is logged in
+      setCalorieData([]);
+      return;
+    }
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
