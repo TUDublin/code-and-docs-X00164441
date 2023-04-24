@@ -95,7 +95,7 @@ const styles = (isDarkMode) =>
     },
   });
 
-const WorkoutList = () => {
+const WorkoutList = ({ onWorkoutPress }) => {
   const [workouts, setWorkouts] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
@@ -323,6 +323,11 @@ const WorkoutList = () => {
   };
 
   const handleWorkoutPress = (workout) => {
+    if (onWorkoutPress) {
+      onWorkoutPress(workout);
+    } else {
+      showWorkoutInfo(workout);
+    }
     Alert.alert("Options", "View or Edit Workout", [
       {
         text: "View",
