@@ -8,6 +8,7 @@ import {
   ScrollView,
   Alert,
   Modal,
+  Dimensions
 } from "react-native";
 import { firebase } from "../../firebase/config";
 import { useNavigation } from "@react-navigation/native";
@@ -29,7 +30,7 @@ const styles = (isDarkMode) =>
       borderRadius: 5,
       padding: 10,
       marginTop: 10,
-      width: "100%",
+      width: Dimensions.get("window").width - 40,
     },
     workoutName: {
       fontSize: 16,

@@ -1,7 +1,7 @@
 // components/ExerciseBox.js
 
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Dimensions } from "react-native";
 
 const ExerciseBox = ({ exercise, isDarkMode }) => {
   const boxStyles = StyleSheet.create({
@@ -11,7 +11,7 @@ const ExerciseBox = ({ exercise, isDarkMode }) => {
       padding: 10,
       marginTop: 10,
       justifyContent: "center",
-      width: "100%",
+      width: Dimensions.get("window").width - 40,
     },
     exerciseName: {
       fontSize: 16,

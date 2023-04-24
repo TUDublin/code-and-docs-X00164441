@@ -264,7 +264,9 @@ export default function Dashboard() {
     <SafeAreaView style={styles(isDarkMode).container}>
       <ModalMenu />
       <CaloriesBox />
-      <Text style={styles(isDarkMode).title}>Your Exercises</Text>
+      <Text style={styles(isDarkMode).title}>Workouts</Text>
+      <WorkoutList onWorkoutPress={handleWorkoutPress} />
+      <Text style={styles(isDarkMode).title}>Exercises</Text>
 
       <View style={{ height: 207 }}>
         <ScrollView style={{ flex: 1 }}>
@@ -277,8 +279,6 @@ export default function Dashboard() {
           ))}
         </ScrollView>
       </View>
-      <Text style={styles(isDarkMode).title}>Your Workouts</Text>
-      <WorkoutList onWorkoutPress={handleWorkoutPress} />
       <WeightGraphBox />
     </SafeAreaView>
   );
