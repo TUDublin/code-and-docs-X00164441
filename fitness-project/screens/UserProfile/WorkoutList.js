@@ -12,7 +12,7 @@ import {
 import { firebase } from "../../firebase/config";
 import { useNavigation } from "@react-navigation/native";
 import { DarkModeContext } from "../../DarkModeContext";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome5, AntDesign } from "@expo/vector-icons";
 
 const styles = (isDarkMode) =>
   StyleSheet.create({
@@ -55,6 +55,19 @@ const styles = (isDarkMode) =>
       borderBottomColor: isDarkMode ? "white" : "black",
     },
     modalbuttonText: {
+      color: isDarkMode ? "white" : "black",
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+
+    navmodalbutton: {
+      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+      paddingVertical: 5,
+      width: "100%",
+      borderBottomWidth: 1,
+      borderBottomColor: isDarkMode ? "white" : "black",
+    },
+    navmodalbuttonText: {
       color: isDarkMode ? "white" : "black",
       fontSize: 18,
       fontWeight: "bold",
@@ -116,6 +129,15 @@ const WorkoutList = () => {
     navigation.navigate("Profile");
   };
 
+  const navigateToCalorieTracker = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("CalorieTracker");
+  };
+
+  const navigateToWeightTracker = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("WeightTracker");
+  };
   const ModalMenu = () => {
     return (
       <Modal
@@ -132,42 +154,110 @@ const WorkoutList = () => {
         >
           <View style={styles(isDarkMode).navmodalView}>
             <TouchableOpacity
-              style={styles(isDarkMode).modalbutton}
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToDashboard}
             >
-              <Text style={styles(isDarkMode).modalbuttonText}>Dashboard</Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="dashboard"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Dashboard
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles(isDarkMode).modalbutton}
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToViewExercises}
             >
-              <Text style={styles(isDarkMode).modalbuttonText}>
-                View Exercises
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="view-agenda"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  View Exercises
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles(isDarkMode).modalbutton}
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToExercises}
             >
-              <Text style={styles(isDarkMode).modalbuttonText}>
-                Add Exercises
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="edit"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Add Exercises
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles(isDarkMode).modalbutton}
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToCreateWorkout}
             >
-              <Text style={styles(isDarkMode).modalbuttonText}>
-                Create Workout
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="rate-review"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Create Workout
+                </Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToCalorieTracker}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="emoji-food-beverage"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Calorie Tracker
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles(isDarkMode).modalbutton}
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToWeightTracker}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <FontAwesome5
+                  name="weight"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Weight Tracker
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToProfilePage}
             >
-              <Text style={styles(isDarkMode).modalbuttonText}>
-                Profile Page
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <AntDesign
+                  name="profile"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Profile Page
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </TouchableOpacity>

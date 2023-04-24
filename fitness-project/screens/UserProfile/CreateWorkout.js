@@ -13,7 +13,7 @@ import { firebase } from "../../firebase/config";
 import { useNavigation } from "@react-navigation/native";
 import { Switch } from "react-native";
 import { DarkModeContext } from "../../DarkModeContext";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome5, AntDesign } from "@expo/vector-icons";
 
 const styles = (isDarkMode, activeInput) =>
   StyleSheet.create({
@@ -134,6 +134,16 @@ const CreateWorkout = () => {
     navigation.navigate("Profile");
   };
 
+  const navigateToCalorieTracker = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("CalorieTracker");
+  };
+
+  const navigateToWeightTracker = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("WeightTracker");
+  };
+
   const ModalMenu = () => {
     return (
       <Modal
@@ -153,41 +163,107 @@ const CreateWorkout = () => {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToDashboard}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                Dashboard
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="dashboard"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Dashboard
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToViewExercises}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                View Exercises
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="view-agenda"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  View Exercises
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToWorkoutList}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                Edit/View Workouts
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="view-headline"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Edit/View Workouts
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToExercises}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                Add Exercises
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="edit"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Add Exercises
+                </Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToCalorieTracker}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="emoji-food-beverage"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Calorie Tracker
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToWeightTracker}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <FontAwesome5
+                  name="weight"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Weight Tracker
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToProfilePage}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                Profile Page
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <AntDesign
+                  name="profile"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Profile Page
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
@@ -294,7 +370,7 @@ const CreateWorkout = () => {
         onChangeText={setWorkoutName}
         onFocus={() => setActiveInput("workoutName")}
         onBlur={() => setActiveInput(null)}
-        clearButtonMode="always" 
+        clearButtonMode="always"
       />
       <Text style={styles(isDarkMode).field}>Exercises:</Text>
       <ScrollView>
@@ -303,7 +379,7 @@ const CreateWorkout = () => {
             <Switch
               value={selectedExercises[exercise.id] || false}
               onValueChange={() => toggleExerciseSelection(exercise.id)}
-              trackColor={{ false: 'gray', true: '#1463F3' }}
+              trackColor={{ false: "gray", true: "#1463F3" }}
             />
             <Text style={styles(isDarkMode).exerciseName}>{exercise.name}</Text>
           </View>

@@ -11,7 +11,7 @@ import {
 import { firebase } from "../../firebase/config";
 import { useNavigation } from "@react-navigation/native";
 import { DarkModeContext } from "../../DarkModeContext";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome5, AntDesign } from "@expo/vector-icons";
 
 const styles = (isDarkMode, activeInput) =>
   StyleSheet.create({
@@ -134,6 +134,16 @@ export default function UserWorkouts() {
     navigation.navigate("Profile");
   };
 
+  const navigateToCalorieTracker = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("CalorieTracker");
+  };
+
+  const navigateToWeightTracker = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("WeightTracker");
+  };
+
   const ModalMenu = () => {
     return (
       <Modal
@@ -153,41 +163,108 @@ export default function UserWorkouts() {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToDashboard}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                Dashboard
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="dashboard"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Dashboard
+                </Text>
+              </View>
             </TouchableOpacity>
+
             <TouchableOpacity
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToViewExercises}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                View Exercises
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="view-agenda"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  View Exercises
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToWorkoutList}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                Edit/View Workouts
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="view-headline"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Edit/View Workouts
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToCreateWorkout}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                Create Workout
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="rate-review"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Create Workout
+                </Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToCalorieTracker}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="emoji-food-beverage"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Calorie Tracker
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToWeightTracker}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <FontAwesome5
+                  name="weight"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Weight Tracker
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToProfilePage}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                Profile Page
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <AntDesign
+                  name="profile"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Profile Page
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
@@ -264,7 +341,7 @@ export default function UserWorkouts() {
         onChangeText={setName}
         onFocus={() => setActiveInput("exerciseName")}
         onBlur={() => setActiveInput(null)}
-        clearButtonMode="always" 
+        clearButtonMode="always"
       />
       <Text style={styles(isDarkMode).field}>Body Part:</Text>
       <TextInput
@@ -273,7 +350,7 @@ export default function UserWorkouts() {
         onChangeText={setBodyPart}
         onFocus={() => setActiveInput("bodyPart")}
         onBlur={() => setActiveInput(null)}
-        clearButtonMode="always" 
+        clearButtonMode="always"
       />
       <Text style={styles(isDarkMode).field}>Image URL:</Text>
       <TextInput
@@ -282,7 +359,7 @@ export default function UserWorkouts() {
         onChangeText={setImageUrl}
         onFocus={() => setActiveInput("imageURL")}
         onBlur={() => setActiveInput(null)}
-        clearButtonMode="always" 
+        clearButtonMode="always"
       />
       <TouchableOpacity
         style={styles(isDarkMode).addExercisesButton}

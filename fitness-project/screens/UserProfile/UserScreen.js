@@ -75,25 +75,25 @@ const styles = (isDarkMode, activeInput) =>
       fontWeight: "bold",
       textAlign: "center",
     },
-    button: {
+    navmodalbutton: {
       backgroundColor: isDarkMode ? "#1c1c1c" : "white",
       paddingVertical: 5,
       width: "100%",
       borderBottomWidth: 1,
       borderBottomColor: isDarkMode ? "white" : "black",
     },
-    buttonText: {
+    navmodalbuttonText: {
       color: isDarkMode ? "white" : "black",
       fontSize: 18,
       fontWeight: "bold",
     },
-    modalOverlay: {
+    navmodalOverlay: {
       flex: 1,
       justifyContent: "flex-start",
       alignItems: "flex-end",
       backgroundColor: "rgba(0, 0, 0, 0.5)",
     },
-    modalView: {
+    navmodalView: {
       marginTop: 60,
       marginRight: 20,
       backgroundColor: isDarkMode ? "#1c1c1c" : "white",
@@ -117,32 +117,42 @@ export default function UserScreen() {
   const [location, setLocation] = useState("");
   const [sex, setSex] = useState("");
   const navigation = useNavigation();
-  const [modalVisible, setModalVisible] = useState(false);
+  const [navmodalVisible, setnavModalVisible] = useState(false);
   const [activeInput, setActiveInput] = useState(null);
 
   const navigateToDashboard = () => {
-    setModalVisible(!modalVisible);
+    setnavModalVisible(!navmodalVisible);
     navigation.navigate("Dashboard");
   };
 
   const navigateToExercises = () => {
-    setModalVisible(!modalVisible);
+    setnavModalVisible(!navmodalVisible);
     navigation.navigate("Exercises");
   };
 
   const navigateToViewExercises = () => {
-    setModalVisible(!modalVisible);
+    setnavModalVisible(!navmodalVisible);
     navigation.navigate("ViewExercises");
   };
 
   const navigateToCreateWorkout = () => {
-    setModalVisible(!modalVisible);
+    setnavModalVisible(!navmodalVisible);
     navigation.navigate("CreateWorkout");
   };
 
   const navigateToWorkoutList = () => {
-    setModalVisible(!modalVisible);
+    setnavModalVisible(!navmodalVisible);
     navigation.navigate("WorkoutList");
+  };
+
+  const navigateToCalorieTracker = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("CalorieTracker");
+  };
+
+  const navigateToWeightTracker = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("WeightTracker");
   };
 
   const ModalMenu = () => {
@@ -150,24 +160,33 @@ export default function UserScreen() {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={navmodalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setnavModalVisible(!navmodalVisible);
         }}
       >
         <TouchableOpacity
-          style={styles(isDarkMode).modalOverlay}
-          onPress={() => setModalVisible(!modalVisible)}
+          style={styles(isDarkMode).navmodalOverlay}
+          onPress={() => setnavModalVisible(!navmodalVisible)}
         >
-          <View style={styles(isDarkMode).modalView}>
+          <View style={styles(isDarkMode).navmodalView}>
             <TouchableOpacity
-              style={styles(isDarkMode).button}
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToDashboard}
             >
-              <Text style={styles(isDarkMode).buttonText}>Dashboard</Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="dashboard"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Dashboard
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles(isDarkMode).button}
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToViewExercises}
             >
               <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -176,32 +195,87 @@ export default function UserScreen() {
                   size={18}
                   color={isDarkMode ? "white" : "black"}
                 />
-                <Text style={styles(isDarkMode).buttonText}>
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
                   View Exercises
                 </Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles(isDarkMode).button}
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToWorkoutList}
             >
-              <Text style={styles(isDarkMode).buttonText}>
-                Edit/View Workouts
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="view-headline"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Edit/View Workouts
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles(isDarkMode).button}
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToExercises}
             >
-              <Text style={styles(isDarkMode).buttonText}>Add Exercises</Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="edit"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Add Exercises
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles(isDarkMode).button}
+              style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToCreateWorkout}
             >
-              <Text style={styles(isDarkMode).buttonText}>Create Workout</Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="rate-review"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Create Workout
+                </Text>
+              </View>
             </TouchableOpacity>
 
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToCalorieTracker}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="emoji-food-beverage"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Calorie Tracker
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToWeightTracker}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <FontAwesome5
+                  name="weight"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Weight Tracker
+                </Text>
+              </View>
+            </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).button}
               onPress={confirmDeleteAccount}
@@ -222,6 +296,20 @@ export default function UserScreen() {
       </Modal>
     );
   };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => setnavModalVisible(true)} style={{}}>
+          <MaterialIcons
+            name="more-vert"
+            size={32}
+            color={isDarkMode ? "#1463F3" : "#1463F3"}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, isDarkMode, setnavModalVisible]);
 
   const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
   const toggleDarkMode = () => {
@@ -381,20 +469,6 @@ export default function UserScreen() {
     return unsubscribe;
   }, []);
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={() => setModalVisible(true)} style={{}}>
-          <MaterialIcons
-            name="more-vert"
-            size={32}
-            color={isDarkMode ? "#1463F3" : "#1463F3"}
-          />
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation, isDarkMode, setModalVisible]);
-
   const saveChanges = async () => {
     const user = firebase.auth().currentUser;
     if (user) {
@@ -492,7 +566,7 @@ export default function UserScreen() {
           onChangeText={setFullName}
           onFocus={() => setActiveInput("fullName")}
           onBlur={() => setActiveInput(null)}
-          clearButtonMode="always" 
+          clearButtonMode="always"
         />
         <Text style={styles(isDarkMode).field}>Email:</Text>
         <TextInput
@@ -501,7 +575,7 @@ export default function UserScreen() {
           onChangeText={setEmail}
           onFocus={() => setActiveInput("Email")}
           onBlur={() => setActiveInput(null)}
-          clearButtonMode="always" 
+          clearButtonMode="always"
         />
         <Text style={styles(isDarkMode).field}>Age:</Text>
         <TextInput
@@ -510,7 +584,7 @@ export default function UserScreen() {
           onChangeText={setAge}
           onFocus={() => setActiveInput("Age")}
           onBlur={() => setActiveInput(null)}
-          clearButtonMode="always" 
+          clearButtonMode="always"
         />
         <Text style={styles(isDarkMode).field}>Location:</Text>
         <TextInput
@@ -519,7 +593,7 @@ export default function UserScreen() {
           onChangeText={setLocation}
           onFocus={() => setActiveInput("Location")}
           onBlur={() => setActiveInput(null)}
-          clearButtonMode="always" 
+          clearButtonMode="always"
         />
         <Text style={styles(isDarkMode).field}>Sex:</Text>
         <TextInput
@@ -528,7 +602,7 @@ export default function UserScreen() {
           onChangeText={setSex}
           onFocus={() => setActiveInput("Sex")}
           onBlur={() => setActiveInput(null)}
-          clearButtonMode="always" 
+          clearButtonMode="always"
         />
 
         <TouchableOpacity

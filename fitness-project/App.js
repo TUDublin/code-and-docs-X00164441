@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react'
+import { StyleSheet,} from 'react-native';
+import React, {useState } from 'react'
 import StackNavigator from './StackNavigator';
 import { FitnessContext } from './Context';
 import { DarkModeProvider } from './DarkModeContext';

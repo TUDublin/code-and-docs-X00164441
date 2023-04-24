@@ -13,7 +13,7 @@ import { firebase } from "../../firebase/config";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 import { DarkModeContext } from "../../DarkModeContext";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome5, AntDesign } from "@expo/vector-icons";
 
 const styles = (isDarkMode) =>
   StyleSheet.create({
@@ -132,6 +132,16 @@ const ViewExercises = () => {
     navigation.navigate("Profile");
   };
 
+  const navigateToCalorieTracker = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("CalorieTracker");
+  };
+
+  const navigateToWeightTracker = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("WeightTracker");
+  };
+
   const ModalMenu = () => {
     return (
       <Modal
@@ -151,39 +161,107 @@ const ViewExercises = () => {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToDashboard}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>Dashboard</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles(isDarkMode).navmodalbutton}
-              onPress={navigateToExercises}
-            >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                Add Exercises
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="dashboard"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Dashboard
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToWorkoutList}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                Edit/View Workouts
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="view-headline"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Edit/View Workouts
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToExercises}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="edit"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Add Exercises
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToCreateWorkout}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                Create Workout
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="rate-review"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Create Workout
+                </Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToCalorieTracker}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="emoji-food-beverage"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Calorie Tracker
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToWeightTracker}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <FontAwesome5
+                  name="weight"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Weight Tracker
+                </Text>
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToProfilePage}
             >
-              <Text style={styles(isDarkMode).navmodalbuttonText}>
-                Profile Page
-              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <AntDesign
+                  name="profile"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Profile Page
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
@@ -205,10 +283,9 @@ const ViewExercises = () => {
     });
   }, [navigation, isDarkMode, setnavModalVisible]);
 
-
   useEffect(() => {
     const userId = firebase.auth().currentUser.uid;
-  
+
     const unsubscribe = firebase
       .firestore()
       .collection("Exercises")
@@ -228,7 +305,7 @@ const ViewExercises = () => {
         setFilteredExercises(exercisesData);
         setBodyParts(["All", ...bodyPartsData]);
       });
-  
+
     return () => unsubscribe();
   }, []);
 
