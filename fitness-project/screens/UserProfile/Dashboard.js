@@ -73,9 +73,7 @@ export default function Dashboard() {
   const [exercises, setExercises] = useState([]);
 
   const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
-  const handleWorkoutPress = (workout) => {
-    // You can define the behavior when a workout item is pressed in the Dashboard screen
-  };
+  const handleWorkoutPress = (workout) => {};
 
   const navigateToExercises = () => {
     setnavModalVisible(!navmodalVisible);
@@ -264,24 +262,24 @@ export default function Dashboard() {
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
-        <ModalMenu />
-        <CaloriesBox />
-        <Text style={styles(isDarkMode).title}>Your Exercises</Text>
+      <ModalMenu />
+      <CaloriesBox />
+      <Text style={styles(isDarkMode).title}>Your Exercises</Text>
 
-        <View style={{ height: 210 }}>
-          <ScrollView style={{ flex: 1 }}>
-            {exercises.map((exercise) => (
-              <ExerciseBox
-                key={exercise.id}
-                exercise={exercise}
-                isDarkMode={isDarkMode}
-              />
-            ))}
-          </ScrollView>
-        </View>
-        <Text style={styles(isDarkMode).title}>Your Workouts</Text>
-        <WorkoutList onWorkoutPress={handleWorkoutPress} />
-        <WeightGraphBox />
+      <View style={{ height: 207 }}>
+        <ScrollView style={{ flex: 1 }}>
+          {exercises.map((exercise) => (
+            <ExerciseBox
+              key={exercise.id}
+              exercise={exercise}
+              isDarkMode={isDarkMode}
+            />
+          ))}
+        </ScrollView>
+      </View>
+      <Text style={styles(isDarkMode).title}>Your Workouts</Text>
+      <WorkoutList onWorkoutPress={handleWorkoutPress} />
+      <WeightGraphBox />
     </SafeAreaView>
   );
 }

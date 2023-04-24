@@ -22,6 +22,7 @@ const styles = (isDarkMode) =>
       justifyContent: "center",
       padding: 20,
       backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+      width: "100%",
     },
     workoutItem: {
       backgroundColor: isDarkMode ? "#3b3b3b" : "#e6e6e6",
@@ -323,11 +324,6 @@ const WorkoutList = ({ onWorkoutPress }) => {
   };
 
   const handleWorkoutPress = (workout) => {
-    if (onWorkoutPress) {
-      onWorkoutPress(workout);
-    } else {
-      showWorkoutInfo(workout);
-    }
     Alert.alert("Options", "View or Edit Workout", [
       {
         text: "View",

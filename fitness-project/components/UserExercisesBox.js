@@ -1,20 +1,17 @@
 // components/ExerciseBox.js
 
 import React from "react";
-import { StyleSheet, View, Text, } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 const ExerciseBox = ({ exercise, isDarkMode }) => {
   const boxStyles = StyleSheet.create({
     box: {
-      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
-      borderWidth: 1,
-      borderColor: isDarkMode ? "white" : "black",
-      borderRadius: 10,
+      backgroundColor: isDarkMode ? "#3b3b3b" : "#e6e6e6",
+      borderRadius: 5,
       padding: 10,
-      marginVertical: 5,
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
+      marginTop: 10,
+      justifyContent: "center",
+      width: "100%",
     },
     exerciseName: {
       fontSize: 16,
