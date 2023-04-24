@@ -528,7 +528,7 @@ const CalorieTrackerScreen = () => {
           <SafeAreaView style={{ flex: 1, width: "100%" }}>
             <View style={styles(isDarkMode).modalContent}>
               <Text style={styles(isDarkMode).title}>
-                Calories consumed today:{" "}
+                Calories consumed today:{"\n "}
                 {calorieData
                   .reduce((total, item) => total + item.calories, 0)
                   .toFixed(2)}{" "}
