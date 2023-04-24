@@ -17,6 +17,7 @@ import { DarkModeContext } from "../../DarkModeContext";
 import { firebase } from "../../firebase/config";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons, FontAwesome5, AntDesign } from "@expo/vector-icons";
+import { useFocusEffect } from '@react-navigation/native';
 
 const styles = (isDarkMode, activeInput) =>
   StyleSheet.create({
@@ -315,15 +316,6 @@ const CalorieTrackerScreen = () => {
     });
   }, [navigation, isDarkMode, setnavModalVisible]);
 
-  // Update context file
-  useEffect(() => {
-    const totalCalories = calorieData.reduce(
-      (total, item) => total + item.calories,
-      0
-    );
-    setCalories(totalCalories);
-  }, [calorieData, setCalories]);
-
   const renderCalorieItem = ({ item }) => (
     <View style={styles(isDarkMode).foodItem}>
       <TouchableOpacity
@@ -438,6 +430,17 @@ const CalorieTrackerScreen = () => {
       { cancelable: false }
     );
   };
+
+  // Update the context when the screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      const totalCalories = calorieData.reduce(
+        (total, item) => total + item.calories,
+        0
+      );
+      setCalories(totalCalories);
+    }, [calorieData, setCalories])
+  );
 
   const fetchNutritionData = async () => {
     setFoodData([]);

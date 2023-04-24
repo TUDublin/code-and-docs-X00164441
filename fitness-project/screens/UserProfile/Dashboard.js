@@ -6,6 +6,7 @@ import {
   View,
   Modal,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import { DarkModeContext } from "../../DarkModeContext";
 import { useNavigation } from "@react-navigation/native";
@@ -249,7 +250,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     const fetchExercises = async () => {
-      const fetchedExercises = await getExercises(10);
+      const fetchedExercises = await getExercises(20);
       setExercises(fetchedExercises);
     };
 
@@ -262,13 +263,17 @@ export default function Dashboard() {
       <CaloriesBox />
       <Text style={styles(isDarkMode).title}>Your Exercises</Text>
 
-      {exercises.map((exercise) => (
-          <ExerciseBox
-            key={exercise.id}
-            exercise={exercise}
-            isDarkMode={isDarkMode}
-          />
-      ))}
+      <View style={{ height: 260, }}>
+        <ScrollView style={{ flex: 1 }}>
+          {exercises.map((exercise) => (
+            <ExerciseBox
+              key={exercise.id}
+              exercise={exercise}
+              isDarkMode={isDarkMode}
+            />
+          ))}
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }

@@ -30,7 +30,7 @@ const CaloriesBox = ({ isDarkMode }) => {
   return (
     <View style={boxStyles.container}>
       <Text style={boxStyles.title}>Today's Calories</Text>
-      <Text style={boxStyles.calories}>{calories}</Text>
+      <Text style={boxStyles.calories}>{Math.round(calories)}</Text>
     </View>
   );
 };

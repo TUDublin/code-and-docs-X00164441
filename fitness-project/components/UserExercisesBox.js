@@ -1,7 +1,7 @@
 // components/ExerciseBox.js
 
 import React from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, } from "react-native";
 
 const ExerciseBox = ({ exercise, isDarkMode }) => {
   const boxStyles = StyleSheet.create({
