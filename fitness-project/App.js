@@ -1,7 +1,6 @@
 import { StyleSheet,} from 'react-native';
 import React, {useState } from 'react'
 import StackNavigator from './StackNavigator';
-import { FitnessContext } from './Context';
 import CalorieContext from "./CalorieContext";
 import { DarkModeProvider } from './DarkModeContext';
 
@@ -13,9 +12,7 @@ export default function App() {
   return (
     <DarkModeProvider>
     <CalorieContext.Provider value={{ calories, setCalories }}>
-    <FitnessContext>
       <StackNavigator/>
-    </FitnessContext>
     </CalorieContext.Provider>
     </DarkModeProvider>
   );
