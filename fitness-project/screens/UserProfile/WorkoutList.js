@@ -327,15 +327,6 @@ const WorkoutList = ({ onWorkoutPress }) => {
   const handleWorkoutPress = (workout) => {
     Alert.alert("Options", "View, Edit or Start Workout", [
       {
-        text: "View",
-        onPress: () => showWorkoutInfo(workout),
-      },
-      {
-        text: "Edit",
-        onPress: () =>
-          navigation.navigate("EditWorkout", { workoutId: workout.id }),
-      },
-      {
         text: "Start",
         onPress: () =>
           navigation.navigate("InProgressWorkout", {
@@ -343,6 +334,15 @@ const WorkoutList = ({ onWorkoutPress }) => {
             workoutName: workout.name,
             exercises: workout.exercises,
           }),
+      },
+      {
+        text: "View",
+        onPress: () => showWorkoutInfo(workout),
+      },
+      {
+        text: "Edit",
+        onPress: () =>
+          navigation.navigate("EditWorkout", { workoutId: workout.id }),
       },
       {
         text: "Cancel",

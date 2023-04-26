@@ -232,7 +232,7 @@ const CalorieTrackerScreen = () => {
                   color={isDarkMode ? "white" : "black"}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
-                  Edit/View Workouts
+                Manage Workouts
                 </Text>
               </View>
             </TouchableOpacity>

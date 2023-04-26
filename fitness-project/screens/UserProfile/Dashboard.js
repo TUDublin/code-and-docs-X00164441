@@ -151,7 +151,7 @@ export default function Dashboard() {
                   color={isDarkMode ? "white" : "black"}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
-                  Edit/View Workouts
+                  EManage Workouts
                 </Text>
               </View>
             </TouchableOpacity>
