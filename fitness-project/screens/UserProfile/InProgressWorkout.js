@@ -14,7 +14,7 @@ import {
 import { firebase } from "../../firebase/config";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { DarkModeContext } from "../../DarkModeContext";
-import { MaterialIcons, FontAwesome5, AntDesign } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const styles = (isDarkMode) =>
   StyleSheet.create({
@@ -317,11 +317,8 @@ const Exercise = ({
 };
 
 const InProgressWorkout = ({ route }) => {
-  const [navmodalVisible, setnavModalVisible] = useState(false);
-
   const [exercises, setExercises] = useState([]);
   const [restModalVisible, setRestModalVisible] = useState(false);
-  const [restTimerCompleted, setRestTimerCompleted] = useState(false);
   const [restTimer, setRestTimer] = useState(30);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [timerRunning, setTimerRunning] = useState(true);
@@ -330,182 +327,6 @@ const InProgressWorkout = ({ route }) => {
 
   const { isDarkMode } = useContext(DarkModeContext);
   const navigation = useNavigation();
-
-  const navigateToDashboard = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("Dashboard");
-  };
-
-  const navigateToExercises = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("Exercises");
-  };
-
-  const navigateToViewExercises = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("ViewExercises");
-  };
-
-  const navigateToCreateWorkout = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("CreateWorkout");
-  };
-
-  const navigateToWorkoutList = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("WorkoutList");
-  };
-
-  const navigateToCalorieTracker = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("CalorieTracker");
-  };
-
-  const navigateToWeightTracker = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("WeightTracker");
-  };
-
-  const ModalMenu = () => {
-    return (
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={navmodalVisible}
-        onRequestClose={() => {
-          setnavModalVisible(!navmodalVisible);
-        }}
-      >
-        <TouchableOpacity
-          style={styles(isDarkMode).navmodalOverlay}
-          onPress={() => setnavModalVisible(!navmodalVisible)}
-        >
-          <View style={styles(isDarkMode).navmodalView}>
-            <TouchableOpacity
-              style={styles(isDarkMode).navmodalbutton}
-              onPress={navigateToDashboard}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <MaterialIcons
-                  name="dashboard"
-                  size={18}
-                  color={isDarkMode ? "white" : "black"}
-                />
-                <Text style={styles(isDarkMode).navmodalbuttonText}>
-                  Dashboard
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles(isDarkMode).navmodalbutton}
-              onPress={navigateToViewExercises}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <MaterialIcons
-                  name="view-agenda"
-                  size={18}
-                  color={isDarkMode ? "white" : "black"}
-                />
-                <Text style={styles(isDarkMode).navmodalbuttonText}>
-                  View Exercises
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles(isDarkMode).navmodalbutton}
-              onPress={navigateToWorkoutList}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <MaterialIcons
-                  name="view-headline"
-                  size={18}
-                  color={isDarkMode ? "white" : "black"}
-                />
-                <Text style={styles(isDarkMode).navmodalbuttonText}>
-                  Manage Workouts
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles(isDarkMode).navmodalbutton}
-              onPress={navigateToExercises}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <MaterialIcons
-                  name="edit"
-                  size={18}
-                  color={isDarkMode ? "white" : "black"}
-                />
-                <Text style={styles(isDarkMode).navmodalbuttonText}>
-                  Add Exercises
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles(isDarkMode).navmodalbutton}
-              onPress={navigateToCreateWorkout}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <MaterialIcons
-                  name="rate-review"
-                  size={18}
-                  color={isDarkMode ? "white" : "black"}
-                />
-                <Text style={styles(isDarkMode).navmodalbuttonText}>
-                  Create Workout
-                </Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles(isDarkMode).navmodalbutton}
-              onPress={navigateToCalorieTracker}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <MaterialIcons
-                  name="emoji-food-beverage"
-                  size={18}
-                  color={isDarkMode ? "white" : "black"}
-                />
-                <Text style={styles(isDarkMode).navmodalbuttonText}>
-                  Calorie Tracker
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles(isDarkMode).navmodalbutton}
-              onPress={navigateToWeightTracker}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <FontAwesome5
-                  name="weight"
-                  size={18}
-                  color={isDarkMode ? "white" : "black"}
-                />
-                <Text style={styles(isDarkMode).navmodalbuttonText}>
-                  Weight Tracker
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
-      </Modal>
-    );
-  };
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={() => setnavModalVisible(true)} style={{}}>
-          <MaterialIcons
-            name="more-vert"
-            size={32}
-            color={isDarkMode ? "#1463F3" : "#1463F3"}
-          />
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation, isDarkMode, setnavModalVisible]);
 
   const incrementRestTimer = () => {
     setRestTimer((prevTimer) => prevTimer + 5);
@@ -624,11 +445,13 @@ const InProgressWorkout = ({ route }) => {
       .firestore()
       .collection("CompletedWorkouts");
 
+    const dateFinished = new Date(); // Get the current date
+
     const completedWorkout = {
       userId: uid,
       workoutName: workoutName,
-
       elapsedTime,
+      dateFinished, // Add the dateFinished field to the completedWorkout object
       exercises: exercises.map((exercise) => ({
         exerciseId: exercise.id,
         name: exercise.name,
@@ -644,7 +467,6 @@ const InProgressWorkout = ({ route }) => {
   return (
     <SafeAreaView style={[styles(isDarkMode).container]}>
       <ScrollView style={styles(isDarkMode).content}>
-        <ModalMenu />
         <Text style={styles(isDarkMode).title}>{workoutName}</Text>
         <Text style={styles(isDarkMode).timer}>
           Elapsed Time: {formatTime(elapsedTime)}

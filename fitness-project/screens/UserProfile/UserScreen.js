@@ -125,6 +125,11 @@ export default function UserScreen() {
     navigation.navigate("Dashboard");
   };
 
+  const navigateToWorkoutHistory = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("WorkoutHistory");
+  };
+
   const navigateToExercises = () => {
     setnavModalVisible(!navmodalVisible);
     navigation.navigate("Exercises");
@@ -212,6 +217,21 @@ export default function UserScreen() {
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Manage Workouts
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToWorkoutHistory}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="history"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Workout History
                 </Text>
               </View>
             </TouchableOpacity>

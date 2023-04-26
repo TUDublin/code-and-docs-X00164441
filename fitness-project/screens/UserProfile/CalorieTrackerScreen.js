@@ -17,7 +17,7 @@ import { DarkModeContext } from "../../DarkModeContext";
 import { firebase } from "../../firebase/config";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons, FontAwesome5, AntDesign } from "@expo/vector-icons";
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from "@react-navigation/native";
 
 const styles = (isDarkMode, activeInput) =>
   StyleSheet.create({
@@ -146,6 +146,11 @@ const CalorieTrackerScreen = () => {
     navigation.navigate("Dashboard");
   };
 
+  const navigateToWorkoutHistory = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("WorkoutHistory");
+  };
+
   const navigateToExercises = () => {
     setnavModalVisible(!navmodalVisible);
     navigation.navigate("Exercises");
@@ -232,7 +237,22 @@ const CalorieTrackerScreen = () => {
                   color={isDarkMode ? "white" : "black"}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
-                Manage Workouts
+                  Manage Workouts
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToWorkoutHistory}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="history"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Workout History
                 </Text>
               </View>
             </TouchableOpacity>

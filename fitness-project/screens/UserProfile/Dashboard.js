@@ -75,6 +75,12 @@ export default function Dashboard() {
   const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
   const handleWorkoutPress = (workout) => {};
 
+  
+  const navigateToWorkoutHistory = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("WorkoutHistory");
+  };
+  
   const navigateToExercises = () => {
     setnavModalVisible(!navmodalVisible);
     navigation.navigate("Exercises");
@@ -151,7 +157,22 @@ export default function Dashboard() {
                   color={isDarkMode ? "white" : "black"}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
-                  EManage Workouts
+                  Manage Workouts
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToWorkoutHistory}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="history"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Workout History
                 </Text>
               </View>
             </TouchableOpacity>

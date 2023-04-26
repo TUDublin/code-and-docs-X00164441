@@ -8,7 +8,7 @@ import {
   ScrollView,
   Alert,
   Modal,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { firebase } from "../../firebase/config";
 import { useNavigation } from "@react-navigation/native";
@@ -111,6 +111,11 @@ const WorkoutList = ({ onWorkoutPress }) => {
     navigation.navigate("Dashboard");
   };
 
+  const navigateToWorkoutHistory = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("WorkoutHistory");
+  };
+
   const navigateToExercises = () => {
     setnavModalVisible(!navmodalVisible);
     navigation.navigate("Exercises");
@@ -140,6 +145,7 @@ const WorkoutList = ({ onWorkoutPress }) => {
     setnavModalVisible(!navmodalVisible);
     navigation.navigate("WeightTracker");
   };
+
   const ModalMenu = () => {
     return (
       <Modal
@@ -182,6 +188,21 @@ const WorkoutList = ({ onWorkoutPress }) => {
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   View Exercises
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToWorkoutHistory}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="history"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Workout History
                 </Text>
               </View>
             </TouchableOpacity>

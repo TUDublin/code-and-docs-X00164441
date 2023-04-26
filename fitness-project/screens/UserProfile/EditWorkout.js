@@ -119,6 +119,11 @@ const EditWorkout = ({ route, navigation }) => {
     navigation.navigate("Dashboard");
   };
 
+  const navigateToWorkoutHistory = () => {
+    setnavModalVisible(!navmodalVisible);
+    navigation.navigate("WorkoutHistory");
+  };
+
   const navigateToExercises = () => {
     setnavModalVisible(!navmodalVisible);
     navigation.navigate("Exercises");
@@ -206,6 +211,21 @@ const EditWorkout = ({ route, navigation }) => {
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   View Workouts
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles(isDarkMode).navmodalbutton}
+              onPress={navigateToWorkoutHistory}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialIcons
+                  name="history"
+                  size={18}
+                  color={isDarkMode ? "white" : "black"}
+                />
+                <Text style={styles(isDarkMode).navmodalbuttonText}>
+                  Workout History
                 </Text>
               </View>
             </TouchableOpacity>
