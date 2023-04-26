@@ -211,7 +211,7 @@ const EditWorkout = ({ route, navigation }) => {
                   color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
-                  View Workouts
+                  Manage Workouts
                 </Text>
               </View>
             </TouchableOpacity>

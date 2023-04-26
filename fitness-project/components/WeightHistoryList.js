@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState, useCallback } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
 import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native'
 import { DarkModeContext } from '../DarkModeContext'
 import getWeightHistory from '../screens/UserProfile/weightTrackerUtils'
@@ -28,13 +29,15 @@ const WeightHistoryList = () => {
   const { isDarkMode } = useContext(DarkModeContext)
   const [weightHistory, setWeightHistory] = useState([])
 
-  useEffect(() => {
-    const fetchWeightHistory = async () => {
-      const fetchedWeightHistory = await getWeightHistory()
-      setWeightHistory(fetchedWeightHistory)
-    }
-    fetchWeightHistory()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      const fetchWeightHistory = async () => {
+        const fetchedWeightHistory = await getWeightHistory()
+        setWeightHistory(fetchedWeightHistory)
+      }
+      fetchWeightHistory()
+    }, [])
+  )
 
   const formatDateTime = (timestamp) => {
     const date = timestamp.toDate()

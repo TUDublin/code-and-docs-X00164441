@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useCallback } from 'react'
 import {
   StyleSheet,
   Text,
@@ -9,7 +9,7 @@ import {
   ScrollView
 } from 'react-native'
 import { DarkModeContext } from '../../DarkModeContext'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { MaterialIcons, FontAwesome5, AntDesign } from '@expo/vector-icons'
 import CaloriesBox from '../../components/CaloriesBox'
 import ExerciseBox from '../../components/UserExercisesBox'
@@ -272,14 +272,16 @@ export default function Dashboard () {
     })
   }, [navigation, isDarkMode, setnavModalVisible])
 
-  useEffect(() => {
-    const fetchExercises = async () => {
-      const fetchedExercises = await getExercises(20)
-      setExercises(fetchedExercises)
-    }
+  useFocusEffect(
+    useCallback(() => {
+      const fetchExercises = async () => {
+        const fetchedExercises = await getExercises(20)
+        setExercises(fetchedExercises)
+      }
 
-    fetchExercises()
-  }, [])
+      fetchExercises()
+    }, [])
+  )
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
