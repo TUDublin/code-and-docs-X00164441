@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -8,145 +8,145 @@ import {
   ScrollView,
   Alert,
   Modal,
-  Dimensions,
-} from "react-native";
-import { firebase } from "../../firebase/config";
-import { useNavigation } from "@react-navigation/native";
-import { Picker } from "@react-native-picker/picker";
-import { DarkModeContext } from "../../DarkModeContext";
-import { MaterialIcons, FontAwesome5, AntDesign } from "@expo/vector-icons";
+  Dimensions
+} from 'react-native'
+import { firebase } from '../../firebase/config'
+import { useNavigation } from '@react-navigation/native'
+import { Picker } from '@react-native-picker/picker'
+import { DarkModeContext } from '../../DarkModeContext'
+import { MaterialIcons, FontAwesome5, AntDesign } from '@expo/vector-icons'
 
 const styles = (isDarkMode) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
+      alignItems: 'center',
+      justifyContent: 'center',
       padding: 20,
-      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+      backgroundColor: isDarkMode ? '#1c1c1c' : 'white'
     },
     exerciseItem: {
-      backgroundColor: isDarkMode ? "#3b3b3b" : "#e6e6e6",
+      backgroundColor: isDarkMode ? '#3b3b3b' : '#e6e6e6',
       borderRadius: 5,
       padding: 10,
       marginTop: 10,
-      width: Dimensions.get("window").width - 40,
+      width: Dimensions.get('window').width - 40
     },
     exerciseName: {
       fontSize: 16,
-      fontWeight: "bold",
-      color: isDarkMode ? "white" : "black",
+      fontWeight: 'bold',
+      color: isDarkMode ? 'white' : 'black'
     },
     picker: {
-      width: "100%",
+      width: '100%',
       marginBottom: 10,
-      color: isDarkMode ? "white" : "black",
+      color: isDarkMode ? 'white' : 'black'
     },
     filterTitle: {
       marginTop: 20,
       fontSize: 18,
-      fontWeight: "bold",
+      fontWeight: 'bold',
       marginBottom: 0,
-      color: isDarkMode ? "white" : "black",
+      color: isDarkMode ? 'white' : 'black'
     },
     modalContainer: {
       flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)'
     },
     modalContent: {
-      backgroundColor: isDarkMode ? "#2c2c2c" : "#ffffff",
+      backgroundColor: isDarkMode ? '#2c2c2c' : '#ffffff',
       borderRadius: 10,
       padding: 20,
-      width: "90%",
+      width: '90%'
     },
     navmodalbutton: {
-      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+      backgroundColor: isDarkMode ? '#1c1c1c' : 'white',
       paddingVertical: 5,
-      width: "100%",
+      width: '100%',
       borderBottomWidth: 1,
-      borderBottomColor: isDarkMode ? "white" : "black",
+      borderBottomColor: isDarkMode ? 'white' : 'black'
     },
     navmodalbuttonText: {
-      color: isDarkMode ? "white" : "black",
+      color: isDarkMode ? 'white' : 'black',
       fontSize: 18,
-      fontWeight: "bold",
+      fontWeight: 'bold'
     },
     navmodalOverlay: {
       flex: 1,
-      justifyContent: "flex-start",
-      alignItems: "flex-end",
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      justifyContent: 'flex-start',
+      alignItems: 'flex-end',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)'
     },
     navmodalView: {
       marginTop: 60,
       marginRight: 20,
-      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+      backgroundColor: isDarkMode ? '#1c1c1c' : 'white',
       borderRadius: 10,
       padding: 10,
-      shadowColor: "#000",
+      shadowColor: '#000',
       shadowOffset: {
         width: 0,
-        height: 2,
+        height: 2
       },
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
-      elevation: 5,
-    },
-  });
+      elevation: 5
+    }
+  })
 
 const ViewExercises = () => {
-  const [exercises, setExercises] = useState([]);
-  const [filteredExercises, setFilteredExercises] = useState([]);
-  const [bodyParts, setBodyParts] = useState([]);
-  const [selectedBodyPart, setSelectedBodyPart] = useState("All");
-  const navigation = useNavigation();
-  const userId = firebase.auth().currentUser.uid;
-  const { isDarkMode } = useContext(DarkModeContext);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedExercise, setSelectedExercise] = useState(null);
-  const [navmodalVisible, setnavModalVisible] = useState(false);
+  const [exercises, setExercises] = useState([])
+  const [filteredExercises, setFilteredExercises] = useState([])
+  const [bodyParts, setBodyParts] = useState([])
+  const [selectedBodyPart, setSelectedBodyPart] = useState('All')
+  const navigation = useNavigation()
+  const userId = firebase.auth().currentUser.uid
+  const { isDarkMode } = useContext(DarkModeContext)
+  const [modalVisible, setModalVisible] = useState(false)
+  const [selectedExercise, setSelectedExercise] = useState(null)
+  const [navmodalVisible, setnavModalVisible] = useState(false)
 
   const navigateToDashboard = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("Dashboard");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('Dashboard')
+  }
 
   const navigateToWorkoutHistory = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("WorkoutHistory");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('WorkoutHistory')
+  }
 
   const navigateToExercises = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("Exercises");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('Exercises')
+  }
 
   const navigateToCreateWorkout = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("CreateWorkout");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('CreateWorkout')
+  }
 
   const navigateToWorkoutList = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("WorkoutList");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('WorkoutList')
+  }
 
   const navigateToProfilePage = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("Profile");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('Profile')
+  }
 
   const navigateToCalorieTracker = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("CalorieTracker");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('CalorieTracker')
+  }
 
   const navigateToWeightTracker = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("WeightTracker");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('WeightTracker')
+  }
 
   const ModalMenu = () => {
     return (
@@ -155,7 +155,7 @@ const ViewExercises = () => {
         transparent={true}
         visible={navmodalVisible}
         onRequestClose={() => {
-          setnavModalVisible(!navmodalVisible);
+          setnavModalVisible(!navmodalVisible)
         }}
       >
         <TouchableOpacity
@@ -167,11 +167,11 @@ const ViewExercises = () => {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToDashboard}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialIcons
                   name="dashboard"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Dashboard
@@ -182,11 +182,11 @@ const ViewExercises = () => {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToWorkoutList}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialIcons
                   name="view-headline"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Manage Workouts
@@ -197,11 +197,11 @@ const ViewExercises = () => {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToWorkoutHistory}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialIcons
                   name="history"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Workout History
@@ -212,11 +212,11 @@ const ViewExercises = () => {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToExercises}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialIcons
                   name="edit"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Add Exercises
@@ -227,11 +227,11 @@ const ViewExercises = () => {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToCreateWorkout}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialIcons
                   name="rate-review"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Create Workout
@@ -243,11 +243,11 @@ const ViewExercises = () => {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToCalorieTracker}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialIcons
                   name="emoji-food-beverage"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Calorie Tracker
@@ -258,11 +258,11 @@ const ViewExercises = () => {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToWeightTracker}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <FontAwesome5
                   name="weight"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Weight Tracker
@@ -273,11 +273,11 @@ const ViewExercises = () => {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToProfilePage}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <AntDesign
                   name="profile"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Profile Page
@@ -287,8 +287,8 @@ const ViewExercises = () => {
           </View>
         </TouchableOpacity>
       </Modal>
-    );
-  };
+    )
+  }
 
   useEffect(() => {
     navigation.setOptions({
@@ -297,116 +297,117 @@ const ViewExercises = () => {
           <MaterialIcons
             name="more-vert"
             size={32}
-            color={isDarkMode ? "#1463F3" : "#1463F3"}
+            color={isDarkMode ? '#1463F3' : '#1463F3'}
           />
         </TouchableOpacity>
-      ),
-    });
-  }, [navigation, isDarkMode, setnavModalVisible]);
+      )
+    })
+  }, [navigation, isDarkMode, setnavModalVisible])
 
   useEffect(() => {
-    const userId = firebase.auth().currentUser.uid;
+    const userId = firebase.auth().currentUser.uid
 
     const unsubscribe = firebase
       .firestore()
-      .collection("Exercises")
-      .where("userId", "==", userId) // Filter exercises by the current user's UID
+      .collection('Exercises')
+      .where('userId', '==', userId) // Filter exercises by the current user's UID
       .onSnapshot((querySnapshot) => {
-        const exercisesData = [];
-        const bodyPartsData = [];
+        const exercisesData = []
+        const bodyPartsData = []
         querySnapshot.forEach((doc) => {
-          const exercise = doc.data();
-          exercise.id = doc.id;
-          exercisesData.push(exercise);
+          const exercise = doc.data()
+          exercise.id = doc.id
+          exercisesData.push(exercise)
           if (!bodyPartsData.includes(exercise.bodyPart)) {
-            bodyPartsData.push(exercise.bodyPart);
+            bodyPartsData.push(exercise.bodyPart)
           }
-        });
-        setExercises(exercisesData);
-        setFilteredExercises(exercisesData);
-        setBodyParts(["All", ...bodyPartsData]);
-      });
+        })
+        setExercises(exercisesData)
+        setFilteredExercises(exercisesData)
+        setBodyParts(['All', ...bodyPartsData])
+      })
 
-    return () => unsubscribe();
-  }, []);
+    return () => unsubscribe()
+  }, [])
 
   const confirmDeleteExercise = (exercise) => {
     Alert.alert(
-      "Delete Exercise",
-      "Are you sure you want to delete this exercise?",
+      'Delete Exercise',
+      'Are you sure you want to delete this exercise?',
       [
         {
-          text: "Yes",
-          onPress: () => deleteExercise(exercise),
+          text: 'Yes',
+          style: 'destructive',
+          onPress: () => deleteExercise(exercise)
         },
         {
-          text: "Cancel",
-          style: "cancel",
-        },
+          text: 'Cancel',
+          style: 'cancel'
+        }
       ],
       { cancelable: false }
-    );
-  };
+    )
+  }
 
   const deleteExercise = (exercise) => {
     firebase
       .firestore()
-      .collection("Exercises")
+      .collection('Exercises')
       .doc(exercise.id)
       .delete()
       .then(() => {
-        setExercises(exercises.filter((item) => item.id !== exercise.id));
-        filterExercises(selectedBodyPart);
+        setExercises(exercises.filter((item) => item.id !== exercise.id))
+        filterExercises(selectedBodyPart)
         Alert.alert(
-          "Exercise Deleted",
+          'Exercise Deleted',
           `Exercise: ${exercise.name}\nBody Part: ${exercise.bodyPart}\n has been successfully deleted!`
-        );
+        )
       })
       .catch((error) => {
-        console.error("Error deleting exercise: ", error);
-      });
-  };
+        console.error('Error deleting exercise: ', error)
+      })
+  }
 
   const filterExercises = (itemValue) => {
-    setSelectedBodyPart(itemValue);
-    if (itemValue === "All") {
-      setFilteredExercises(exercises);
+    setSelectedBodyPart(itemValue)
+    if (itemValue === 'All') {
+      setFilteredExercises(exercises)
     } else {
       setFilteredExercises(
         exercises.filter((exercise) => exercise.bodyPart === itemValue)
-      );
+      )
     }
-  };
+  }
 
   const showExerciseInfo = (exercise) => {
-    setSelectedExercise(exercise);
-    setModalVisible(true);
-  };
+    setSelectedExercise(exercise)
+    setModalVisible(true)
+  }
 
   const closeModal = () => {
-    setModalVisible(false);
-  };
+    setModalVisible(false)
+  }
 
   const getExercises = async (limit) => {
-    const userId = firebase.auth().currentUser.uid;
-    const exercisesData = [];
+    const userId = firebase.auth().currentUser.uid
+    const exercisesData = []
 
     await firebase
       .firestore()
-      .collection("Exercises")
-      .where("userId", "==", userId)
+      .collection('Exercises')
+      .where('userId', '==', userId)
       .limit(limit)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          const exercise = doc.data();
-          exercise.id = doc.id;
-          exercisesData.push(exercise);
-        });
-      });
+          const exercise = doc.data()
+          exercise.id = doc.id
+          exercisesData.push(exercise)
+        })
+      })
 
-    return exercisesData;
-  };
+    return exercisesData
+  }
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
@@ -416,7 +417,7 @@ const ViewExercises = () => {
         selectedValue={selectedBodyPart}
         style={styles(isDarkMode).picker}
         onValueChange={(itemValue) => filterExercises(itemValue)}
-        itemStyle={{ color: isDarkMode ? "white" : "black" }}
+        itemStyle={{ color: isDarkMode ? 'white' : 'black' }}
       >
         {bodyParts.map((bodyPart, index) => (
           <Picker.Item key={index} label={bodyPart} value={bodyPart} />
@@ -430,14 +431,14 @@ const ViewExercises = () => {
                 <Text style={styles(isDarkMode).exerciseName}>
                   Name: {selectedExercise.name}
                 </Text>
-                <Text style={{ color: isDarkMode ? "white" : "black" }}>
+                <Text style={{ color: isDarkMode ? 'white' : 'black' }}>
                   Body Part: {selectedExercise.bodyPart}
                 </Text>
                 <TouchableOpacity
                   style={{ marginTop: 20 }}
                   onPress={closeModal}
                 >
-                  <Text style={{ color: isDarkMode ? "white" : "black" }}>
+                  <Text style={{ color: isDarkMode ? 'white' : 'black' }}>
                     Close
                   </Text>
                 </TouchableOpacity>
@@ -455,14 +456,14 @@ const ViewExercises = () => {
             onLongPress={() => confirmDeleteExercise(exercise)}
           >
             <Text style={styles(isDarkMode).exerciseName}>{exercise.name}</Text>
-            <Text style={{ color: isDarkMode ? "white" : "black" }}>
+            <Text style={{ color: isDarkMode ? 'white' : 'black' }}>
               {exercise.bodyPart}
             </Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default ViewExercises;
+export default ViewExercises

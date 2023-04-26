@@ -1,6 +1,6 @@
 // CalorieContext.js
-import { createContext } from "react";
+import { createContext } from 'react'
 
-const CalorieContext = createContext();
+const CalorieContext = createContext()
 
-export default CalorieContext;
+export default CalorieContext

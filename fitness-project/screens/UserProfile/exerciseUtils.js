@@ -1,28 +1,28 @@
 // exerciseUtils.js
 
-import { firebase } from "../../firebase/config";
+import { firebase } from '../../firebase/config'
 
 export const getExercises = async (limit) => {
-  const userId = firebase.auth().currentUser.uid;
+  const userId = firebase.auth().currentUser.uid
 
   try {
     const querySnapshot = await firebase
       .firestore()
-      .collection("Exercises")
-      .where("userId", "==", userId)
+      .collection('Exercises')
+      .where('userId', '==', userId)
       .limit(limit)
-      .get();
+      .get()
 
-    const exercises = [];
+    const exercises = []
     querySnapshot.forEach((doc) => {
-      const exercise = doc.data();
-      exercise.id = doc.id;
-      exercises.push(exercise);
-    });
+      const exercise = doc.data()
+      exercise.id = doc.id
+      exercises.push(exercise)
+    })
 
-    return exercises;
+    return exercises
   } catch (error) {
-    console.error("Error fetching exercises: ", error);
-    return [];
+    console.error('Error fetching exercises: ', error)
+    return []
   }
-};
+}

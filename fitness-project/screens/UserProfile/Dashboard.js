@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from 'react'
 import {
   StyleSheet,
   Text,
@@ -6,115 +6,115 @@ import {
   View,
   Modal,
   SafeAreaView,
-  ScrollView,
-} from "react-native";
-import { DarkModeContext } from "../../DarkModeContext";
-import { useNavigation } from "@react-navigation/native";
-import { MaterialIcons, FontAwesome5, AntDesign } from "@expo/vector-icons";
-import CaloriesBox from "../../components/CaloriesBox";
-import ExerciseBox from "../../components/UserExercisesBox";
-import WeightGraphBox from "../../components/WeightGraphBox";
-import WorkoutList from "./WorkoutList";
-import { getExercises } from "./exerciseUtils";
+  ScrollView
+} from 'react-native'
+import { DarkModeContext } from '../../DarkModeContext'
+import { useNavigation } from '@react-navigation/native'
+import { MaterialIcons, FontAwesome5, AntDesign } from '@expo/vector-icons'
+import CaloriesBox from '../../components/CaloriesBox'
+import ExerciseBox from '../../components/UserExercisesBox'
+import WeightHistoryList from '../../components/WeightHistoryList'
+import WorkoutList from './WorkoutList'
+import { getExercises } from './exerciseUtils'
+import WorkoutHistoryList from './WorkoutHistory'
 
 const styles = (isDarkMode) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
+      alignItems: 'center',
+      justifyContent: 'center',
       padding: 20,
-      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+      backgroundColor: isDarkMode ? '#1c1c1c' : 'white'
     },
     title: {
       fontSize: 24,
-      fontWeight: "bold",
+      fontWeight: 'bold',
       marginBottom: 20,
-      color: isDarkMode ? "white" : "black",
+      color: isDarkMode ? 'white' : 'black'
     },
     navmodalbutton: {
-      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+      backgroundColor: isDarkMode ? '#1c1c1c' : 'white',
       paddingVertical: 5,
-      width: "100%",
+      width: '100%',
       borderBottomWidth: 1,
-      borderBottomColor: isDarkMode ? "white" : "black",
+      borderBottomColor: isDarkMode ? 'white' : 'black'
     },
     navmodalbuttonText: {
-      color: isDarkMode ? "white" : "black",
+      color: isDarkMode ? 'white' : 'black',
       fontSize: 18,
-      fontWeight: "bold",
+      fontWeight: 'bold'
     },
     navmodalOverlay: {
       flex: 1,
-      justifyContent: "flex-start",
-      alignItems: "flex-end",
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      justifyContent: 'flex-start',
+      alignItems: 'flex-end',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)'
     },
     navmodalView: {
       marginTop: 60,
       marginRight: 20,
-      backgroundColor: isDarkMode ? "#1c1c1c" : "white",
+      backgroundColor: isDarkMode ? '#1c1c1c' : 'white',
       borderRadius: 10,
       padding: 10,
-      shadowColor: "#000",
+      shadowColor: '#000',
       shadowOffset: {
         width: 0,
-        height: 2,
+        height: 2
       },
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
-      elevation: 5,
-    },
-  });
+      elevation: 5
+    }
+  })
 
-export default function Dashboard() {
-  const [navmodalVisible, setnavModalVisible] = useState(false);
-  const navigation = useNavigation();
-  const [exercises, setExercises] = useState([]);
+export default function Dashboard () {
+  const [navmodalVisible, setnavModalVisible] = useState(false)
+  const navigation = useNavigation()
+  const [exercises, setExercises] = useState([])
 
-  const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
-  const handleWorkoutPress = (workout) => {};
+  const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext)
+  const handleWorkoutPress = (workout) => {}
 
-  
   const navigateToWorkoutHistory = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("WorkoutHistory");
-  };
-  
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('WorkoutHistory')
+  }
+
   const navigateToExercises = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("Exercises");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('Exercises')
+  }
 
   const navigateToViewExercises = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("ViewExercises");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('ViewExercises')
+  }
 
   const navigateToCreateWorkout = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("CreateWorkout");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('CreateWorkout')
+  }
 
   const navigateToWorkoutList = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("WorkoutList");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('WorkoutList')
+  }
 
   const navigateToProfilePage = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("Profile");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('Profile')
+  }
 
   const navigateToCalorieTracker = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("CalorieTracker");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('CalorieTracker')
+  }
 
   const navigateToWeightTracker = () => {
-    setnavModalVisible(!navmodalVisible);
-    navigation.navigate("WeightTracker");
-  };
+    setnavModalVisible(!navmodalVisible)
+    navigation.navigate('WeightTracker')
+  }
 
   const ModalMenu = () => {
     return (
@@ -123,7 +123,7 @@ export default function Dashboard() {
         transparent={true}
         visible={navmodalVisible}
         onRequestClose={() => {
-          setnavModalVisible(!navmodalVisible);
+          setnavModalVisible(!navmodalVisible)
         }}
       >
         <TouchableOpacity
@@ -135,11 +135,11 @@ export default function Dashboard() {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToViewExercises}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialIcons
                   name="view-agenda"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   View Exercises
@@ -150,11 +150,11 @@ export default function Dashboard() {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToWorkoutList}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialIcons
                   name="view-headline"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Manage Workouts
@@ -165,11 +165,11 @@ export default function Dashboard() {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToWorkoutHistory}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialIcons
                   name="history"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Workout History
@@ -180,11 +180,11 @@ export default function Dashboard() {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToExercises}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialIcons
                   name="edit"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Add Exercises
@@ -195,11 +195,11 @@ export default function Dashboard() {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToCreateWorkout}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialIcons
                   name="rate-review"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Create Workout
@@ -211,11 +211,11 @@ export default function Dashboard() {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToCalorieTracker}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialIcons
                   name="emoji-food-beverage"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Calorie Tracker
@@ -226,11 +226,11 @@ export default function Dashboard() {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToWeightTracker}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <FontAwesome5
                   name="weight"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Weight Tracker
@@ -241,11 +241,11 @@ export default function Dashboard() {
               style={styles(isDarkMode).navmodalbutton}
               onPress={navigateToProfilePage}
             >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <AntDesign
                   name="profile"
                   size={18}
-                  color={isDarkMode ? "white" : "black"}
+                  color={isDarkMode ? 'white' : 'black'}
                 />
                 <Text style={styles(isDarkMode).navmodalbuttonText}>
                   Profile Page
@@ -255,8 +255,8 @@ export default function Dashboard() {
           </View>
         </TouchableOpacity>
       </Modal>
-    );
-  };
+    )
+  }
 
   useEffect(() => {
     navigation.setOptions({
@@ -265,21 +265,21 @@ export default function Dashboard() {
           <MaterialIcons
             name="more-vert"
             size={32}
-            color={isDarkMode ? "#1463F3" : "#1463F3"}
+            color={isDarkMode ? '#1463F3' : '#1463F3'}
           />
         </TouchableOpacity>
-      ),
-    });
-  }, [navigation, isDarkMode, setnavModalVisible]);
+      )
+    })
+  }, [navigation, isDarkMode, setnavModalVisible])
 
   useEffect(() => {
     const fetchExercises = async () => {
-      const fetchedExercises = await getExercises(20);
-      setExercises(fetchedExercises);
-    };
+      const fetchedExercises = await getExercises(20)
+      setExercises(fetchedExercises)
+    }
 
-    fetchExercises();
-  }, []);
+    fetchExercises()
+  }, [])
 
   return (
     <SafeAreaView style={styles(isDarkMode).container}>
@@ -289,7 +289,7 @@ export default function Dashboard() {
       <WorkoutList onWorkoutPress={handleWorkoutPress} />
       <Text style={styles(isDarkMode).title}>Exercises</Text>
 
-      <View style={{ height: 207 }}>
+      <View style={{ height: 107 }}>
         <ScrollView style={{ flex: 1 }}>
           {exercises.map((exercise) => (
             <ExerciseBox
@@ -300,7 +300,10 @@ export default function Dashboard() {
           ))}
         </ScrollView>
       </View>
-      <WeightGraphBox />
+      <Text style={styles(isDarkMode).title}>Weight History</Text>
+      <WeightHistoryList />
+      <Text style={styles(isDarkMode).title}>Workout History</Text>
+      <WorkoutHistoryList />
     </SafeAreaView>
-  );
+  )
 }
