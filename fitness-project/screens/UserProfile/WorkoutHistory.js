@@ -21,7 +21,7 @@ const styles = (isDarkMode) =>
       backgroundColor: isDarkMode ? "#333" : "#fff",
     },
     item: {
-      backgroundColor: isDarkMode ? "#555" : "#f9c2ff",
+      backgroundColor: isDarkMode ? "#555" : "#1463F3",
       padding: 20,
       marginVertical: 8,
       borderRadius: 8,
@@ -31,7 +31,7 @@ const styles = (isDarkMode) =>
       color: isDarkMode ? "#fff" : "#000",
     },
     date: {
-      color: isDarkMode ? "#ccc" : "#333",
+      color: isDarkMode ? "#ccc" : "white",
     },
     modalContainer: {
       flex: 1,
@@ -334,7 +334,7 @@ const WorkoutHistory = () => {
         );
       }}
     >
-      <Text style={styles(isDarkMode).title}>{item.workoutName}</Text>
+      <Text style={styles(isDarkMode).title}>Workout: {item.workoutName}</Text>
       <Text style={styles(isDarkMode).date}>
         Elapsed Time: {formatTime(item.elapsedTime)}
       </Text>
