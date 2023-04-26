@@ -360,6 +360,7 @@ export default function UserScreen() {
         },
         {
           text: "I'm sure",
+          style: "destructive",
           onPress: () =>
             Alert.alert(
               "This action is not reversible",
@@ -371,6 +372,7 @@ export default function UserScreen() {
                 },
                 {
                   text: "Continue",
+                  style: "destructive",
                   onPress: async () => {
                     await deleteAccount(firebase.auth().currentUser);
                     Alert.alert(

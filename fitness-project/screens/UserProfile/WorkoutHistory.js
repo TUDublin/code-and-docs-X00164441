@@ -136,7 +136,7 @@ const WorkoutHistory = () => {
     setnavModalVisible(!navmodalVisible);
     navigation.navigate("Profile");
   };
-  
+
   const navigateToCalorieTracker = () => {
     setnavModalVisible(!navmodalVisible);
     navigation.navigate("CalorieTracker");

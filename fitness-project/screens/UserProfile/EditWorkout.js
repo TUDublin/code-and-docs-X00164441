@@ -415,6 +415,7 @@ const EditWorkout = ({ route, navigation }) => {
       [
         {
           text: "Yes",
+          style: "destructive",
           onPress: deleteWorkout,
         },
         {

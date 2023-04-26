@@ -117,7 +117,7 @@ const ViewExercises = () => {
     setnavModalVisible(!navmodalVisible);
     navigation.navigate("WorkoutHistory");
   };
-  
+
   const navigateToExercises = () => {
     setnavModalVisible(!navmodalVisible);
     navigation.navigate("Exercises");
