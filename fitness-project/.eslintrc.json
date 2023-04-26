@@ -6,6 +6,7 @@
     "extends": [
         "plugin:react/recommended",
         "standard-with-typescript"
+        
     ],
     "overrides": [
     ],
@@ -22,5 +23,8 @@
         }
       },
     "rules": {
+    },
+    "globals": {
+        "alert": "readonly"
     }
 }

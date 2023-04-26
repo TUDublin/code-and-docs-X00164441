@@ -8,11 +8,10 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
-  Dimensions,
-  Alert
+  Dimensions
 } from 'react-native'
 import { firebase } from '../../firebase/config'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { DarkModeContext } from '../../DarkModeContext'
 import { MaterialIcons } from '@expo/vector-icons'
 
@@ -148,57 +147,6 @@ const styles = (isDarkMode) =>
       padding: 10,
       marginTop: 10,
       width: Dimensions.get('window').width - 40
-    },
-    exerciseName: {
-      fontSize: 16,
-      fontWeight: 'bold',
-      color: isDarkMode ? 'white' : 'black',
-      flex: 1
-    },
-    repSetContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      flex: 1,
-      justifyContent: 'flex-end'
-    },
-    repSetText: {
-      color: isDarkMode ? 'white' : 'black',
-      fontSize: 16,
-      marginRight: 5
-    },
-    repSetInput: {
-      backgroundColor: isDarkMode ? '#1c1c1c' : 'white',
-      color: isDarkMode ? 'white' : 'black',
-      borderColor: isDarkMode ? 'white' : 'black',
-      borderWidth: 1,
-      width: 30,
-      textAlign: 'center'
-    },
-    checkIcon: {
-      marginLeft: 10
-    },
-    modalContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)'
-    },
-    restTimerModalContent: {
-      backgroundColor: isDarkMode ? '#2c2c2c' : '#ffffff',
-      borderRadius: 10,
-      padding: 20,
-      width: '90%'
-    },
-    restTimerText: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      textAlign: 'center',
-      color: isDarkMode ? 'white' : 'black'
-    },
-    restTimerControl: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      marginTop: 20
     },
     navmodalbutton: {
       backgroundColor: isDarkMode ? '#1c1c1c' : 'white',

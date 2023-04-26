@@ -73,7 +73,7 @@ export default function Dashboard () {
   const navigation = useNavigation()
   const [exercises, setExercises] = useState([])
 
-  const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext)
+  const { isDarkMode } = useContext(DarkModeContext)
   const handleWorkoutPress = (workout) => {}
 
   const navigateToWorkoutHistory = () => {

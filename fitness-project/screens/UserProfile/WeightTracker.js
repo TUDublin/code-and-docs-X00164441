@@ -18,7 +18,7 @@ import * as shape from 'd3-shape'
 import { firebase } from '../../firebase/config'
 import { DarkModeContext } from '../../DarkModeContext'
 import { useNavigation } from '@react-navigation/native'
-import { MaterialIcons, FontAwesome5, AntDesign } from '@expo/vector-icons'
+import { MaterialIcons, AntDesign } from '@expo/vector-icons'
 
 const styles = (isDarkMode) =>
   StyleSheet.create({

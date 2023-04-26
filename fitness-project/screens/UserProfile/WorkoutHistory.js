@@ -18,7 +18,7 @@ const styles = (isDarkMode) =>
     container: {
       flex: 1,
       paddingHorizontal: 10,
-      backgroundColor: isDarkMode ? '#333' : '#fff'
+      backgroundColor: isDarkMode ? '#1c1c1c' : '#fff'
     },
     item: {
       backgroundColor: isDarkMode ? '#555' : '#1463F3',

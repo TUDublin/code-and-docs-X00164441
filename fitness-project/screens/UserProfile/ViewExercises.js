@@ -102,7 +102,6 @@ const ViewExercises = () => {
   const [bodyParts, setBodyParts] = useState([])
   const [selectedBodyPart, setSelectedBodyPart] = useState('All')
   const navigation = useNavigation()
-  const userId = firebase.auth().currentUser.uid
   const { isDarkMode } = useContext(DarkModeContext)
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedExercise, setSelectedExercise] = useState(null)
@@ -386,27 +385,6 @@ const ViewExercises = () => {
 
   const closeModal = () => {
     setModalVisible(false)
-  }
-
-  const getExercises = async (limit) => {
-    const userId = firebase.auth().currentUser.uid
-    const exercisesData = []
-
-    await firebase
-      .firestore()
-      .collection('Exercises')
-      .where('userId', '==', userId)
-      .limit(limit)
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          const exercise = doc.data()
-          exercise.id = doc.id
-          exercisesData.push(exercise)
-        })
-      })
-
-    return exercisesData
   }
 
   return (

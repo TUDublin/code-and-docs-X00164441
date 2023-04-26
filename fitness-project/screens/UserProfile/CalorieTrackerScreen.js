@@ -128,7 +128,7 @@ const styles = (isDarkMode, activeInput) =>
     }
   })
 const CalorieTrackerScreen = () => {
-  const { calories, setCalories } = useContext(CalorieContext)
+  const { setCalories } = useContext(CalorieContext)
   const [query, setQuery] = useState('')
   const [foodData, setFoodData] = useState([])
   const { isDarkMode } = useContext(DarkModeContext)

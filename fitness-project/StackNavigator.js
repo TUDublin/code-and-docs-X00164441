@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native'
 import React, { useState, useContext } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -18,7 +17,7 @@ import { DarkModeContext } from './DarkModeContext'
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator()
-  const [user, setUser] = useState(null)
+  const [user] = useState(null)
   const { isDarkMode } = useContext(DarkModeContext)
 
   return (
@@ -42,7 +41,6 @@ const StackNavigator = () => {
           )
         : (
           <>
-
             <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Sign-In' }}/>
             <Stack.Screen name="Profile" component={UserScreen} options={{ title: 'Profile Page' }} />
             <Stack.Screen name="Exercises" component={UserExercises} options={{ title: 'Exercises' }} />
@@ -72,5 +70,3 @@ const StackNavigator = () => {
 }
 
 export default StackNavigator
-
-const styles = StyleSheet.create({})
