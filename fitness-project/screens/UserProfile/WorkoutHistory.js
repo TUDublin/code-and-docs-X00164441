@@ -28,6 +28,7 @@ const styles = (isDarkMode) =>
     },
     title: {
       fontSize: 24,
+      fontWeight: "bold",
       color: isDarkMode ? "#fff" : "#000",
     },
     date: {
