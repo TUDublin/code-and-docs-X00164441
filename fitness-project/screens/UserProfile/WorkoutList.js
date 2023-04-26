@@ -325,7 +325,7 @@ const WorkoutList = ({ onWorkoutPress }) => {
   };
 
   const handleWorkoutPress = (workout) => {
-    Alert.alert("Options", "View or Edit Workout", [
+    Alert.alert("Options", "View, Edit or Start Workout", [
       {
         text: "View",
         onPress: () => showWorkoutInfo(workout),
@@ -334,6 +334,15 @@ const WorkoutList = ({ onWorkoutPress }) => {
         text: "Edit",
         onPress: () =>
           navigation.navigate("EditWorkout", { workoutId: workout.id }),
+      },
+      {
+        text: "Start",
+        onPress: () =>
+          navigation.navigate("InProgressWorkout", {
+            workoutId: workout.id,
+            workoutName: workout.name,
+            exercises: workout.exercises,
+          }),
       },
       {
         text: "Cancel",

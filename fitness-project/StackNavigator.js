@@ -15,6 +15,7 @@ import WorkoutList from "./screens/UserProfile/WorkoutList";
 import ViewExercises from './screens/UserProfile/ViewExercises'
 import CalorieTrackerScreen from './screens/UserProfile/CalorieTrackerScreen'
 import WeightTracker from './screens/UserProfile/WeightTracker'
+import InProgressWorkout from './screens/UserProfile/InProgressWorkout'
 import Dashboard from './screens/UserProfile/Dashboard'
 import { DarkModeContext } from './DarkModeContext';
 
@@ -52,6 +53,7 @@ const StackNavigator = () => {
             <Stack.Screen name="WorkoutList" component={WorkoutList} options={{ title: "Workout List" }} />
             <Stack.Screen name="CalorieTracker" component={CalorieTrackerScreen} options={{ title: "Calorie Tracker" }} />
             <Stack.Screen name="WeightTracker" component={WeightTracker} options={{ title: "Weight Tracker" }} />
+            <Stack.Screen name="InProgressWorkout" component={InProgressWorkout} options={{ title: "Workout" }} />
             <Stack.Screen name="Dashboard" component={Dashboard} options={{ title: "Dashboard" }} />
             <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}} />
             <Stack.Screen name="Workout" component={WorkoutScreen} options={{headerShown:false}} />
