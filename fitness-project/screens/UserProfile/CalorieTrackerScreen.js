@@ -426,7 +426,8 @@ const CalorieTrackerScreen = () => {
           style: 'cancel'
         },
         {
-          text: 'OK',
+          text: 'Yes',
+          style: 'destructive',
           onPress: async () => {
             try {
               await firebase

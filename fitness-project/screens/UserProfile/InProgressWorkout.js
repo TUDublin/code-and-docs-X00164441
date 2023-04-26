@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
-  Dimensions
+  Dimensions,
+  Alert
 } from 'react-native'
 import { firebase } from '../../firebase/config'
 import { useNavigation } from '@react-navigation/native'
@@ -409,7 +410,17 @@ const InProgressWorkout = ({ route }) => {
     }
 
     await completedWorkoutsRef.add(completedWorkout)
-    navigation.navigate('WorkoutList')
+
+    Alert.alert(
+      'Workout Completed',
+      `You have completed your workout: ${workoutName}\nIt is now available in "Workout History"`,
+      [
+        {
+          text: 'OK',
+          onPress: () => navigation.navigate('WorkoutList')
+        }
+      ]
+    )
   }
 
   return (

@@ -415,15 +415,15 @@ const EditWorkout = ({ route, navigation }) => {
       `Are you sure you want to delete this workout "${workoutName}"?`,
       [
         {
-          text: 'Yes',
-          style: 'destructive',
-          onPress: deleteWorkout
-        },
-        {
           text: 'No',
           onPress: () => {
             alert(`Workout "${workoutName}" was not deleted`)
           }
+        },
+        {
+          text: 'Yes',
+          style: 'destructive',
+          onPress: deleteWorkout
         }
       ],
       { cancelable: false }
