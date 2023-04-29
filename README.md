@@ -55,6 +55,7 @@ This mobile app would be suitable for the average person seeking simple workout 
 exercise tracking and storage.
 
 Section 2: Existing Applications in this domain
+
 ![image](https://user-images.githubusercontent.com/55252035/235324864-28702b3a-236e-4496-a88b-69b0e63ebda3.png)
 
 
